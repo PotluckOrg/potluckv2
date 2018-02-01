@@ -5,88 +5,44 @@ const Web3 = require('web3');
 const net = require('net');
 const config = require('config');
 const compiledContract = require('./contracts/contractv1');
+const morgan = require('morgan')
+const path = require('path')
 
 const app = express();
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
-app.set('view engine', 'handlebars');
+
+// logging middleware
+app.use(morgan('dev'))
+
+
+// body parsing middleware
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}));
 
 //config
-const ipcAddr = config.get('ipcAddr');
-const configPort = config.get('port');
+// const ipcAddr = config.get('ipcAddr');
+const ipcAddr = "/Users/natalieung/blockchaintest/privEth/geth.ipc"
+// const configPort = config.get('port');
+const configPort = 4001
 
-//web3 work
-let web3 = new Web3(ipcAddr, net);
 
-web3.eth.getCoinbase(function(err, cba) {
-  coinbaseAddress = cba;
-  console.log(coinbaseAddress);
-});
+// api routes
+// app.use('/api', require('./server/api'))
+app.use('/web3', require('./server/web3'))
 
-const coinbasePassphrase = 'passphrase';
+// static file serving middleware
+app.use(express.static(path.join(__dirname, 'public')))
 
-const byteCode = compiledContract.byteCode;
-const ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
+// sends index.html
+app.use('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'))
+})
 
-var helpers = require('handlebars-helpers');
-var comparison = helpers.comparison();
-
-app.get('/', (req, res) => res.render('home'));
-
-app.post('/', (req, res) => {
-  const item = req.body.item;
-  web3.eth.personal.unlockAccount(coinbaseAddress, coinbasePassphrase, function(err, uares) {
-    ProduceSwapContract.deploy({data: byteCode, arguments: [item]}).send({from: coinbaseAddress, gas: 2000000})
-      .on('receipt', function (receipt) {
-        console.log("Contract Address: " + receipt.contractAddress);
-        res.redirect('/questions?address=' + receipt.contractAddress);
-      });
-  });
-});
-
-app.get('/questions', function(req, res) {
-  const contractAddress = req.query.address;
-  if (web3.utils.isAddress(contractAddress)) {
-    ProduceSwapContract.options.address = contractAddress;
-    console.log("ProduceSwapContract.methods.state:", ProduceSwapContract.methods.state())
-    console.log(contractAddress);
-    const info = ProduceSwapContract.methods.getCurrentTrade().call(function(err, currentTradeItems) {
-      console.log(err);
-      console.log(currentTradeItems);
-      const solicitorItemRequest = currentTradeItems['0'];
-      const soliciteeItemRequest = currentTradeItems['1'];
-      data = {contractAddress: contractAddress, solicitorItemRequest: solicitorItemRequest, soliciteeItemRequest: soliciteeItemRequest};
-      console.log(data);
-      res.render('question', data);
-    });
-  }
-  else {
-    res.status(404).send("No question with that address.");
-  }
-});
-
-app.post('/questions', function(req, res) {
-  const contractAddress = req.query.address;
-  console.log(req.body);
-  const returnedItemRequest = req.body.item;
-  console.log(`Requesting Produce at address ${contractAddress} with answer ${returnedItemRequest}`);
-  if (web3.utils.isAddress(contractAddress)) {
-    console.log('is valid address');
-    web3.eth.personal.unlockAccount(coinbaseAddress, coinbasePassphrase, function(err, uares) {
-      console.log('account unlocked');
-      ProduceSwapContract.options.address = contractAddress;
-      ProduceSwapContract.methods.requestItem(returnedItemRequest).send({from: coinbaseAddress, gas: 1000000})
-        .on('error', function (error) {
-          console.log('Contract creation error:' + error);
-        })
-        .on('receipt', function (receipt) {
-          console.log(`Item with address ${contractAddress} updated.`);
-          res.redirect('/questions?address=' + contractAddress);
-        }
-      );
-    });
-  }
-});
+  // error handling endware
+  app.use((err, req, res, next) => {
+    console.error(err)
+    console.error(err.stack)
+    res.status(err.status || 500).send(err.message || 'Internal server error.')
+  })
 
 
 

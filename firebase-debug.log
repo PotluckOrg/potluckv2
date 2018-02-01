@@ -1,0 +1,46 @@
+[debug] [2018-02-01T18:17:58.348Z] ----------------------------------------------------------------------
+[debug] [2018-02-01T18:17:58.359Z] Command:       /Users/ruthhill/.nvm/versions/node/v9.3.0/bin/node /Users/ruthhill/.nvm/versions/node/v9.3.0/bin/firebase serve
+[debug] [2018-02-01T18:17:58.359Z] CLI Version:   3.17.4
+[debug] [2018-02-01T18:17:58.359Z] Platform:      darwin
+[debug] [2018-02-01T18:17:58.359Z] Node Version:  v9.3.0
+[debug] [2018-02-01T18:17:58.359Z] Time:          Thu Feb 01 2018 13:17:58 GMT-0500 (EST)
+[debug] [2018-02-01T18:17:58.359Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-02-01T18:17:58.392Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-02-01T18:17:58.392Z] > authorizing via signed-in user
+[debug] [2018-02-01T18:17:58.394Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-02-01T18:17:58.394Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/sPaZ0GpMRehFFThQFaABbVexJ2luX9HBfW-C9cDWHzU',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Thu Feb 01 2018 13:17:58 GMT-0500 (EST)
+[debug] [2018-02-01T18:17:58.552Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-01T18:17:58.575Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/potluck-91e71  
+  
+ Thu Feb 01 2018 13:17:58 GMT-0500 (EST)
+[debug] [2018-02-01T18:17:58.879Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-01T18:17:58.880Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/potluck-91e71/tokens  
+  
+ Thu Feb 01 2018 13:17:58 GMT-0500 (EST)
+[debug] [2018-02-01T18:17:59.252Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/ruthhill/Documents/GraceHopper/SeniorPhase/potluckv2'...
+[info] 
+[debug] [2018-02-01T18:17:59.257Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/potluck-91e71  
+  
+ Thu Feb 01 2018 13:17:59 GMT-0500 (EST)
+[debug] [2018-02-01T18:17:59.564Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-01T18:17:59.565Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/617862784724/clients/_:getWebAppConfig  
+  
+ Thu Feb 01 2018 13:17:59 GMT-0500 (EST)
+[debug] [2018-02-01T18:18:00.143Z] <<< HTTP RESPONSE 200
+[debug] [2018-02-01T18:18:00.209Z] TypeError: Cannot read property 'public' of undefined
+    at Server.<anonymous> (/Users/ruthhill/.nvm/versions/node/v9.3.0/lib/node_modules/firebase-tools/lib/serve/hosting.js:34:18)
+    at Object.onceWrapper (events.js:254:19)
+    at Server.emit (events.js:159:13)
+    at emitListeningNT (net.js:1406:10)
+    at process._tickCallback (internal/process/next_tick.js:152:19)
+[error] 
+[error] Error: An unexpected error has occurred.
