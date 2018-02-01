@@ -1,0 +1,62 @@
+personal.listAccounts
+eth.coibase
+eth.coinbase
+personal.listWallets
+admin.peers
+admin.nodeInfo.enode
+admin.peers
+coinbaseAddress = eth.coinbase
+peerAddress = "0x5a8ee287b7563ce6e04fb90b9143cae2c77b9528"
+eth.sentTransaction({from: eth.coinbase, to: peerAddress, value: 127})
+eth.sendTransaction({from: eth.coinbase, to: peerAddress, value: 127})
+admin.peers
+miner.stop()
+miner.start()
+miner.stop()
+eth.getBalance(eth.coinbase)
+miner.start()
+miner.stop()
+admin.addPeer("enode://67e58c8217a325f5e78bfa1c7681294db95176ed6922d1d15c9f95883e4e88d967292285e4dbac87a916bdbec12775527136ab8bc862f3f11d9a8a08cdbf2fe4@[::]:30301?discport=0")
+admin.peers
+eth.getBalance(eth.coinbase)
+miner.start()
+miner.stop()
+eth.getBalance(eth.coinbase)
+miner.start()
+miner.stop()
+miner.start()
+miner.stop()
+personal.listAccounts
+eth.blockNumber
+eth.account
+geth account
+geth command account
+admin
+admin.peers
+miner.start()
+miner.stop()
+admin
+admin.peers
+admin
+admin.peers
+miner.start()
+admin
+miner.stop()
+eth.coinbase
+eth.getBalance(eth.coinbase)
+miner.start()
+miner.stop()
+admin
+miner.start()
+miner.stop()
+admin
+admin.peers
+admin
+miner.start()
+miner.stop()
+admin
+miner.start()
+admin.addPeer("enode://67e58c8217a325f5e78bfa1c7681294db95176ed6922d1d15c9f95883e4e88d967292285e4dbac87a916bdbec12775527136ab8bc862f3f11d9a8a08cdbf2fe4@[::]:30301?discport=0")
+admin.peers
+miner.start()
+miner.stop()

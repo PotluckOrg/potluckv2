@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //config
 // const ipcAddr = config.get('ipcAddr');
-const ipcAddr = "/Users/natalieung/blockchaintest/privEth/geth.ipc"
+const ipcAddr = "./node1/geth.ipc"
 // const configPort = config.get('port');
 const configPort = 4001
 

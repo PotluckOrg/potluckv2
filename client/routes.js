@@ -3,8 +3,7 @@ import { connect } from 'react-redux'
 import { Route, Switch, Router } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import { Market, Main } from './components'
-import FbSetup from './fbsetup';
+import { Market, Main, FbSetup } from './components'
 
 
 /**
@@ -24,7 +23,7 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-
+            <Route path="/data" component={FbSetup} />
             <Route path="/market" component={Market} />
 
             {/* Displays our Login component as a fallback */}

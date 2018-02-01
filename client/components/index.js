@@ -5,3 +5,4 @@
  */
 export {default as Main} from './Main'
 export {default as Market} from './Market'
+export {default as FbSetup} from './fbsetup'

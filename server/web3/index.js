@@ -1,7 +1,7 @@
 const Web3 = require('web3');
 const net = require('net');
-const config = require('config');
-const compiledContract = require('/Users/natalieung/potluck/contracts/contractv1.json');
+// const config = require('config');
+const compiledContract = require('../../contracts/contractv1.json');
 const router = require('express').Router()
 
 module.exports = router
@@ -9,7 +9,7 @@ module.exports = router
 
 //config
 // const ipcAddr = config.get('ipcAddr');
-const ipcAddr = "/Users/natalieung/blockchaintest/privEth/geth.ipc"
+const ipcAddr = "../../node1/geth.ipc"
 // const configPort = config.get('port');
 const configPort = 4001
 

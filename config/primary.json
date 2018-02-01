@@ -1,5 +1,4 @@
 {
-    "ipcAddr": "/Users/natalieung/blockchaintest/privEth/geth.ipc",
+    "ipcAddr": "/Users/ruthhill/Library/privEth/geth.ipc",
     "port": 4001
   }
-  
