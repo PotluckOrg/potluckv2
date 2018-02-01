@@ -1,0 +1,20 @@
+<h1>Current Trade:</h1>
+
+<div>
+  Jan has requested from Adelina: {{solicitorItemRequest}}
+</div>
+
+<div>
+  Adelina has requested from Jan: {{soliciteeItemRequest}}
+</div>
+
+</br>
+
+<div>
+  <h3>Request an Item</h3>
+  <form action="/questions?address={{contractAddress}}" method="post">
+    <label for="item">Which item would you like?</label>
+    <input name="item" size="35" class="form-control" id="item" placeholder="2 bananas"/>
+    <button type="submit" class="btn btn-primary">Request Item</button>
+  </form>
+</div>
