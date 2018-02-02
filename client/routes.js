@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Route, Switch, Router } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import { Market, Main } from './components'
+import {Main, Login, Signup, UserHome, Market} from './components'
 import {me, fetchCart} from './store'
 
 
@@ -25,11 +25,12 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
             <Route path="/market" component={Market} />
 
             {/* Displays our Login component as a fallback */}
-
+            <Route component={Login} />
           </Switch>
         </Main>
       </Router>
@@ -56,7 +57,7 @@ const mapDispatch = (dispatch) => {
   }
 }
 
-export default connect()(Routes)
+export default connect(mapState, mapDispatch)(Routes)
 // export default Routes
 
 /**
