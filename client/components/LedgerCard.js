@@ -3,26 +3,25 @@ import {connect} from 'react-redux'
 
 const LedgerCard = (props) => {
     //const trade = props.trade
-    const trade = {
-        user1: {
-                name: "Ruth",
-                comments: "Just got sme delicious apples!"
-              },
-        user2: {
-                name: "Lemona",
-                comments: "TY Lemon for the lettuce <3"
-        }
+    // const trade = {
+    //     user1: {
+    //             name: "Ruth",
+    //             comments: "Just got sme delicious apples!"
+    //           },
+    //     user2: {
+    //             name: "Lemona",
+    //             comments: "TY Lemon for the lettuce <3"
+    //     }
 
-    }
     return (
         <div className="card w-100">
             <div className="card-body">
-                <h5 className="card-title">{trade.user1.username} just <i className="far fa-handshake" /> with {trade.user2.username} !</h5>
+                <h5 className="card-title">{props.trade.user1.username} just <i className="far fa-handshake" /> with {props.trade.user2.username} !</h5>
                 <p className="card-text">
-                {trade.user1.username} : {trade.user1.comment}
+                {props.trade.user1.username} : {props.trade.user1.comment}
                 </p>
                 <p className="card-text">
-                {trade.user2.username} : {trade.user2.comment}</p>
+                {props.trade.user2.username} : {props.trade.user2.comment}</p>
 
             </div>
         </div>
