@@ -1,84 +1,83 @@
 const router = require('express').Router()
 module.exports = router
 const geth = require('geth-private')
+const { User } = require('../db/models')
 
-let nodeInstances = []
-let nodeAddresses = []
+let gethInstances = []
+let ipcAddresses = []
 let currentNode
 
-router.get('/geth-start-script/:node/:port', (req, res, next) => {
-  //check if the node is already in our node directory. If it's there, then it must have an instance already running. Else make a new instance and save it to our array.
-  if (nodeAddresses === [] || !nodeAddresses.includes(req.params.node)) {
+router.get('/geth-start-script/:user', (req, res, next) => {
+
+  if (ipcAddresses === [] || !ipcAddresses.includes(req.params.user.ipcAddr)) {
 
     //declaring node geth instance
     let inst = geth({
-      balance: 100,
       verbose: true,
       gethOptions: {
-      datadir: `./${req.params.node}`,
+      datadir: `./nodeDir/${req.params.user.ipcAddr}`,
       networkid: 5,
-      port: req.params.port,
-      rpcport: req.params.port + 1,
+      port: req.params.user.port,
+      rpcport: req.params.user.rpcport,
       nodiscover: false,
       maxpeers: 100
       }
     })
-    nodeInstances.push({address: req.params.node, inst: inst})
-    nodeAddresses.push(req.params.node)
+    //Keeping track of what nodes have geth running for the sake of the other scripts
+    gethInstances.push({ipcAddr: req.params.user.ipcAddr, inst: inst})
+    ipcAddresses.push(req.params.user.ipcAddr)
   }
 
   //always get node to start instance from our node array to ensure its not duplicate
-  currentNode = nodeInstances.find(node => node.address === req.params.node)
+  currentNode = gethInstances.find(node => node.ipcAddr === req.params.user.ipcAddr)
 
   //Starting the Geth instance
   currentNode.inst.start()
   .then(function() {
-    console.log(`${req.params.node} has started geth.`)
+    console.log(`${req.params.user.name} has started geth.`)
   })
   .then(function() {
-    console.log(`${req.params.node} getting enode info...`)
+    console.log(`${req.params.user.name} getting enode info...`)
     return currentNode.inst.consoleExec('admin.nodeInfo.enode')
   })
   .then(enode => {
     //will not work with enodes when network is les than 2 people
-    console.log(`Adding ${req.params.node} to peer network.`)
-    if(nodeInstances.length > 1) {
-      for(let i = 0; i < nodeInstances.length-1; i++){
-        nodeInstances[i].inst.consoleExec(`admin.addPeer(${enode})`)
+    console.log(`Adding ${req.params.user.name} to peer network.`)
+    if (gethInstances.length > 1) {
+      for (let i = 0; i < gethInstances.length - 1; i++){
+        gethInstances[i].inst.consoleExec(`admin.addPeer(${enode})`)
       }
     }
   })
   .catch(function(err) {
     console.error(err)
   })
-
-
   res.json('Geth Script success')
 })
 
-router.get('/geth-stop-script/:node', (req, res, next) => {
-  if (nodeAddresses.includes(req.params.node))
+router.get('/geth-stop-script/:user', (req, res, next) => {
+  if (ipcAddresses.includes(req.params.user.ipcAddr))
     {
-       currentNode = nodeInstances.find(node => node.address === req.params.node)
+       currentNode = gethInstances.find(node => node.ipcAddr === req.params.user.ipcAddr)
     currentNode.inst.stop()
     .then(function() {
-      let index = nodeInstances.indexOf(req.params.node)
-      nodeInstances.splice(index, 1)
-      nodeAddresses.splice(index, 1)
+      let index = ipcAddresses.indexOf(req.params.user.ipcAddr)
+      gethInstances.splice(index, 1)
+      ipcAddresses.splice(index, 1)
     })
     .catch(function(err){
       console.error(err)
     })
-    console.log(`${req.params.node} has closed geth `)
+    console.log(`${req.params.user.name} has closed geth `)
     res.json("all geth has stopped")
     }
     else res.json("No geth instance to close")
 })
 
-router.get('/check-peers/:node', (req, res, next) => {
-  if (nodeAddresses.includes(req.params.node))
+router.get('/check-peers/:user', (req, res, next) => {
+  if (ipcAddresses.includes(req.params.user.ipcAddr))
   {
-     currentNode = nodeInstances.find(node => node.address === req.params.node)
+     currentNode = gethInstances.find(node => node.ipcAddr === req.params.user.ipcAddr)
     currentNode.inst.consoleExec('net.peerCount')
     .then(peers => {
       console.log(`This node has ${peers} peers.`)
