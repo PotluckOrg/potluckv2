@@ -6,9 +6,7 @@ const Item = db.define('item', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  description: {
-    type: Sequelize.TEXT,
-  },
+  description: Sequelize.TEXT,
   iconUrl: {
     type: Sequelize.STRING,
     defaultValue: '../../../public/icons/strawberry.svg'
