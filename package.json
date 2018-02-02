@@ -1,7 +1,7 @@
 {
   "name": "potluck",
   "version": "1.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "An app for reducing food waste on a local scale through bartering via smart contracts",
   "engines": {
     "node": ">= 7.0.0"
   },
