@@ -1,31 +1,51 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import { addToBasket, removeFromBasket, returnToMyMarketThunk, removeFromMyMarket } from '../store'
 
 const ItemCard = (props) => {
-    const user = props.user
+    console.log(props)
+    // const user = props.user
+    const user = {
+        id: 1,
+        name: 'Jamie Hopper'
+    }
     const item = props.item
-    // const inPantry = props.history.params.match === '/pantry'
-    // const inMarket = props.history.params.match === '/market'
-    // const buttonText = inPantry || inMarket ? <i className="fa fa-plus" aria-hidden="true" /> : <i className="fa fa-times" aria-hidden="true" />
+    const inPantry = props.path === '/pantry'
+    const inMarket = props.path === '/market'
+    const buttonText = inPantry || inMarket ? <i className="fa fa-plus" aria-hidden="true" /> : <i className="fa fa-times" aria-hidden="true" />
+    const clickHandler = inPantry || inMarket ? event => props.handleAddToBasket(event, item, user.id) : event => props.handleRemoveFromBasket(event, item.id, user.id)
+    console.log('i am clickHandler', clickHandler)
     return (
         <div className="card w-100">
             <div className="card-body">
-                <h5 className="card-title">{item.itemName}</h5>
+                <h5 className="card-title">{item.name}</h5>
                 <p className="card-text">{item.description}</p>
-                <button className="btn" onClick={event => handleAddToBasket(event, item.id, user.id)}>HI</button>
+                <button className="btn" onClick={clickHandler}>{buttonText}</button>
+                
             </div>
         </div>
     )
 }
 
+const mapState = (state) => {
+    return {
+        items: state.items
+    }
+}
 
-// mapDispatchToProps = (dispatch, ownProps) => {
-//     return {
-//         handleAddToBasket: (event, itemId, userId) => {
-//             return () => {
-//                 dispatch(addToBasket(itemId, userId))
-//             }
-//         }
-//     }
-// }
+const mapDispatch = (dispatch, ownProps) => {
+    
+    return {
+        handleAddToBasket: (event, item, userId) => {
+                console.log('I MADE IT HERE!', item, userId)
+                dispatch(addToBasket(item, userId))
+                dispatch(removeFromMyMarket(item.id))
+        },
+        handleRemoveFromBasket: (event, itemId, userId) => {
+                dispatch(removeFromBasket(itemId, userId))
+                dispatch(returnToMyMarketThunk(itemId))
+        }
+    }
+}
 
-export default ItemCard
+export default connect(mapState, mapDispatch)(ItemCard)

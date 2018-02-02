@@ -5,3 +5,5 @@
  */
 export {default as Main} from './Main'
 export {default as Market} from './Market'
+export {default as Basket} from './Basket'
+export {default as Modal} from './Modal'

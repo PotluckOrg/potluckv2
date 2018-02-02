@@ -4,30 +4,8 @@ import {connect} from 'react-redux'
 
 
 const Market = (props) => {
-    // const { items } = props
-    const items = [
-        {
-            id: 1,
-            itemName: '1/2 Bag of Carrots',
-            description: 'A delicious half bag of organic carrots!'
-        },
-        {
-            id: 2,
-            itemName: '2 Oranges',
-            description: 'Two oranges looking for a home.'
-        },
-        {
-            id: 3,
-            itemName: '4 Pears',
-            description: 'These four pears are FOR you!'
-        },
-        {
-            id: 4,
-            itemName: '1 Watermelon',
-            description: 'Such a yummy watermelon!'
-        },
-    ]
-
+    console.log(props)
+    const { items } = props
 
     return (
         <div>
@@ -37,7 +15,7 @@ const Market = (props) => {
                     items.map(item => {
                         return (
                             <li key={item.id} className="item-card">
-                                <ItemCard key={item.id} item={item} />  
+                                <ItemCard key={item.id} item={item} path={props.match.path} />  
                             </li>
                         )
                     })
@@ -47,4 +25,10 @@ const Market = (props) => {
     )
 }
 
-export default connect()(Market)
+const mapState = (state) => {
+    return {
+        items: state.market
+    }
+}
+
+export default connect(mapState)(Market)

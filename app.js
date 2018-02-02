@@ -1,7 +1,7 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
-const Web3 = require('web3');
+//const Web3 = require('web3');
 const net = require('net');
 const config = require('config');
 const compiledContract = require('./contracts/contractv1');
@@ -26,8 +26,8 @@ const configPort = 4001
 
 
 // api routes
-// app.use('/api', require('./server/api'))
-app.use('/web3', require('./server/web3'))
+app.use('/api', require('./server/api'))
+//app.use('/web3', require('./server/web3'))
 
 // static file serving middleware
 app.use(express.static(path.join(__dirname, 'public')))

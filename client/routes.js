@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Route, Switch, Router } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import { Market, Main } from './components'
+import { Market, Main, Basket } from './components'
 
 
 
@@ -26,6 +26,7 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
 
             <Route path="/market" component={Market} />
+            <Route path="/basket" component={Basket} />
 
             {/* Displays our Login component as a fallback */}
 

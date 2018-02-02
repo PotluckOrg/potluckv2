@@ -1,39 +1,72 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import { withRouter, Link } from 'react-router-dom'
 import ItemCard from './ItemCard'
+import Modal from './Modal'
+import { createContract, removeFromBasket, removeFromMyMarket } from '../store'
 
 const Basket = (props) => {
-    //const items = props.items
-    const items = [
-        {
-            id: 1,
-            itemName: '1/2 Bag of Carrots',
-            description: 'A delicious half bag of organic carrots!'
-        },
-        {
-            id: 2,
-            itemName: '2 Oranges',
-            description: 'Two oranges looking for a home.'
-        },
-        {
-            id: 3,
-            itemName: '4 Pears',
-            description: 'These four pears are FOR you!'
-        },
-        {
-            id: 4,
-            itemName: '1 Watermelon',
-            description: 'Such a yummy watermelon!'
-        },
-    ]
+    console.log('basket Props', props)
+    let display, isVisible
+    const user = {
+        id: 1,
+        name: 'Jamie Hopper'
+    }
+    const items = props.basket
+    // const user = props.user
+
+    if (!items.length) {
+        isVisible = false
+        display = (
+            <div>
+                <p>Your basket is empty.</p>
+                <Link to="/market" className="btn"> Go To Market <i className="fas fa-arrow-circle-right" /></Link>
+            </div>
+        )
+    } else {
+        isVisible = true
+        display = (
+            <div>
+                <div className="basket-wrapper" >
+                    {items &&
+                        items.map(item => {
+                            return <ItemCard key={item.id} item={item} />
+                        })
+                    }
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div>
-            {items &&
-                items.map(item => {
-                    return <ItemCard key={item.id} item={item} />
-                })
-            }
+            {display}
+            <div onClick={event => props.sendRequestHandler(event, items, user.id)} >
+                <Modal name="request" isVisible={isVisible} />
+            </div>
         </div>
     )
 }
 
-export default Basket
+const mapState = (state) => {
+    return {
+        basket: state.basket
+    }
+}
+
+const mapDispatch = (dispatch, ownProps) => {
+    return {
+        sendRequestHandler: (event, items, userId) => {
+                let contractItem = items.map(item => item.name).join(', ')
+                console.log('I MADE IT HERE!', contractItem, userId)
+                //dispatch(createContract(contractItem, userId))
+                items.forEach(item => {
+                    dispatch(removeFromBasket(item.id))
+                    dispatch(removeFromMyMarket(item.id))
+                })
+                //should items keep a state? pending 
+        }
+    }
+}
+
+export default connect(mapState, mapDispatch)(Basket)
