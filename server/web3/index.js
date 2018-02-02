@@ -1,7 +1,7 @@
 const Web3 = require('web3');
 const net = require('net');
-const config = require('config');
-const compiledContract = require('/Users/natalieung/potluck/contracts/contractv1.json');
+// const config = require('config');
+const compiledContract = require('../../contracts/contractv1.json');
 const router = require('express').Router()
 
 module.exports = router
@@ -9,7 +9,7 @@ module.exports = router
 
 //config
 // const ipcAddr = config.get('ipcAddr');
-const ipcAddr = "/Users/natalieung/blockchaintest/privEth/geth.ipc"
+const ipcAddr = "../../node1/geth.ipc"
 // const configPort = config.get('port');
 const configPort = 4001
 
@@ -26,26 +26,25 @@ const coinbasePassphrase = 'passphrase';
 const byteCode = compiledContract.byteCode;
 const ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
 
-// var helpers = require('handlebars-helpers');
-// var comparison = helpers.comparison();
+var helpers = require('handlebars-helpers');
+var comparison = helpers.comparison();
 
-// router.get('/', (req, res) => res.render('home'));
+router.get('/', (req, res) => res.render('home'));
 
-// user requests item- instead of writing '3 potatoes' startSwap button will grab item info and put it into the contract
-
-router.post('/basket', (req, res) => {
+router.post('/', (req, res) => {
   const item = req.body.item;
   web3.eth.personal.unlockAccount(coinbaseAddress, coinbasePassphrase, function(err, uares) {
     ProduceSwapContract.deploy({data: byteCode, arguments: [item]}).send({from: coinbaseAddress, gas: 2000000})
       .on('receipt', function (receipt) {
         console.log("Contract Address: " + receipt.contractAddress);
 
-  // firebase call that posts only the contract address and user id
+ // save contract address, user1id, user2id from the item info
+
       });
   });
 });
 
-router.get('/trade', function(req, res) {
+router.get('/questions', function(req, res) {
   const contractAddress = req.query.address;
   if (web3.utils.isAddress(contractAddress)) {
     ProduceSwapContract.options.address = contractAddress;
@@ -58,6 +57,7 @@ router.get('/trade', function(req, res) {
       const soliciteeItemRequest = currentTradeItems['1'];
       data = {contractAddress: contractAddress, solicitorItemRequest: solicitorItemRequest, soliciteeItemRequest: soliciteeItemRequest};
       console.log(data);
+      res.render('question', data);
     });
   }
   else {
@@ -65,14 +65,10 @@ router.get('/trade', function(req, res) {
   }
 });
 
-router.post('/trade', function(req, res) {
-  // const contractAddress = req.query.address;
-
-  // instead of pulling the contract address from the req.body, pull from firebase - findById(contractId)
-  
+router.post('/questions', function(req, res) {
+  const contractAddress = req.query.address;
   console.log(req.body);
   const returnedItemRequest = req.body.item;
-  // req.body.item is a string that could include multiple items
   console.log(`Requesting Produce at address ${contractAddress} with answer ${returnedItemRequest}`);
   if (web3.utils.isAddress(contractAddress)) {
     console.log('is valid address');
@@ -85,6 +81,7 @@ router.post('/trade', function(req, res) {
         })
         .on('receipt', function (receipt) {
           console.log(`Item with address ${contractAddress} updated.`);
+          res.redirect('/questions?address=' + contractAddress);
         }
       );
     });
