@@ -1,5 +1,6 @@
 import React from 'react'
 import InboxCard from './InboxCard'
+import {connect} from 'react-redux'
 
 const Inbox = (props) => {
     const { requests } = props
@@ -21,4 +22,19 @@ const Inbox = (props) => {
     )
 }
 
-export default Inbox
+const mapState = (state) => {
+    return {
+      products: state.products,
+      currentUser: state.user,
+    }
+}
+
+const mapDispatch = (dispatch) => {
+    return {
+            //dispatch(getItems())
+        }
+}
+
+
+
+export default connect(mapState, mapDispatch)(Inbox)

@@ -7,7 +7,7 @@ import { createContract, removeFromBasket, removeFromMyMarket } from '../store'
 
 const Basket = (props) => {
     console.log('basket Props', props)
-    let display, isVisible
+    let display, isEmpty
     const user = {
         id: 1,
         name: 'Jamie Hopper'
@@ -16,7 +16,7 @@ const Basket = (props) => {
     // const user = props.user
 
     if (!items.length) {
-        isVisible = false
+        isEmpty = true
         display = (
             <div>
                 <p>Your basket is empty.</p>
@@ -24,7 +24,7 @@ const Basket = (props) => {
             </div>
         )
     } else {
-        isVisible = true
+        isEmpty = false
         display = (
             <div>
                 <div className="basket-wrapper" >
@@ -42,7 +42,7 @@ const Basket = (props) => {
         <div>
             {display}
             <div onClick={event => props.sendRequestHandler(event, items, user.id)} >
-                <Modal name="request" isVisible={isVisible} />
+                <Modal name="request" isEmpty={isEmpty} />
             </div>
         </div>
     )

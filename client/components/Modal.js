@@ -1,11 +1,11 @@
 import React from 'react'
 
 const Modal = (props) => {
-    const { name, isVisible } = props
+    const { name, isEmpty } = props
     return (
         <div>
         {/*<!-- Button trigger modal -->*/}
-        {isVisible &&
+        {!isEmpty &&
         <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#${name}`}>
             <i className="fas fa-arrow-circle-right" />
         </button>
