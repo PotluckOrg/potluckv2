@@ -37,7 +37,9 @@ router.post('/', (req, res) => {
     ProduceSwapContract.deploy({data: byteCode, arguments: [item]}).send({from: coinbaseAddress, gas: 2000000})
       .on('receipt', function (receipt) {
         console.log("Contract Address: " + receipt.contractAddress);
-        res.redirect('/questions?address=' + receipt.contractAddress);
+
+ // save contract address, user1id, user2id from the item info
+
       });
   });
 });
