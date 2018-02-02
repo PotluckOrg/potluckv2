@@ -40,7 +40,7 @@ router.post('/basket', (req, res) => {
       .on('receipt', function (receipt) {
         console.log("Contract Address: " + receipt.contractAddress);
 
-  // firebase call that posts only the contract address and user id
+ // save contract address, user1id, user2id from the item info
       });
   });
 });
