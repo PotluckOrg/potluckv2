@@ -8,21 +8,21 @@ const User = db.define('user', {
     unique: true,
     allowNull: false
   },
-  nodeAddress: {
+  ipcAddr: {
     type: Sequelize.STRING
   },
+  port: Sequelize.INTEGER,
+  rpcport: Sequelize.INTEGER,
   email: {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false
   },
   password: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false
   },
   salt: {
-    type: Sequelize.STRING
-  },
-  googleId: {
     type: Sequelize.STRING
   }
 })
