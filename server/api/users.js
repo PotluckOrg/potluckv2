@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const { User } = require('../db/models')
-const isAdmin = require('./isAdmin')
+
 module.exports = router
 
 router.get('/', (req, res, next) => {
@@ -27,16 +27,16 @@ router.post('/', (req, res, next) => {
     .catch(next)
 })
 
-router.put('/make-admin/:id', isAdmin, (req, res, next) => {
+router.put('/make-admin/:id', (req, res, next) => {
   User.findById(req.params.id)
-  .then(user => user.update({isAdmin: true}))
+  .then(user => user.update())
   .then(updatedUser => res.json(updatedUser))
   .catch(next)
 })
 
-router.put('/remove-admin/:id', isAdmin, (req, res, next) => {
+router.put('/remove-admin/:id', (req, res, next) => {
   User.findById(req.params.id)
-  .then(user => user.update({isAdmin: false}))
+  .then(user => user.update())
   .then(updatedUser => res.json(updatedUser))
   .catch(next)
 })

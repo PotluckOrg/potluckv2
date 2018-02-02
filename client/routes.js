@@ -3,10 +3,8 @@ import { connect } from 'react-redux'
 import { Route, Switch, Router } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, Market} from './components'
+import {Main, Login, Signup, UserHome, Market, Basket} from './components'
 import {me, fetchCart} from './store'
-
-
 
 /**
  * COMPONENT
@@ -28,6 +26,7 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/market" component={Market} />
+            <Route path="/basket" component={Basket} />
 
             {/* Displays our Login component as a fallback */}
             <Route component={Login} />

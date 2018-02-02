@@ -5,6 +5,10 @@ body {
   a {
     text-decoration: none;
   }
+
+  i {
+    margin-right: 5px;
+  }
   
   label {
     display: block;
@@ -18,4 +22,12 @@ body {
   form div {
     margin: 1em;
     display: inline-block;
+  }
+
+  .item-card {
+    list-style: none !important;
+  }
+
+  .market-list {
+    padding-left: 0;
   }

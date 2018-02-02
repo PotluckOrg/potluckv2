@@ -5,7 +5,7 @@ router.get('/', (req, res, next) => {
     Item.findAll()
       .then(items => res.json(items))
       .catch(next);
-  
+  // should eager load/query for userId
 });
 
 
