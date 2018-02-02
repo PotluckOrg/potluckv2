@@ -29,8 +29,6 @@ const Main = (props) => {
             </div>
             : <div>
               {/* The navbar will show these links before you log in */}
-              <Link to="/market">Market</Link>
-              <Link to="/basket"><i className="fas fa-shopping-basket" />({props.basket.length})</Link>
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
             </div>
