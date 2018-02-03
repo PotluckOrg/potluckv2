@@ -18,7 +18,8 @@ const users = [
     port: 4001,
     rpcport: 40011,
     cbAddr: "0x6ba566b156c8323430c4bf29e1d5582d1dba7dcc",
-    email: "ru@ru.com"
+    email: "ru@ru.com",
+    tradesCompleted: 3
   },
   {
     username: "oczane1",
@@ -27,7 +28,8 @@ const users = [
     port: 4002,
     rpcport: 40021,
     cbAddr: "0x2b0a5afa84317e65a9069089cebcefdf0d288d78",
-    email: "oczane@web.com"
+    email: "oczane@web.com",
+    tradesCompleted: 8
   }
 ]
 
@@ -70,15 +72,15 @@ const contracts = [
   }
 ];
 
+// comment is about the user - written by the other person involved in the contract
 const contractAssociations = [
-  {userId: 1, contractId: 1, item1: '3 bananas', item2: '4 carrots, 1 onion', comment1: 'Soup dejour amor!', comment2: 'This is BANANAS!'},
-  {userId: 2, contractId: 1, item1: '3 bananas', item2: '4 carrots, 1 onion', comment1: 'Soup dejour amor!', comment2: 'This is BANANAS!'},
-  {userId: 2, contractId: 2, item1: '2 pears', item2: '3 oranges', comment1: 'Soup dejour amor!', comment2: 'This is BANANAS!'},
-  {userId: 1, contractId: 2, item1: '3 pears', item2: '3 oranges', comment1: 'Soup dejour amor!', comment2: 'This is BANANAS!'},
-  {userId: 2, contractId: 3, item1: '3 bananas', item2: '8 onions, 6 apples', comment1: 'Soup dejour amor!', comment2: 'This is BANANAS!'},
-  {userId: 1, contractId: 3, item1: '3 bananas', item2: '8 onions, 6 apples', comment1: 'Soup dejour amor!', comment2: 'This is BANANAS!'}
+  {userId: 1, contractId: 1, itemId: 1, comment: 'Soup dejour amor!'},
+  {userId: 2, contractId: 1, itemId: 2, comment: 'This is BANANAS!'},
+  {userId: 2, contractId: 2, itemId: 3, comment: 'Good stuff!'},
+  {userId: 1, contractId: 2, itemId: 4, comment: 'yum oranges!'},
+  {userId: 2, contractId: 3, itemId: 5, comment: 'Soup dejour amor!'},
+  {userId: 1, contractId: 3, itemId: 6, comment: 'very delicious!'}
 ]
-
 
 
 async function seed () {
