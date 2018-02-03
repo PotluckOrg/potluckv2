@@ -14,7 +14,7 @@ const users = [
   {
     username: "ruthtown",
     password: "password",
-    ipcAddr: "../../nodeDir/ruthtown/geth.ipc",
+    ipcAddr: "../../nodeDir/ruthtown",
     port: 4001,
     rpcport: 40011,
     cbAddr: "0x6ba566b156c8323430c4bf29e1d5582d1dba7dcc",
@@ -23,7 +23,7 @@ const users = [
   {
     username: "oczane1",
     password: "password",
-    ipcAddr: "../../nodeDir/oczane1/geth.ipc",
+    ipcAddr: "../../nodeDir/oczane1",
     port: 4002,
     rpcport: 40021,
     cbAddr: "0x2b0a5afa84317e65a9069089cebcefdf0d288d78",

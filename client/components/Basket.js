@@ -72,7 +72,7 @@ const mapDispatch = (dispatch, ownProps) => {
                 const itemId = itemObj.id
                 console.log("mapDispatch UserId: ", userId)
                 // The modal failed to appear when I tried to format the item as just a string?!
-                console.log('I MADE IT HERE!', item)
+
                 dispatch(createContract(item))
                 // items.forEach(item => {
                     dispatch(removeFromBasket(itemId))
