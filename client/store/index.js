@@ -8,12 +8,12 @@ import market from './market'
 import geth from './geth'
 import requests from './contract'
 
-const reducer = combineReducers({user, basket, market, requests})
+const reducer = combineReducers({user, basket, market, requests, geth})
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})
 ))
-const store = createStore(reducer, middleware, geth)
+const store = createStore(reducer, middleware)
 
 export default store
 export * from './user'
