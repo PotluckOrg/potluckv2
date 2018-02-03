@@ -49,11 +49,7 @@
     "redux-thunk": "^2.2.0",
     "scrypt": "^6.0.3",
     "sequelize": "^4.3.1",
-<<<<<<< HEAD
-    "socket.io": "^2.0.3"
-=======
     "web3": "^1.0.0-beta.29"
->>>>>>> c58fe2a8467d273ae16d8499eaedc8ee830de393
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.9.0",
