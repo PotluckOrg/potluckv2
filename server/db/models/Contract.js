@@ -8,7 +8,7 @@ const Contract = db.define('contract', {
   },
   status: {
     type: Sequelize.ENUM('Created', 'FirstReview', 'SecondReview', 'Pending', 'Canceled', 'Completed'),
-    defaultValue: ''
+    defaultValue: 'Created'
   }
 })
 
