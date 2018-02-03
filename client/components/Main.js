@@ -24,7 +24,7 @@ const Main = (props) => {
               <Link to="/home">Home</Link>
               <Link to="/market">Market</Link>
               <Link to="/basket"><i className="fas fa-shopping-basket" />({props.basket.length})</Link>
-              <Link to="/inbox"><i className="fas fa-envelope" />({props.requests.length})</Link>
+              <Link to="/inbox"><i className="fas fa-envelope" />({/*ADD LENGTH OF REQUESTS*/})</Link>
               <a href="#" onClick={handleClick}>Logout</a>
             </div>
             : <div>
