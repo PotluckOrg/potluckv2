@@ -54,23 +54,24 @@ const Basket = (props) => {
 
 const mapState = (state) => {
     return {
-        basket: state.basket,
-        user: state.user
+        basket: state.basket
     }
 }
 
 const mapDispatch = (dispatch, ownProps) => {
     return {
-        sendRequestHandler: (event, itemObj) => {
+        sendRequestHandler: (event, itemObj, userId) => {
                 // let allItems = items.map(item => item.name).join(', ')
                 const itemName = itemObj.name
                 const item = {item: itemName}
+                const itemId = itemObj.id
+                console.log("mapDispatch UserId: ", userId)
                 // The modal failed to appear when I tried to format the item as just a string?!
                 console.log('I MADE IT HERE!', item)
                 dispatch(createContract(item))
                 // items.forEach(item => {
-                    dispatch(removeFromBasket(itemObj.id))
-                    dispatch(removeFromMyMarket(itemObj.id))
+                    dispatch(removeFromBasket(itemId))
+                    dispatch(removeFromMyMarket(itemId))
                 // })
                 //should items keep a state? pending
         }

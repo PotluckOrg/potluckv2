@@ -9,25 +9,45 @@ module.exports = router
 
 //config
 // const ipcAddr = config.get('ipcAddr');
-const ipcAddr = "/Users/ruthhill/Documents/GraceHopper/SeniorPhase/nodeA/geth.ipc"
+// const ipcAddr = "../nodeA/geth.ipc"
 // const configPort = config.get('port');
-const configPort = 4001
+// const configPort = 4001
 
 //web3 work
-let web3 = new Web3(ipcAddr, net);
+// let web3 = new Web3(ipcAddr, net);
+//
+// web3.eth.getCoinbase(function(err, cba) {
+//   coinbaseAddress = cba;
+//   console.log(coinbaseAddress);
+// });
 
-web3.eth.getCoinbase(function(err, cba) {
-  coinbaseAddress = cba;
-  console.log(coinbaseAddress);
-});
+let ipcAddr;
+let web3;
 
-const coinbasePassphrase = 'passphrase';
+router.use('*', (req, res, next) => {
+  ipcAddr = req.body.user.ipcAddr;
+  web3 = new Web3(ipcAddr, net);
+  web3.eth.getCoinbase(function(err, cba) {
+    coinbaseAddress = cba;
+    console.log(coinbaseAddress);
+  });
+  const coinbasePassphrase = 'passphrase';
 
-const byteCode = compiledContract.byteCode;
-const ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
+  const byteCode = compiledContract.byteCode;
+  const ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
 
-var helpers = require('handlebars-helpers');
-var comparison = helpers.comparison();
+  var helpers = require('handlebars-helpers');
+  var comparison = helpers.comparison();
+  next();
+})
+
+// const coinbasePassphrase = 'passphrase';
+//
+// const byteCode = compiledContract.byteCode;
+// const ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
+//
+// var helpers = require('handlebars-helpers');
+// var comparison = helpers.comparison();
 
 router.get('/', (req, res) => res.render('home'));
 
