@@ -14,14 +14,13 @@ const ItemCard = (props) => {
     const inMarket = props.path === '/market'
     const buttonText = inPantry || inMarket ? <i className="fa fa-plus" aria-hidden="true" /> : <i className="fa fa-times" aria-hidden="true" />
     const clickHandler = inPantry || inMarket ? event => props.handleAddToBasket(event, item, user.id) : event => props.handleRemoveFromBasket(event, item.id, user.id)
-    console.log('i am clickHandler', clickHandler)
     return (
         <div className="card w-100">
             <div className="card-body">
                 <h5 className="card-title">{item.name}</h5>
                 <p className="card-text">{item.description}</p>
                 <button className="btn" onClick={clickHandler}>{buttonText}</button>
-                
+
             </div>
         </div>
     )
@@ -34,10 +33,9 @@ const mapState = (state) => {
 }
 
 const mapDispatch = (dispatch, ownProps) => {
-    
+
     return {
         handleAddToBasket: (event, item, userId) => {
-                console.log('I MADE IT HERE!', item, userId)
                 dispatch(addToBasket(item, userId))
                 dispatch(removeFromMyMarket(item.id))
         },

@@ -6,7 +6,6 @@ import Modal from './Modal'
 import { createContract, removeFromBasket, removeFromMyMarket } from '../store'
 
 const Basket = (props) => {
-    console.log('basket Props', props)
     let display, isVisible
     const user = {
         id: 1,
@@ -66,7 +65,6 @@ const mapDispatch = (dispatch, ownProps) => {
                 const itemName = itemObj.name
                 const item = {item: itemName}
                 // The modal failed to appear when I tried to format the item as just a string?!
-                console.log('I MADE IT HERE!', item)
                 dispatch(createContract(item))
                 // items.forEach(item => {
                     dispatch(removeFromBasket(itemObj.id))
