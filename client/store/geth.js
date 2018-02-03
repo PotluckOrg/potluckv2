@@ -9,7 +9,7 @@ const STOP_GETH = 'STOP_GETH'
 /**
  * INITIAL STATE
  */
-const defaultNodesRunning = []
+const defaultGethInst = false
 /**
  * ACTION CREATORS
  *
@@ -19,26 +19,30 @@ export const stopGeth = () => ({ type: STOP_GETH })
 /**
  * THUNK CREATORS
  */
-export const startGethInst = (user) =>
-    axios.post(`/geth-start-script/${user.ipcAddr}/${user.port}`)
-      .then(res => console.log(res.data))
+export const startGethInst = (user) => dispatch =>
+    axios.get(`/geth-start-script/${user.ipcAddr}/${user.port}`)
+      .then(res => dispatch(startGeth()))
       .catch(err => console.log(err))
 
-export const stopGethInst = (user) =>
-      axios.post(`/geth-stop-script/${user.ipcAddr}`)
-        .then(res => console.log(res.data))
+export const stopGethInst = (user) => dispatch =>
+      axios.get(`/geth-stop-script/${user.ipcAddr}`)
+        .then(res => dispatch(stopGeth()))
         .catch(err => console.log(err))
 
 export const checkPeers = (user) =>
-        axios.post(`/geth-stop-script/${user.ipcAddr}`)
+        axios.get(`/geth-stop-script/${user.ipcAddr}`)
           .then(res => console.log(res.data))
           .catch(err => console.log(err))
 /**
  * REDUCER
  */
-export default function(state = defaultNodesRunning, action) {
+export default function(state = defaultGethInst, action) {
   switch (action.type) {
 
+    case START_GETH:
+      return true
+    case STOP_GETH:
+      return false
     default:
       return state
   }

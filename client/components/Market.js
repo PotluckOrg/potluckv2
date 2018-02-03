@@ -1,6 +1,7 @@
 import React from 'react'
 import ItemCard from './ItemCard'
 import {connect} from 'react-redux'
+import axios from 'axios'
 
 
 const Market = (props) => {
@@ -11,11 +12,14 @@ const Market = (props) => {
         <div>
             <h3>Market</h3>
             <ul className="market-list">
+
+
+
                 {items &&
                     items.map(item => {
                         return (
                             <li key={item.id} className="item-card">
-                                <ItemCard key={item.id} item={item} path={props.match.path} />  
+                                <ItemCard key={item.id} item={item} path={props.match.path} />
                             </li>
                         )
                     })
@@ -27,7 +31,8 @@ const Market = (props) => {
 
 const mapState = (state) => {
     return {
-        items: state.market
+        items: state.market,
+        user: state.user
     }
 }
 

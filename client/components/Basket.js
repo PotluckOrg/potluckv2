@@ -7,12 +7,8 @@ import { createContract, removeFromBasket, removeFromMyMarket } from '../store'
 
 const Basket = (props) => {
     let display, isVisible
-    const user = {
-        id: 1,
-        name: 'Jamie Hopper'
-    }
     const items = props.basket
-    // const user = props.user
+    const user = props.user
 
     if (!items.length) {
         isVisible = false
@@ -64,6 +60,7 @@ const mapDispatch = (dispatch, ownProps) => {
                 // let allItems = items.map(item => item.name).join(', ')
                 const item = {item: itemObj.name}
                 // The modal failed to appear when I tried to format the item as just a string?!
+
                 dispatch(createContract(item))
                 // items.forEach(item => {
                     dispatch(removeFromBasket(itemObj.id))

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {logout} from '../store'
+import axios from 'axios'
 
 /**
  * COMPONENT
@@ -11,7 +12,8 @@ import {logout} from '../store'
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-  const {children, handleClick, isLoggedIn} = props
+  const {children, handleClick, isLoggedIn, user} = props
+
 
   return (
     <div>
@@ -45,7 +47,8 @@ const Main = (props) => {
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.user.id,
-    basket: state.basket
+    basket: state.basket,
+    user: state.user
   }
 }
 
