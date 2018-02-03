@@ -32,7 +32,7 @@ const Basket = (props) => {
                             return (
                             <div key={item.id}>
                               <ItemCard item={item} />
-                              <div onClick={event => props.sendRequestHandler(event, item, user.id)} >
+                              <div onClick={event => props.sendRequestHandler(event, item, user)} >
                                   <Modal name="request" isVisible={isVisible} />
                               </div>
                             </div>
@@ -60,10 +60,9 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch, ownProps) => {
     return {
-        sendRequestHandler: (event, itemObj) => {
+        sendRequestHandler: (event, itemObj, user) => {
                 // let allItems = items.map(item => item.name).join(', ')
-                const itemName = itemObj.name
-                const item = {item: itemName}
+                const item = {item: itemObj.name}
                 // The modal failed to appear when I tried to format the item as just a string?!
                 dispatch(createContract(item))
                 // items.forEach(item => {
