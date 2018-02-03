@@ -1,13 +1,13 @@
 import React from 'react'
 
 const Modal = (props) => {
-    const { name, isVisible } = props
+    const { name, isVisible, icon, body } = props
     return (
         <div>
         {/*<!-- Button trigger modal -->*/}
         {isVisible &&
         <button type="button" className="btn btn-primary" data-toggle="modal" data-target={`#${name}`}>
-            <i className="fas fa-arrow-circle-right" />
+            {icon}
         </button>
         }
 
@@ -22,7 +22,7 @@ const Modal = (props) => {
                             </button>
                         </div>
                         <div className="modal-body">
-                            Your request has been sent!
+                            {body}
                         </div>
                     </div>
                 </div>

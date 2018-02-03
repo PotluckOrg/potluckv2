@@ -36,6 +36,7 @@ export default function(state = defaultBasket, action) {
         return [...state, action.item]
 
     case REMOVE_BASKET_ITEM:
+    console.log("ACTION.ITEMID", action.itemId)
     return state.filter(item => {
         return item.id !== +action.itemId
       })

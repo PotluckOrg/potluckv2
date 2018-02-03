@@ -6,12 +6,19 @@ import Modal from './Modal'
 import { createContract, removeFromBasket, removeFromMyMarket } from '../store'
 
 const Basket = (props) => {
-    let display, isVisible
+    console.log('basket Props', props)
+    let display, hasItem, hasItems
+    const user = {
+        id: 1,
+        name: 'Jamie Hopper'
+    }
     const items = props.basket
-    const user = props.user
+    const buttonIcon = <i className="fas fa-arrow-circle-right" />
+    const modalBody = 'Your request has been sent!'
+    // const user = props.user
 
     if (!items.length) {
-        isVisible = false
+        hasItems = false
         display = (
             <div>
                 <p>Your basket is empty.</p>
@@ -19,7 +26,7 @@ const Basket = (props) => {
             </div>
         )
     } else {
-        isVisible = true
+        hasItems = true
         display = (
             <div>
                 <div className="basket-wrapper" >
@@ -28,8 +35,8 @@ const Basket = (props) => {
                             return (
                             <div key={item.id}>
                               <ItemCard item={item} />
-                              <div onClick={event => props.sendRequestHandler(event, item, user)} >
-                                  <Modal name="request" isVisible={isVisible} />
+                              <div onClick={event => props.sendRequestHandler(event, item, user.id)} >
+                                  <Modal name={item.id} isVisible={hasItem} icon={buttonIcon} body={modalBody} />
                               </div>
                             </div>
                           )
@@ -43,28 +50,33 @@ const Basket = (props) => {
     return (
         <div>
             {display}
+            <div onClick={event => props.sendRequestHandler(event, items, user.id)} >
+                <Modal name="request" isVisible={hasItems} icon={buttonIcon} body={modalBody} />
+            </div>
         </div>
     )
 }
 
 const mapState = (state) => {
     return {
-        basket: state.basket,
-        user: state.user
+        basket: state.basket
     }
 }
 
 const mapDispatch = (dispatch, ownProps) => {
     return {
-        sendRequestHandler: (event, itemObj, user) => {
+        sendRequestHandler: (event, itemObj, userId) => {
                 // let allItems = items.map(item => item.name).join(', ')
-                const item = {item: itemObj.name}
+                const itemName = itemObj.name
+                const item = {item: itemName}
+                const itemId = itemObj.id
+                console.log("mapDispatch UserId: ", userId)
                 // The modal failed to appear when I tried to format the item as just a string?!
 
                 dispatch(createContract(item))
                 // items.forEach(item => {
-                    dispatch(removeFromBasket(itemObj.id))
-                    dispatch(removeFromMyMarket(itemObj.id))
+                    dispatch(removeFromBasket(itemId))
+                    dispatch(removeFromMyMarket(itemId))
                 // })
                 //should items keep a state? pending
         }
