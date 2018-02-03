@@ -19,6 +19,7 @@ const Basket = (props) => {
 
     if (!items.length) {
         hasItems = false
+        hasItem = false
         display = (
             <div>
                 <p>Your basket is empty.</p>
@@ -27,6 +28,7 @@ const Basket = (props) => {
         )
     } else {
         hasItems = true
+        hasItem = true
         display = (
             <div>
                 <div className="basket-wrapper" >
