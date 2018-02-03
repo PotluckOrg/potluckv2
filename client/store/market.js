@@ -14,27 +14,31 @@ const defaultMarket = [
     {
         id: 1,
         name: '1/2 Bag of Carrots',
-        description: 'A delicious half bag of organic carrots!'
+        description: 'A delicious half bag of organic carrots!',
+        userId: 1
     },
     {
         id: 2,
         name: '2 Oranges',
-        description: 'Two oranges looking for a home.'
+        description: 'Two oranges looking for a home.',
+        userId: 1
     },
     {
         id: 3,
         name: '4 Pears',
-        description: 'These four pears are FOR you!'
+        description: 'These four pears are FOR you!',
+        userId: 2
     },
     {
         id: 4,
         name: '1 Watermelon',
-        description: 'Such a yummy watermelon!'
+        description: 'Such a yummy watermelon!',
+        userId: 2
     },
 ]
 /**
  * ACTION CREATORS
- * 
+ *
  */
 export const returnToMyMarket = item => ({ type: ADD_MARKET_ITEM, item })
 export const removeFromMyMarket = itemId => ({ type: REMOVE_MARKET_ITEM, itemId })
@@ -42,7 +46,7 @@ export const removeFromMyMarket = itemId => ({ type: REMOVE_MARKET_ITEM, itemId 
 /**
  * THUNK CREATORS
  */
-export const returnToMyMarketThunk = (itemId) => dispatch => { 
+export const returnToMyMarketThunk = (itemId) => dispatch => {
     //   axios
     //     .get(`/api/items/${itemId}`)
     //     .then(res => dispatch(returnToMyMarket(res.data)))

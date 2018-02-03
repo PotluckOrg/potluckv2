@@ -16,6 +16,7 @@ const users = [
     ipcAddr: "../../nodeDir/ruthtown/geth.ipc",
     port: 4001,
     rpcport: 40011,
+    cbAddr: "0x6ba566b156c8323430c4bf29e1d5582d1dba7dcc",
     email: "ru@ru.com"
   },
   {
@@ -24,6 +25,7 @@ const users = [
     ipcAddr: "../../nodeDir/oczane1/geth.ipc",
     port: 4002,
     rpcport: 40021,
+    cbAddr: "0x2b0a5afa84317e65a9069089cebcefdf0d288d78",
     email: "oczane@web.com"
   }
 ]

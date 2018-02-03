@@ -1,3 +1,4 @@
+import axios from 'axios'
 import history from '../history'
 
 /**
@@ -12,11 +13,20 @@ const REMOVE_BASKET_ITEM = 'REMOVE_BASKET_ITEM'
 const defaultBasket = []
 /**
  * ACTION CREATORS
- * 
+ *
  */
 export const addToBasket = item => ({ type: ADD_BASKET_ITEM, item })
 export const removeFromBasket = itemId => ({ type: REMOVE_BASKET_ITEM, itemId })
-
+/**
+ * THUNK CREATORS
+ */
+export const createContract = (item) =>
+  dispatch =>
+    axios.post('/web3', item)
+      .then(result => {
+        console.log('Web3 RESULT: ', result)
+      })
+      .catch(err => console.log(err))
 /**
  * REDUCER
  */
