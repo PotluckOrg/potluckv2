@@ -18,10 +18,10 @@ const ItemCard = (props) => {
     return (
         <div className="card w-100">
             <div className="card-body">
+                <img src={`${item.iconUrl}`} className="card-icon" height="75" width="75" />
                 <h5 className="card-title">{item.name}</h5>
                 <p className="card-text">{item.description}</p>
                 <button className="btn" onClick={clickHandler}>{buttonText}</button>
-                
             </div>
         </div>
     )
@@ -34,7 +34,7 @@ const mapState = (state) => {
 }
 
 const mapDispatch = (dispatch, ownProps) => {
-    
+
     return {
         handleAddToBasket: (event, item, userId) => {
                 console.log('I MADE IT HERE!', item, userId)

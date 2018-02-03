@@ -15,7 +15,7 @@ const Market = (props) => {
                     items.map(item => {
                         return (
                             <li key={item.id} className="item-card">
-                                <ItemCard key={item.id} item={item} path={props.match.path} />  
+                                <ItemCard key={item.id} item={item} path={props.match.path} />
                             </li>
                         )
                     })

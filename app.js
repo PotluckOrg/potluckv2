@@ -57,6 +57,7 @@ const createApp = () => {
   // auth and api routes
   app.use('/api', require('./server/api'))
   app.use('/auth', require('./server/auth'))
+  app.use('/web3', require('./server/web3'))
   //app.use('/web3', require('./server/web3'))
 
 

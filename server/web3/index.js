@@ -9,37 +9,57 @@ module.exports = router
 
 //config
 // const ipcAddr = config.get('ipcAddr');
-const ipcAddr = "../../node1/geth.ipc"
+// const ipcAddr = "../nodeA/geth.ipc"
 // const configPort = config.get('port');
-const configPort = 4001
+// const configPort = 4001
 
 //web3 work
-let web3 = new Web3(ipcAddr, net);
+// let web3 = new Web3(ipcAddr, net);
+//
+// web3.eth.getCoinbase(function(err, cba) {
+//   coinbaseAddress = cba;
+//   console.log(coinbaseAddress);
+// });
 
-web3.eth.getCoinbase(function(err, cba) {
-  coinbaseAddress = cba;
-  console.log(coinbaseAddress);
-});
+let ipcAddr;
+let web3;
 
-const coinbasePassphrase = 'passphrase';
+router.use('*', (req, res, next) => {
+  ipcAddr = req.body.user.ipcAddr;
+  web3 = new Web3(ipcAddr, net);
+  web3.eth.getCoinbase(function(err, cba) {
+    coinbaseAddress = cba;
+    console.log(coinbaseAddress);
+  });
+  const coinbasePassphrase = 'passphrase';
 
-const byteCode = compiledContract.byteCode;
-const ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
+  const byteCode = compiledContract.byteCode;
+  const ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
 
-var helpers = require('handlebars-helpers');
-var comparison = helpers.comparison();
+  var helpers = require('handlebars-helpers');
+  var comparison = helpers.comparison();
+  next();
+})
+
+// const coinbasePassphrase = 'passphrase';
+//
+// const byteCode = compiledContract.byteCode;
+// const ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
+//
+// var helpers = require('handlebars-helpers');
+// var comparison = helpers.comparison();
 
 router.get('/', (req, res) => res.render('home'));
 
 router.post('/', (req, res) => {
+  // console.log("Web3 Post req.body", req.body);
   const item = req.body.item;
   web3.eth.personal.unlockAccount(coinbaseAddress, coinbasePassphrase, function(err, uares) {
     ProduceSwapContract.deploy({data: byteCode, arguments: [item]}).send({from: coinbaseAddress, gas: 2000000})
       .on('receipt', function (receipt) {
         console.log("Contract Address: " + receipt.contractAddress);
-
+        res.json(receipt.contractAddress);
  // save contract address, user1id, user2id from the item info
-
       });
   });
 });

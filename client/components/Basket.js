@@ -7,7 +7,7 @@ import { createContract, removeFromBasket, removeFromMyMarket } from '../store'
 
 const Basket = (props) => {
     console.log('basket Props', props)
-    let display, hasItems
+    let display, hasItem, hasItems
     const user = {
         id: 1,
         name: 'Jamie Hopper'
@@ -32,7 +32,14 @@ const Basket = (props) => {
                 <div className="basket-wrapper" >
                     {items &&
                         items.map(item => {
-                            return <ItemCard key={item.id} item={item} />
+                            return (
+                            <div key={item.id}>
+                              <ItemCard item={item} />
+                              <div onClick={event => props.sendRequestHandler(event, item, user.id)} >
+                                  <Modal name={item.id} isVisible={hasItem} icon={buttonIcon} body={modalBody} />
+                              </div>
+                            </div>
+                          )
                         })
                     }
                 </div>
@@ -58,15 +65,20 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch, ownProps) => {
     return {
-        sendRequestHandler: (event, items, userId) => {
-                let contractItem = items.map(item => item.name).join(', ')
-                console.log('I MADE IT HERE!', contractItem, userId)
-                //dispatch(createContract(contractItem, userId))
-                items.forEach(item => {
-                    dispatch(removeFromBasket(item.id))
-                    dispatch(removeFromMyMarket(item.id))
-                })
-                //should items keep a state? pending 
+        sendRequestHandler: (event, itemObj, userId) => {
+                // let allItems = items.map(item => item.name).join(', ')
+                const itemName = itemObj.name
+                const item = {item: itemName}
+                const itemId = itemObj.id
+                console.log("mapDispatch UserId: ", userId)
+                // The modal failed to appear when I tried to format the item as just a string?!
+                console.log('I MADE IT HERE!', item)
+                dispatch(createContract(item))
+                // items.forEach(item => {
+                    dispatch(removeFromBasket(itemId))
+                    dispatch(removeFromMyMarket(itemId))
+                // })
+                //should items keep a state? pending
         }
     }
 }
