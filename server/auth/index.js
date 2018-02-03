@@ -9,6 +9,8 @@ router.post('/login', (req, res, next) => {
         res.status(401).send('User not found')
       } else if (!user.correctPassword(req.body.password)) {
         res.status(401).send('Incorrect password')
+      } else {
+        res.json(user)
       } 
     })
     .catch(next)

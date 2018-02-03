@@ -3,6 +3,7 @@ const router = require('express').Router()
 router.use('/items', require('./items'))
 router.use('/users', require('./users'))
 router.use('/geth', require('./geth'))
+router.use('/contracts', require('./contracts'))
 
 
 router.use((req, res, next) => {

@@ -24,17 +24,8 @@ const Inbox = (props) => {
 
 const mapState = (state) => {
     return {
-      products: state.products,
-      currentUser: state.user,
+      requests: state.contracts
     }
 }
 
-const mapDispatch = (dispatch) => {
-    return {
-            //dispatch(getItems())
-        }
-}
-
-
-
-export default connect(mapState, mapDispatch)(Inbox)
+export default connect(mapState)(Inbox)

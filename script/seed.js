@@ -1,11 +1,12 @@
-const db = require('./db');
+const db = require('../server/db');
 
 
 const {
   User,
   Item,
-  Contract
-} = require('./models')
+  Contract,
+  ContractAssociations
+} = require('../server/db/models')
 
 
 
@@ -58,8 +59,23 @@ const items = [
 const contracts = [
   {
     contractAddress: '0xac4f4D4Ef8CEc4dd5cEEFAc935f414e3E562Aa33'
+  },
+  {
+    contractAddress: '0xgh4f6D4EgH4Ec4dd5cEYHAc932f473e3E312Aa21'
+  },
+  {
+    contractAddress: '0xqr4f4D4Ef8CUm4dy3cEEFAc985f414e3E562Ga49'
   }
 ];
+
+const contractAssociations = [
+  {userId: 1, contractId: 1, item1: '3 bananas', item2: '4 carrots, 1 onion', comment1: 'Soup dejour amor!', comment2: 'This is BANANAS!'},
+  {userId: 2, contractId: 1, item1: '3 bananas', item2: '4 carrots, 1 onion', comment1: 'Soup dejour amor!', comment2: 'This is BANANAS!'},
+  {userId: 2, contractId: 2, item1: '2 pears', item2: '3 oranges', comment1: 'Soup dejour amor!', comment2: 'This is BANANAS!'},
+  {userId: 1, contractId: 2, item1: '3 pears', item2: '3 oranges', comment1: 'Soup dejour amor!', comment2: 'This is BANANAS!'},
+  {userId: 2, contractId: 3, item1: '3 bananas', item2: '8 onions, 6 apples', comment1: 'Soup dejour amor!', comment2: 'This is BANANAS!'},
+  {userId: 1, contractId: 3, item1: '3 bananas', item2: '8 onions, 6 apples', comment1: 'Soup dejour amor!', comment2: 'This is BANANAS!'}
+]
 
 
 
@@ -71,11 +87,15 @@ async function seed () {
   console.log(`seeded successfully`)
 
   const creatingItems = await Promise.all(items.map(item => Item.create(item)))
-  console.log(`seeded ${items.length} products`)
+  console.log(`seeded ${items.length} items`)
   console.log(`seeded successfully`)
 
   const creatingContracts = await Promise.all(contracts.map(contract => Contract.create(contract)))
-  console.log(`seeded ${contracts.length} reviews`)
+  console.log(`seeded ${contracts.length} contracts`)
+  console.log(`seeded successfully`)
+
+  const creatingContractAssociations = await Promise.all(contractAssociations.map(contractAssociation => ContractAssociations.create(contractAssociation)))
+  console.log(`seeded ${contracts.length} contract associations`)
   console.log(`seeded successfully`)
 }
 
