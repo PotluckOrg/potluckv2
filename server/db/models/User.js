@@ -19,6 +19,16 @@ const User = db.define('user', {
   port: Sequelize.INTEGER,
   rpcport: Sequelize.INTEGER,
   cbAddr: Sequelize.STRING,
+  tradesCompleted: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  },
+  rating: {
+    type: Sequelize.VIRTUAL,
+    get() {
+      return this.tradesCompleted * 10 
+    }
+  },
   password: {
     type: Sequelize.STRING,
     allowNull: false
