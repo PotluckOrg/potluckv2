@@ -9,7 +9,7 @@ module.exports = router
 
 //config
 // const ipcAddr = config.get('ipcAddr');
-const ipcAddr = "../../node1/geth.ipc"
+const ipcAddr = "/Users/ruthhill/Documents/GraceHopper/SeniorPhase/nodeA/geth.ipc"
 // const configPort = config.get('port');
 const configPort = 4001
 
@@ -32,14 +32,14 @@ var comparison = helpers.comparison();
 router.get('/', (req, res) => res.render('home'));
 
 router.post('/', (req, res) => {
+  // console.log("Web3 Post req.body", req.body);
   const item = req.body.item;
   web3.eth.personal.unlockAccount(coinbaseAddress, coinbasePassphrase, function(err, uares) {
     ProduceSwapContract.deploy({data: byteCode, arguments: [item]}).send({from: coinbaseAddress, gas: 2000000})
       .on('receipt', function (receipt) {
         console.log("Contract Address: " + receipt.contractAddress);
-
+        res.json(receipt.contractAddress);
  // save contract address, user1id, user2id from the item info
-
       });
   });
 });

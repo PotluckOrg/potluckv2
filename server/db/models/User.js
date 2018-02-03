@@ -13,6 +13,7 @@ const User = db.define('user', {
   },
   port: Sequelize.INTEGER,
   rpcport: Sequelize.INTEGER,
+  cbAddr: Sequelize.STRING,
   email: {
     type: Sequelize.STRING,
     unique: true,

@@ -30,7 +30,14 @@ const Basket = (props) => {
                 <div className="basket-wrapper" >
                     {items &&
                         items.map(item => {
-                            return <ItemCard key={item.id} item={item} />
+                            return (
+                            <div key={item.id}>
+                              <ItemCard item={item} />
+                              <div onClick={event => props.sendRequestHandler(event, item, user.id)} >
+                                  <Modal name="request" isVisible={isVisible} />
+                              </div>
+                            </div>
+                          )
                         })
                     }
                 </div>
@@ -41,30 +48,31 @@ const Basket = (props) => {
     return (
         <div>
             {display}
-            <div onClick={event => props.sendRequestHandler(event, items, user.id)} >
-                <Modal name="request" isVisible={isVisible} />
-            </div>
         </div>
     )
 }
 
 const mapState = (state) => {
     return {
-        basket: state.basket
+        basket: state.basket,
+        user: state.user
     }
 }
 
 const mapDispatch = (dispatch, ownProps) => {
     return {
-        sendRequestHandler: (event, items, userId) => {
-                let contractItem = items.map(item => item.name).join(', ')
-                console.log('I MADE IT HERE!', contractItem, userId)
-                //dispatch(createContract(contractItem, userId))
-                items.forEach(item => {
+        sendRequestHandler: (event, itemObj) => {
+                // let allItems = items.map(item => item.name).join(', ')
+                const itemName = itemObj.name
+                const item = {item: itemName}
+                // The modal failed to appear when I tried to format the item as just a string?!
+                console.log('I MADE IT HERE!', item)
+                dispatch(createContract(item))
+                // items.forEach(item => {
                     dispatch(removeFromBasket(item.id))
                     dispatch(removeFromMyMarket(item.id))
-                })
-                //should items keep a state? pending 
+                // })
+                //should items keep a state? pending
         }
     }
 }
