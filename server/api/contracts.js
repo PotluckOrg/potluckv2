@@ -7,4 +7,23 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+router.post('/', (req, res, next) => {
+    Contract.create(req.body.contractAddress)
+    .then(newContract => {
+        ContractAssociations.bulkCreate([{
+            contractId: newContract.id,
+            userId: req.body.currentUserId
+        },
+        {
+            contractId: newContract.id,
+            userId: req.body.soliciteeId
+        }])
+        return newContract
+    })
+    .then(newContract => {
+        res.json(newContract)
+    })
+    .catch(next)
+})
+
 module.exports = router;

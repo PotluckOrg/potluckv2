@@ -52,8 +52,8 @@ router.use('*', (req, res, next) => {
 router.get('/', (req, res) => res.render('home'));
 
 router.post('/', (req, res) => {
-  // console.log("Web3 Post req.body", req.body);
-  const item = req.body.item;
+  console.log("Web3 Post req.body", req.body);
+  const item = req.body.item.name;
   web3.eth.personal.unlockAccount(coinbaseAddress, coinbasePassphrase, function(err, uares) {
     ProduceSwapContract.deploy({data: byteCode, arguments: [item]}).send({from: coinbaseAddress, gas: 2000000})
       .on('receipt', function (receipt) {
