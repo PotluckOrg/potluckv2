@@ -7,16 +7,18 @@ import { createContract, removeFromBasket, removeFromMyMarket } from '../store'
 
 const Basket = (props) => {
     console.log('basket Props', props)
-    let display, isVisible
+    let display, hasItem, hasItems
     const user = {
         id: 1,
         name: 'Jamie Hopper'
     }
     const items = props.basket
+    const buttonIcon = <i className="fas fa-arrow-circle-right" />
+    const modalBody = 'Your request has been sent!'
     // const user = props.user
 
     if (!items.length) {
-        isVisible = false
+        hasItems = false
         display = (
             <div>
                 <p>Your basket is empty.</p>
@@ -24,7 +26,7 @@ const Basket = (props) => {
             </div>
         )
     } else {
-        isVisible = true
+        hasItems = true
         display = (
             <div>
                 <div className="basket-wrapper" >
@@ -34,7 +36,7 @@ const Basket = (props) => {
                             <div key={item.id}>
                               <ItemCard item={item} />
                               <div onClick={event => props.sendRequestHandler(event, item, user.id)} >
-                                  <Modal name="request" isVisible={isVisible} />
+                                  <Modal name={item.id} isVisible={hasItem} icon={buttonIcon} body={modalBody} />
                               </div>
                             </div>
                           )
@@ -48,6 +50,9 @@ const Basket = (props) => {
     return (
         <div>
             {display}
+            <div onClick={event => props.sendRequestHandler(event, items, user.id)} >
+                <Modal name="request" isVisible={hasItems} icon={buttonIcon} body={modalBody} />
+            </div>
         </div>
     )
 }
