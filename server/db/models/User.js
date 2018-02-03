@@ -8,17 +8,17 @@ const User = db.define('user', {
     unique: true,
     allowNull: false
   },
+  email: {
+    type: Sequelize.STRING,
+    unique: true,
+    allowNull: false
+  },
   ipcAddr: {
     type: Sequelize.STRING
   },
   port: Sequelize.INTEGER,
   rpcport: Sequelize.INTEGER,
   cbAddr: Sequelize.STRING,
-  email: {
-    type: Sequelize.STRING,
-    unique: true,
-    allowNull: false
-  },
   password: {
     type: Sequelize.STRING,
     allowNull: false

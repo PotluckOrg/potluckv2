@@ -15,24 +15,28 @@ const defaultMarket = [
         id: 1,
         name: '1/2 Bag of Carrots',
         description: 'A delicious half bag of organic carrots!',
+        iconUrl: './icons/carrot.svg',
         userId: 1
     },
     {
         id: 2,
-        name: '2 Oranges',
-        description: 'Two oranges looking for a home.',
+        name: '2 Lemons',
+        description: 'Two lemons looking for a home.',
+        iconUrl: './icons/lemon.svg',
         userId: 1
     },
     {
         id: 3,
         name: '4 Pears',
         description: 'These four pears are FOR you!',
+        iconUrl: './icons/pear.svg',
         userId: 2
     },
     {
         id: 4,
         name: '1 Watermelon',
         description: 'Such a yummy watermelon!',
+        iconUrl: './icons/watermelon.svg',
         userId: 2
     },
 ]
