@@ -69,8 +69,8 @@ const mapDispatch = (dispatch, ownProps) => {
                 console.log('I MADE IT HERE!', item)
                 dispatch(createContract(item))
                 // items.forEach(item => {
-                    dispatch(removeFromBasket(item.id))
-                    dispatch(removeFromMyMarket(item.id))
+                    dispatch(removeFromBasket(itemObj.id))
+                    dispatch(removeFromMyMarket(itemObj.id))
                 // })
                 //should items keep a state? pending
         }
