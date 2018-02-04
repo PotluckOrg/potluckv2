@@ -1,6 +1,6 @@
 # Potluck
 
-An app for reducing food waste on a local scale through bartering via Solidity smart contracts.
+An app for reducing food waste on a local scale through bartering via Solidity smart contracts and blockchain technology.
 
 ## Introduction
 
