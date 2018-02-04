@@ -7,16 +7,26 @@ import { createContractWeb3, removeFromBasket, removeFromMyMarket } from '../sto
 
 const Basket = (props) => {
     console.log('basket Props', props)
-    let display, hasItem, hasItems
+    let display, hasItems, cardDisplay = []
+    let itemsByOwner = new Map()
 
     const items = props.basket
+    const itemOwners = new Set()
+    items.forEach(item => itemOwners.add(item.userId))
     const buttonIcon = <i className="fas fa-arrow-circle-right" />
     const modalBody = 'Your request has been sent!'
     const currentUser = props.currentUser
 
+    itemOwners.forEach((v1, v2, set) => {
+        itemsByOwner.set(v1, items.filter(item => item.userId === v2))
+    })
+
+    itemsByOwner.forEach((ownersItems, itemOwner, map) => {
+        cardDisplay.push(<ItemCard key={itemOwner} items={ownersItems} path={props.match.path} />)
+    })
+
     if (!items.length) {
         hasItems = false
-        hasItem = false
         display = (
             <div>
                 <p>Your basket is empty.</p>
@@ -25,17 +35,10 @@ const Basket = (props) => {
         )
     } else {
         hasItems = true
-        hasItem = true
         display = (
             <div>
                 <div className="basket-wrapper" >
-                    {items &&
-                        items.map(item => {
-                            return (
-                              <ItemCard key={item.id} item={item} />
-                          )
-                        })
-                    }
+                    {cardDisplay && cardDisplay}
                 </div>
             </div>
         )
@@ -45,7 +48,7 @@ const Basket = (props) => {
         <div>
             {display}
             <div onClick={event => props.sendRequestHandler(event, items, currentUser)} >
-                <Modal name="request" isVisible={hasItems} icon={buttonIcon} body={modalBody} />
+                <Modal name="batch-request" isVisible={hasItems} icon={buttonIcon} body={modalBody} />
             </div>
         </div>
     )
