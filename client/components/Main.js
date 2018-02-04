@@ -17,7 +17,7 @@ const Main = (props) => {
 
   return (
     <div>
-      <h1>POTLUCK</h1>
+      <h1 id="title">POTLUCK</h1>
       <nav>
         {
           isLoggedIn
