@@ -3,19 +3,16 @@ import {connect} from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import ItemCard from './ItemCard'
 import Modal from './Modal'
-import { createContract, removeFromBasket, removeFromMyMarket } from '../store'
+import { createContractWeb3, removeFromBasket, removeFromMyMarket } from '../store'
 
 const Basket = (props) => {
     console.log('basket Props', props)
     let display, hasItem, hasItems
-    const user = {
-        id: 1,
-        name: 'Jamie Hopper'
-    }
+
     const items = props.basket
     const buttonIcon = <i className="fas fa-arrow-circle-right" />
     const modalBody = 'Your request has been sent!'
-    // const user = props.user
+    const currentUser = props.currentUser
 
     if (!items.length) {
         hasItems = false
@@ -35,12 +32,7 @@ const Basket = (props) => {
                     {items &&
                         items.map(item => {
                             return (
-                            <div key={item.id}>
-                              <ItemCard item={item} />
-                              <div onClick={event => props.sendRequestHandler(event, item, user.id)} >
-                                  <Modal name={item.id} isVisible={hasItem} icon={buttonIcon} body={modalBody} />
-                              </div>
-                            </div>
+                              <ItemCard key={item.id} item={item} />
                           )
                         })
                     }
@@ -52,7 +44,7 @@ const Basket = (props) => {
     return (
         <div>
             {display}
-            <div onClick={event => props.sendRequestHandler(event, items, user.id)} >
+            <div onClick={event => props.sendRequestHandler(event, items, currentUser)} >
                 <Modal name="request" isVisible={hasItems} icon={buttonIcon} body={modalBody} />
             </div>
         </div>
@@ -61,25 +53,24 @@ const Basket = (props) => {
 
 const mapState = (state) => {
     return {
-        basket: state.basket
+        basket: state.basket,
+        currentUser: state.user
     }
 }
 
 const mapDispatch = (dispatch, ownProps) => {
     return {
-        sendRequestHandler: (event, itemObj, userId) => {
-                // let allItems = items.map(item => item.name).join(', ')
-                const itemName = itemObj.name
-                const item = {item: itemName}
-                const itemId = itemObj.id
-                console.log("mapDispatch UserId: ", userId)
+        sendRequestHandler: (event, items, currentUser) => {
+                let allItems = items.map(item => item.name).join(', ')
+                const soliciteeId = items[0].userId
+                console.log("mapDispatch UserIpcAddr: ", currentUser)
+                console.log('ALLITEMS', allItems)
                 // The modal failed to appear when I tried to format the item as just a string?!
-
-                dispatch(createContract(item))
-                // items.forEach(item => {
-                    dispatch(removeFromBasket(itemId))
-                    dispatch(removeFromMyMarket(itemId))
-                // })
+                dispatch(createContractWeb3(allItems, currentUser, soliciteeId))
+                items.forEach(item => {
+                    dispatch(removeFromBasket(item.id))
+                    dispatch(removeFromMyMarket(item.id))
+                })
                 //should items keep a state? pending
         }
     }

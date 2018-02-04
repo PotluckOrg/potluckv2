@@ -1,11 +1,13 @@
 import axios from 'axios'
 import history from '../history'
+import {createContractApi} from './contract'
 
 /**
  * ACTION TYPES
  */
 const ADD_BASKET_ITEM = 'GET_BASKET_ITEM'
 const REMOVE_BASKET_ITEM = 'REMOVE_BASKET_ITEM'
+
 
 /**
  * INITIAL STATE
@@ -20,11 +22,14 @@ export const removeFromBasket = itemId => ({ type: REMOVE_BASKET_ITEM, itemId })
 /**
  * THUNK CREATORS
  */
-export const createContract = (item) =>
+export const createContractWeb3 = (item, currentUser, soliciteeId) =>
   dispatch =>
-    axios.post('/web3', item)
+    axios.post('/web3', {item, currentUser})
       .then(result => {
-        console.log('Web3 RESULT: ', result)
+        console.log('RESULT', result)
+        const contractAddress = result.data
+        console.log('Web3 RESULT: ', result.data)
+        dispatch(createContractApi(result.data, currentUser.id, soliciteeId))
       })
       .catch(err => console.log(err))
 /**
