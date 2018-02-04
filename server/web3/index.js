@@ -1,5 +1,6 @@
 const Web3 = require('web3');
 const net = require('net');
+const path = require('path');
 // const config = require('config');
 const compiledContract = require('../../contracts/contractv1.json');
 const router = require('express').Router()
@@ -9,51 +10,57 @@ module.exports = router
 
 //config
 // const ipcAddr = config.get('ipcAddr');
-// const ipcAddr = "../nodeA/geth.ipc"
+const ipcAddr = "../nodeA/geth.ipc"
 // const configPort = config.get('port');
 // const configPort = 4001
 
 //web3 work
-// let web3 = new Web3(ipcAddr, net);
+let web3 = new Web3(ipcAddr, net);
+
+web3.eth.getCoinbase(function(err, cba) {
+  coinbaseAddress = cba;
+  console.log(coinbaseAddress);
+});
+
+const coinbasePassphrase = 'passphrase';
+
+const byteCode = compiledContract.byteCode;
+const ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
+
+var helpers = require('handlebars-helpers');
+var comparison = helpers.comparison();
+
+// ___________________________________________
+
+// let ipcAddr;
+// let web3;
+// let coinbaseAddress;
 //
-// web3.eth.getCoinbase(function(err, cba) {
-//   coinbaseAddress = cba;
-//   console.log(coinbaseAddress);
-// });
-
-let ipcAddr;
-let web3;
-
-router.use('*', (req, res, next) => {
-  ipcAddr = req.body.user.ipcAddr;
-  web3 = new Web3(ipcAddr, net);
-  web3.eth.getCoinbase(function(err, cba) {
-    coinbaseAddress = cba;
-    console.log(coinbaseAddress);
-  });
-  const coinbasePassphrase = 'passphrase';
-
-  const byteCode = compiledContract.byteCode;
-  const ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
-
-  var helpers = require('handlebars-helpers');
-  var comparison = helpers.comparison();
-  next();
-})
-
-// const coinbasePassphrase = 'passphrase';
+// router.use('*', (req, res, next) => {
+//   // console.log("REQ.BODY", req.body.currentUser)
+//   const relIpc = req.body.currentUser.ipcAddr;
+//   ipcAddr = path.join(__dirname, relIpc)
+//   console.log("IpcAddr: ", ipcAddr)
+//   web3 = new Web3(ipcAddr, net);
+//   web3.eth.getCoinbase(function(err, cba) {
+//     coinbaseAddress = cba;
+//     console.log(coinbaseAddress);
+//   });
+//   const coinbasePassphrase = 'passphrase';
 //
-// const byteCode = compiledContract.byteCode;
-// const ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
+//   const byteCode = compiledContract.byteCode;
+//   const ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
 //
-// var helpers = require('handlebars-helpers');
-// var comparison = helpers.comparison();
+//   var helpers = require('handlebars-helpers');
+//   var comparison = helpers.comparison();
+//   next(coinbaseAddress);
+// })
 
 router.get('/', (req, res) => res.render('home'));
 
 router.post('/', (req, res) => {
   console.log("Web3 Post req.body", req.body);
-  const item = req.body.item.name;
+  const item = req.body.item;
   web3.eth.personal.unlockAccount(coinbaseAddress, coinbasePassphrase, function(err, uares) {
     ProduceSwapContract.deploy({data: byteCode, arguments: [item]}).send({from: coinbaseAddress, gas: 2000000})
       .on('receipt', function (receipt) {
