@@ -10,51 +10,54 @@ module.exports = router
 
 //config
 // const ipcAddr = config.get('ipcAddr');
-const ipcAddr = "../nodeA/geth.ipc"
+// const ipcAddr = "../nodeA/geth.ipc"
 // const configPort = config.get('port');
 // const configPort = 4001
 
 //web3 work
-let web3 = new Web3(ipcAddr, net);
-
-web3.eth.getCoinbase(function(err, cba) {
-  coinbaseAddress = cba;
-  console.log(coinbaseAddress);
-});
-
-const coinbasePassphrase = 'passphrase';
-
-const byteCode = compiledContract.byteCode;
-const ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
-
-var helpers = require('handlebars-helpers');
-var comparison = helpers.comparison();
+// let web3 = new Web3(ipcAddr, net);
+//
+// web3.eth.getCoinbase(function(err, cba) {
+//   coinbaseAddress = cba;
+//   console.log(coinbaseAddress);
+// });
+//
+// const coinbasePassphrase = 'passphrase';
+//
+// const byteCode = compiledContract.byteCode;
+// const ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
+//
+// var helpers = require('handlebars-helpers');
+// var comparison = helpers.comparison();
 
 // ___________________________________________
 
-// let ipcAddr;
-// let web3;
-// let coinbaseAddress;
-//
-// router.use('*', (req, res, next) => {
-//   // console.log("REQ.BODY", req.body.currentUser)
-//   const relIpc = req.body.currentUser.ipcAddr;
-//   ipcAddr = path.join(__dirname, relIpc)
-//   console.log("IpcAddr: ", ipcAddr)
-//   web3 = new Web3(ipcAddr, net);
-//   web3.eth.getCoinbase(function(err, cba) {
-//     coinbaseAddress = cba;
-//     console.log(coinbaseAddress);
-//   });
-//   const coinbasePassphrase = 'passphrase';
-//
-//   const byteCode = compiledContract.byteCode;
-//   const ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
-//
-//   var helpers = require('handlebars-helpers');
-//   var comparison = helpers.comparison();
-//   next(coinbaseAddress);
-// })
+let ipcAddr;
+let web3;
+let coinbaseAddress;
+let coinbasePassphrase;
+let byteCode;
+let ProduceSwapContract;
+
+router.use('*', (req, res, next) => {
+  // console.log("REQ.BODY", req.body.currentUser)
+  const relIpc = req.body.currentUser.ipcAddr;
+  ipcAddr = path.join(__dirname, relIpc)
+  console.log("IpcAddr: ", ipcAddr)
+  web3 = new Web3(ipcAddr, net);
+  web3.eth.getCoinbase(function(err, cba) {
+    coinbaseAddress = cba;
+    console.log('Coinbase Address: ', coinbaseAddress);
+  });
+  coinbasePassphrase = 'passphrase';
+
+  byteCode = compiledContract.byteCode;
+  ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
+
+  var helpers = require('handlebars-helpers');
+  var comparison = helpers.comparison();
+  next({coinbaseAddress, coinbasePassphrase});
+})
 
 router.get('/', (req, res) => res.render('home'));
 
