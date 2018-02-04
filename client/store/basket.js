@@ -26,10 +26,11 @@ export const createContractWeb3 = (item, currentUser, soliciteeId) =>
   dispatch =>
     axios.post('/web3', {item, currentUser})
       .then(result => {
-        console.log('RESULT', result)
+        // console.log('RESULT', result)
         const contractAddress = result.data
-        console.log('Web3 RESULT: ', result.data)
-        dispatch(createContractApi(result.data, currentUser.id, soliciteeId))
+        // console.log('Web3 RESULT.data: ', result.data)
+        dispatch(createContractApi(contractAddress, currentUser.id, soliciteeId))
+        console.log("END OF CREATE CONTRACT")
       })
       .catch(err => console.log(err))
 /**
