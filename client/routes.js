@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Route, Switch, Router } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, Market, Basket, Inbox} from './components'
+import {Main, Login, Signup, UserHome, Market, Basket, Inbox, Account} from './components'
 import {me, fetchContracts} from './store'
 
 /**
@@ -11,7 +11,6 @@ import {me, fetchContracts} from './store'
  */
 class Routes extends Component {
   componentDidMount() {
-    console.log('component did mount')
     this.props.loadInitialData()
   }
 
@@ -25,10 +24,16 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/market" component={Market} />
+            { 
+              isLoggedIn &&
+              <Switch>
+              {/* Routes placed here are available to logged in users */}
+              <Route path="/market" component={Market} />
             <Route path="/basket" component={Basket} />
             <Route path="/inbox" component={Inbox} />
-
+            <Route path="/account" component={Account} />
+            </Switch>
+            }
             {/* Displays our Login component as a fallback */}
             <Route component={Login} />
           </Switch>
