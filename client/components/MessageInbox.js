@@ -1,19 +1,26 @@
 import React from 'react'
 import MessageCard from './MessageCard'
 import { connect } from 'react-redux'
+import {fetchMessagesByRecipientId, fetchAllMessages} from '../store'
 
 const MessageInbox = (props) => {
-    console.log('PROPS HERE', props)
-    const messages = props.messages
+
+    const sentMessages = props.sentMessages
+
+    const receivedMessages = props.allMessages.filter(message => {
+        return message.recipientUserId === props.currentUser.id
+    })
+
+
     return (
         <div>
             <h3>Message inbox</h3>
             <ul className="ticket-list">
-                {messages &&
-                    messages.map(message => {
+                {receivedMessages &&
+                    receivedMessages.map(receivedMessage => {
                         return (
-                            <li key={message.id} className="message-ticket">
-                                <MessageCard message={message} />
+                            <li key={receivedMessage.id} className="message-ticket">
+                                <MessageCard message={receivedMessage} />
                             </li>
                         )
                     })
@@ -22,11 +29,11 @@ const MessageInbox = (props) => {
 
             <h3>Sent Messages</h3>
             <ul className="ticket-list">
-                {messages &&
-                    messages.map(message => {
+                {sentMessages &&
+                    sentMessages.map(sentMessage => {
                         return (
-                            <li key={message.id} className="message-ticket">
-                                <MessageCard message={message} />
+                            <li key={sentMessage.id} className="message-ticket">
+                                <MessageCard message={sentMessage} />
                             </li>
                         )
                     })
@@ -38,8 +45,16 @@ const MessageInbox = (props) => {
 
 const mapState = (state) => {
     return {
-        messages: state.user.messages
+        currentUser: state.user,
+        sentMessages: state.user.messages,
+        allMessages: state.message
     }
 }
 
-export default connect(mapState)(MessageInbox)
+const mapDispatch = (dispatch, ownProps) => {
+    dispatch(fetchAllMessages())
+    return {}
+  }
+
+
+export default connect(mapState, mapDispatch)(MessageInbox)
