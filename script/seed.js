@@ -5,7 +5,8 @@ const {
   User,
   Item,
   Contract,
-  ContractAssociations
+  ContractAssociations,
+  Message
 } = require('../server/db/models')
 
 
@@ -82,6 +83,24 @@ const contractAssociations = [
   {userId: 1, contractId: 3, itemId: 6, comment: 'very delicious!'}
 ]
 
+const messages = [
+  {
+    subject: 'A time to exchange our produce!',
+    messageBody: 'Hi Ruth! I should be geting to campus around 9- I can meet up to swap either before class starts or during lunch!',
+    recipientUserId: 1
+  },
+  {
+    subject: 'During lunch?',
+    messageBody: 'Hi Oczane! I have to do some resume editing before class starts tomorrow- are you free during lunch to swap? Also I have a great kale recipe to share with you!',
+    recipientUserId: 2
+  },
+  {
+    subject: 'Greetings from the 25th floor!',
+    messageBody: 'Hi there! When are you free to exchange groceries? You can find me on the 25th floor or I can come to the 11th floor or meet in the lobby',
+    recipientUserId: 3
+  }
+];
+
 
 async function seed () {
   await db.sync({force: true})
@@ -100,6 +119,10 @@ async function seed () {
 
   const creatingContractAssociations = await Promise.all(contractAssociations.map(contractAssociation => ContractAssociations.create(contractAssociation)))
   console.log(`seeded ${contracts.length} contract associations`)
+  console.log(`seeded successfully`)
+
+  const creatingMessages = await Promise.all(messages.map(message => Message.create(message)))
+  console.log(`seeded ${messages.length} messages`)
   console.log(`seeded successfully`)
 }
 

@@ -7,8 +7,9 @@ import basket from './basket'
 import market from './market'
 import geth from './geth'
 import requests from './contract'
+import message from './message'
 
-const reducer = combineReducers({user, basket, market, requests, geth})
+const reducer = combineReducers({user, basket, market, requests, geth, message})
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})
@@ -21,3 +22,4 @@ export * from './basket'
 export * from './market'
 export * from './geth'
 export * from './contract'
+export * from './message'
