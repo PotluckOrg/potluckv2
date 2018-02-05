@@ -3,12 +3,8 @@ import {connect} from 'react-redux'
 import { addToBasket, removeFromBasket, returnToMyMarketThunk, removeFromMyMarket } from '../store'
 
 const ItemCard = (props) => {
-    console.log(props)
-    // const user = props.user
-    const user = {
-        id: 1,
-        name: 'Jamie Hopper'
-    }
+    // console.log("ItemCard props: ", props)
+
     const item = props.item
     const inPantry = props.path === '/pantry'
     const inMarket = props.path === '/market'
@@ -20,6 +16,7 @@ const ItemCard = (props) => {
                 <img src={`${item.iconUrl}`} className="card-icon" height="75" width="75" />
                 <h5 className="card-title">{item.name}</h5>
                 <p className="card-text">{item.description}</p>
+                <h6>On offer by {item.user.username}</h6>
                 <button className="btn" onClick={clickHandler}>{buttonText}</button>
             </div>
         </div>
