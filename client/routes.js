@@ -35,7 +35,7 @@ class Routes extends Component {
               <Route path="/account" component={Account} />
               <Route path="/messageinbox" component={MessageInbox} />
               <Route path="/pantry" component={Pantry} />
-              <Route path="/trades/:id" component={RequestTicket} />
+              <Route path="/:id" component={RequestTicket} />
               </Switch>
             }
             {/* Displays our Login component as a fallback */}
