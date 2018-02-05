@@ -14,8 +14,10 @@ const ItemCard = (props) => {
     const inMarket = props.path === '/market'
     const inBasket = props.path === '/basket'
     const buttonText = inPantry || inMarket ? <i className="fa fa-plus" aria-hidden="true" /> : <i className="fa fa-times" aria-hidden="true" />
+    
     const cardBody = singleItem => {
-        const clickHandler = inPantry || inMarket ? event => props.handleAddToBasket(event, singleItem, currentUser.id) : event => props.handleRemoveFromBasket(event, singleItem.id, currentUser.id)
+        const clickHandler = (inPantry || inMarket) ? event => props.handleAddToBasket(event, singleItem, currentUser.id) : event => props.handleRemoveFromBasket(event, singleItem.id, currentUser.id)
+        console.log('clickHandler', clickHandler)
         return (
             <div key={singleItem.id} className="row card-body-wrapper">
                 <div className="col-3">

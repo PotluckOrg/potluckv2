@@ -12,8 +12,6 @@ import { createContractWeb3, removeFromBasket, removeFromMyMarket } from '../sto
 const Basket = (props) => {
     console.log('basket Props', props)
     let display, hasItems, hasItemsByOwner, cardDisplay = []
-    let handleClick
-     
     let itemsByOwner = new Map()
 
     const items = props.basket
@@ -28,13 +26,10 @@ const Basket = (props) => {
     })
 
     itemsByOwner.forEach((ownersItems, itemOwner, map) => {
-        handleClick = hasItemsByOwner ? event => {
-            console.log('ive been clicked!', hasItemsByOwner)
-            props.sendRequestHandler(event, ownersItems, itemOwner, currentUser) } : () => {}
         let cardBody = (
             <div key={ itemOwner }>
                 <ItemCard itemOwnerId={itemOwner} items={ownersItems} path={props.match.path} />
-                <button type="button" className="btn btn-primary" onClick={handleClick}>
+                <button type="button" className="btn btn-primary" onClick={event => props.sendRequestHandler(event, ownersItems, itemOwner, currentUser)}>
                     {modalIcon}
                 </button>
             </div>)
@@ -63,7 +58,7 @@ const Basket = (props) => {
         <div>
             {display}
                 {items.length &&
-                    <button type="button" className="btn btn-primary" onClick={handleClick}>
+                    <button type="button" className="btn btn-primary" onClick={event => props.sendBatchRequestHandler(event, items, currentUser)}>
                         {modalIcon}
                     </button>
                 }
@@ -94,6 +89,9 @@ const mapDispatch = (dispatch, ownProps) => {
                 })
 
                 //should items keep a state? pending
+        },
+        sendBatchRequestHandler: (event, items, currentUser) => {
+
         }
     }
 }
