@@ -59,7 +59,6 @@ router.post('/geth-start-script', (req, res, next) => {
 })
 
 router.post('/geth-stop-script', (req, res, next) => {
-  console.log("STOPGETH USER: ", req.body.user)
   if (ipcAddresses.includes(req.body.user.ipcAddr))
     {
     currentNode = gethInstances.find(node => node.ipcAddr === req.body.user.ipcAddr)

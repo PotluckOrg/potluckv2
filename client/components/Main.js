@@ -21,7 +21,7 @@ const Main = (props) => {
           isLoggedIn
             ? <div>
               {/* The navbar will show these links after you log in */
-                startGeth(user)
+
               }
               <Link to="/home">Home</Link>
               <Link to="/market">Market</Link>
