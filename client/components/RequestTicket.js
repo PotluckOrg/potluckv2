@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import ItemCard from './ItemCard'
 import Pantry from './Pantry'
-import {connect} from 'react-redux'
 import {updateContract} from '../store'
 
 const RequestTicket = (props) => {
