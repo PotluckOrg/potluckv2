@@ -2,37 +2,42 @@ import React from 'react'
 import {connect} from 'react-redux'
 import ItemCard from './ItemCard'
 import Pantry from './Pantry'
+import { fetchContractAssociations, updateContract } from '../store'
 
 const RequestTicket = (props) => {
     console.log('PROPS FROM request ticket', props)
     const request = props.currentUser.contracts.find(contract => +contract.id === +props.match.params.id)
 
-    const { items, contractId, sender, senderPantry, associations } = props
+    const { items, contractId, associations, currentUser, offer, updateContractHandler } = props
     let itemsRequested = []
 
 
     let lengthCheck = associations.length
-
+    let message, item, filteredAssociations, sender, associationsBySender
 
 
     if (lengthCheck) {
-        filteredAssociations = associations.filter(association => association.userId !== currentUser.id)
+        filteredAssociations = associations.filter(association => association.userId === currentUser.id)
         items.filter(item => item.id === filteredAssociations[0].itemId)
-        if (request) message = `You have a new request from ${item.user.username}`
+
+        associationsBySender = associations.filter(association => association.userId !== currentUser.id)
+        console.log('associationsBySender', associationsBySender)
+        sender = associationsBySender[0].userId
     }
 
+ 
+
     // UPDATE ASSOCIATIONS MODEL TO MAKE ASSOCIATIONS FOR MULTIPLE ITEMS
-    request.contractAssociations.map(association => {
+    filteredAssociations.map(association => {
         let item = items.find(item => item.id === association.itemId)
         itemsRequested.push(item)
     })
 
     // currently wired up to recieve only one item fro mthe contract
-    console.log('I AM THE REQUEST', request)
-    itemsRequested.push(items.find(item => {
-        console.log('I AM THE REQUEST', request)
-        return item.id === request.contractAssociation.itemId
-    }))
+
+    // itemsRequested.push(items.find(item => {
+    //     return item.id === request.contractAssociation.itemId
+    // }))
 
     let card;
 
@@ -70,10 +75,18 @@ const RequestTicket = (props) => {
                         })
                     }
                 </ul>
+                {(offer ? (
+                    <div>
+                        <h3>Offer</h3>
+                        <div class="btn" onClick={() => updateContractHandler([{name: '1 eggplant', id: 1, description: 'lol'}], )}>Want an Eggplant?</div>
+                    
+                    </div>
+                ) : null)}
+                
             </div>
             <hr />
             <div className="sender-pantry">
-                <Pantry userId={sender} />
+                <Pantry senderId={sender} path={props.match.path} />
             </div>
         </div>
     )
@@ -84,13 +97,26 @@ const mapState = (state, ownProps) => {
         items: state.market,
         requests: state.contracts,
         currentUser: state.user,
-        associations: state.associations
+        associations: state.contractAssociations,
+        contractId: ownProps.match.params.id,
+        offer: state.offer
     }
 }
 
 const mapDispatch = (dispatch, ownProps) => {
-    // dispatch(fetchContractAssociations(ownProps.request.id))
-    return {}
+
+    return {
+        updateContractHandler: (items, dummyContract, sender, currentUser) => {
+        const solicitorId = sender.id
+        dispatch(updateContract(items, dummyContract, currentUser, solicitorId)) 
+            // sends update to contract via web3, and then gets all contracts
+             // will request ticket automatically update?
+          // need to send message to the user who initiated the contract
+         }
+
+    }
 }
+
+
 
 export default connect(mapState, mapDispatch)(RequestTicket)
