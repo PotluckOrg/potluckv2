@@ -46,10 +46,7 @@ const ItemCard = (props) => {
 
 const mapState = (state) => {
     return {
-<<<<<<< HEAD
-=======
         items: state.items,
->>>>>>> 83bedb24f9c1055f30de710668a769f4adc9ee41
         currentUser: state.user
     }
 }
