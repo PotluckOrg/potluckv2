@@ -17,7 +17,7 @@ const Main = (props) => {
 
   return (
     <div>
-      <h1>POTLUCK</h1>
+      <h1 id="title">POTLUCK</h1>
       <nav>
         {
           isLoggedIn
@@ -27,6 +27,8 @@ const Main = (props) => {
               <Link to="/market">Market</Link>
               <Link to="/basket"><i className="fas fa-shopping-basket" />({props.basket.length})</Link>
               <Link to="/inbox"><i className="fas fa-envelope" />({/*ADD LENGTH OF REQUESTS*/})</Link>
+              <Link to="/account">Account</Link>
+              <Link to="/messageinbox">Messages</Link>
               <a href="#" onClick={handleClick}>Logout</a>
             </div>
             : <div>

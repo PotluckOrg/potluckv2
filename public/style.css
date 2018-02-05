@@ -1,7 +1,7 @@
 body {
     font-family: sans-serif;
   }
-  
+
   a {
     text-decoration: none;
   }
@@ -9,19 +9,23 @@ body {
   i {
     margin-right: 5px;
   }
-  
+
   label {
     display: block;
   }
-  
+
   nav a {
     display: inline-block;
     margin: 1em;
   }
-  
+
   form div {
     margin: 1em;
     display: inline-block;
+  }
+
+  #title, h3 {
+    font-family: 'Handlee', sans-serif;
   }
 
   .item-card {
@@ -60,8 +64,4 @@ body {
 
   .market-list {
     padding-left: 0;
-  }
-
-  .modalStyle {
-    transform: translate(200%)
   }

@@ -1,5 +1,6 @@
 const Web3 = require('web3');
 const net = require('net');
+const path = require('path');
 // const config = require('config');
 const compiledContract = require('../../contracts/contractv1.json');
 const router = require('express').Router()
@@ -18,29 +19,9 @@ module.exports = router
 //
 // web3.eth.getCoinbase(function(err, cba) {
 //   coinbaseAddress = cba;
-//   console.log(coinbaseAddress);
+//   console.log("Coinbase Address: ", coinbaseAddress);
 // });
-
-let ipcAddr;
-let web3;
-
-router.use('*', (req, res, next) => {
-  ipcAddr = req.body.user.ipcAddr;
-  web3 = new Web3(ipcAddr, net);
-  web3.eth.getCoinbase(function(err, cba) {
-    coinbaseAddress = cba;
-    console.log(coinbaseAddress);
-  });
-  const coinbasePassphrase = 'passphrase';
-
-  const byteCode = compiledContract.byteCode;
-  const ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
-
-  var helpers = require('handlebars-helpers');
-  var comparison = helpers.comparison();
-  next();
-})
-
+//
 // const coinbasePassphrase = 'passphrase';
 //
 // const byteCode = compiledContract.byteCode;
@@ -49,11 +30,39 @@ router.use('*', (req, res, next) => {
 // var helpers = require('handlebars-helpers');
 // var comparison = helpers.comparison();
 
-router.get('/', (req, res) => res.render('home'));
+// ___________________________________________
+
+let ipcAddr;
+let web3;
+let coinbaseAddress;
+let coinbasePassphrase;
+let byteCode;
+let ProduceSwapContract;
+
+router.use((req, res, next) => {
+  const relIpc = req.body.currentUser.ipcAddr;
+  ipcAddr = path.join(__dirname, relIpc)
+  web3 = new Web3(ipcAddr, net);
+  coinbaseAddress = req.body.currentUser.cbAddr
+
+  // I replaced the block below with the line above this one:
+
+  // web3.eth.getCoinbase(function(err, cba) {
+  //   coinbaseAddress = cba;
+  //   console.log('Coinbase Address: ', coinbaseAddress);
+  // });
+  coinbasePassphrase = 'passphrase';
+  byteCode = compiledContract.byteCode;
+  ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
+  next();
+})
+
+// router.get('/', (req, res) => res.render('home'));
 
 router.post('/', (req, res) => {
   console.log("Web3 Post req.body", req.body);
-  const item = req.body.item.name;
+  const item = req.body.item;
+  console.log("Coinbase Address: ", coinbaseAddress)
   web3.eth.personal.unlockAccount(coinbaseAddress, coinbasePassphrase, function(err, uares) {
     ProduceSwapContract.deploy({data: byteCode, arguments: [item]}).send({from: coinbaseAddress, gas: 2000000})
       .on('receipt', function (receipt) {
@@ -64,7 +73,7 @@ router.post('/', (req, res) => {
   });
 });
 
-router.get('/questions', function(req, res) {
+router.get('/contract', function(req, res) {
   const contractAddress = req.query.address;
   if (web3.utils.isAddress(contractAddress)) {
     ProduceSwapContract.options.address = contractAddress;
@@ -85,7 +94,7 @@ router.get('/questions', function(req, res) {
   }
 });
 
-router.post('/questions', function(req, res) {
+router.post('/contract', function(req, res) {
   const contractAddress = req.query.address;
   console.log(req.body);
   const returnedItemRequest = req.body.item;

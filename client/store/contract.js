@@ -13,7 +13,7 @@ const ADD_CONTRACT = 'ADD_CONTRACT'
 const defaultContracts = []
 /**
  * ACTION CREATORS
- * 
+ *
  */
 export const getContracts = contracts => ({ type: GET_CONTRACTS, contracts })
 export const addContract = contract => ({ type: ADD_CONTRACT, contract })
@@ -21,7 +21,7 @@ export const addContract = contract => ({ type: ADD_CONTRACT, contract })
 /**
  * THUNK CREATORS
  */
-export const fetchContracts = () => dispatch => { 
+export const fetchContracts = () => dispatch => {
       axios
         .get('/api/contracts')
         .then(res => dispatch(getContracts(res.data)))
@@ -30,7 +30,8 @@ export const fetchContracts = () => dispatch => {
         // dispatch(returnToMyMarket(data))
   }
 
-export const createContractApi = (contractAddress, currentUserId, soliciteeId) => dispatch => { 
+export const createContractApi = (contractAddress, currentUserId, soliciteeId) => dispatch => {
+      // all params are successfully reaching this point
       axios
       .post('/api/contracts', {contractAddress, currentUserId, soliciteeId})
       .then(res => dispatch(getContracts(res.data)))
