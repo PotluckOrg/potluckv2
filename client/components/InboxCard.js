@@ -12,7 +12,6 @@ const InboxCard = (props) => {
     // })
     let lengthCheck = associations.length
 
-    console.log('ASSOCIATIONS', associations)
 
     if (lengthCheck) {
         filteredAssociations = associations.filter(association => association.userId !== currentUser.id)
@@ -20,9 +19,7 @@ const InboxCard = (props) => {
         if (request) message = `You have a new request from ${item.user.username}`
     }
 
-    
 
-    console.log('FILTEREDASSOCIATIONS', filteredAssociations)
 
 
     //add different messages based off of contract status

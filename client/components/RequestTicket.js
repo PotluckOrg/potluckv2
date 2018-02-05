@@ -9,13 +9,23 @@ const RequestTicket = (props) => {
 
     const { items, contractId, sender, senderPantry, associations } = props
     let itemsRequested = []
-    console.log('ASSOCIATIONS', associations)
+
+
+    let lengthCheck = associations.length
+
+
+
+    if (lengthCheck) {
+        filteredAssociations = associations.filter(association => association.userId !== currentUser.id)
+        items.filter(item => item.id === filteredAssociations[0].itemId)
+        if (request) message = `You have a new request from ${item.user.username}`
+    }
 
     // UPDATE ASSOCIATIONS MODEL TO MAKE ASSOCIATIONS FOR MULTIPLE ITEMS
-    // request.contractAssociations.map(association => {
-    //     let item = items.find(item => item.id === association.itemId)
-    //     itemsRequested.push(item)
-    // })
+    request.contractAssociations.map(association => {
+        let item = items.find(item => item.id === association.itemId)
+        itemsRequested.push(item)
+    })
 
     // currently wired up to recieve only one item fro mthe contract
     console.log('I AM THE REQUEST', request)
@@ -79,9 +89,8 @@ const mapState = (state, ownProps) => {
 }
 
 const mapDispatch = (dispatch, ownProps) => {
-    return {
-        
-    }
+    // dispatch(fetchContractAssociations(ownProps.request.id))
+    return {}
 }
 
 export default connect(mapState, mapDispatch)(RequestTicket)
