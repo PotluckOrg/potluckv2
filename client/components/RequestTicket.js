@@ -4,6 +4,7 @@ import Pantry from './Pantry'
 
 const RequestTicket = (props) => {
     const { items, contractId, sender, senderPantry } = props
+    const buttonIcon = 
     return (
         <div className="request-ticket">
             <h5>Let's make a swap!</h5>

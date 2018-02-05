@@ -32,6 +32,49 @@ body {
     list-style: none !important;
   }
 
+  .card-icon {
+    border: 3px solid #222;
+    padding: 8px;
+    border-radius: 50%;
+    height: 5rem;
+    width: 5rem;
+    display: inline-block;
+  }
+
+  .card-body-wrapper {
+    line-height: 5rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-body-wrapper:last-child {
+    margin-bottom: 0;
+  }
+
+  .card-text-wrapper {
+    padding-left: 1rem;
+  }
+
+  .card-title {
+    display: inline-block;
+  }
+
+  .card-text {
+    line-height: 1rem;
+  }
+
   .market-list {
     padding-left: 0;
+  }
+
+  .menu-icon {
+    width: 2rem;
+  }
+
+  #addItem {
+    display: inline-block;
+    float: right;
+  }
+
+  .pantry-title {
+    display: inline-block;
   }
