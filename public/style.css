@@ -65,3 +65,16 @@ body {
   .market-list {
     padding-left: 0;
   }
+
+  .menu-icon {
+    width: 2rem;
+  }
+
+  #addItem {
+    display: inline-block;
+    float: right;
+  }
+
+  .pantry-title {
+    display: inline-block;
+  }

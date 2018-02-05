@@ -62,12 +62,13 @@ const Basket = (props) => {
     return (
         <div>
             {display}
-            <div onClick={event => props.sendRequestHandler(event, items, currentUser)} >
-                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#request" onClick={handleClick}>
-                    {modalIcon}
-                </button>
+                {items.length &&
+                    <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#request" onClick={handleClick}>
+                        {modalIcon}
+                    </button>
+                }
                 <Modal name="request" body={modalBody} />
-            </div>
+            
         </div>
     )
 }
@@ -87,7 +88,7 @@ const mapDispatch = (dispatch, ownProps) => {
                 console.log("mapDispatch UserIpcAddr: ", currentUser)
                 console.log('ITEMS', items)
                 // The modal failed to appear when I tried to format the item as just a string?!
-                dispatch(createContractWeb3(allItems, currentUser, soliciteeId))
+                // dispatch(createContractWeb3(allItems, currentUser, soliciteeId))
                 items.forEach(item => {
                     dispatch(removeFromBasket(item.id))
                     dispatch(removeFromMyMarket(item.id))

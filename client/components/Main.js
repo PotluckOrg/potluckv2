@@ -14,7 +14,6 @@ import axios from 'axios'
 const Main = (props) => {
   const {children, handleClick, isLoggedIn, user} = props
 
-
   return (
     <div>
       <h1 id="title">POTLUCK</h1>
@@ -27,15 +26,16 @@ const Main = (props) => {
               <Link to="/market">Market</Link>
               <Link to="/basket"><i className="fas fa-shopping-basket" />({props.basket.length})</Link>
               <Link to="/inbox"><i className="fas fa-envelope" />({/*ADD LENGTH OF REQUESTS*/})</Link>
-              <Link to="/account">Account</Link>
+              <Link to="/account"><i className="fas fa-cog" /></Link>
               <Link to="/messageinbox">Messages</Link>
+              <Link to="/pantry"><img src="./icons/489212-200.png" className="menu-icon" /></Link>
               <a href="#" onClick={handleClick}>Logout</a>
             </div>
             : <div>
-              {/* The navbar will show these links before you log in */}
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
-            </div>
+                {/* The navbar will show these links before you log in */}
+                <Link to="/login">Login</Link>
+                <Link to="/signup">Sign Up</Link>
+              </div>
         }
       </nav>
       <hr />
