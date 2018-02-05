@@ -22,17 +22,20 @@ export const removeFromBasket = itemId => ({ type: REMOVE_BASKET_ITEM, itemId })
 /**
  * THUNK CREATORS
  */
-export const createContractWeb3 = (item, currentUser, soliciteeId) =>
-  dispatch =>
-    axios.post('/web3', {item, currentUser})
+export const createContractWeb3 = (items, currentUser, soliciteeId) =>
+  dispatch => {
+    let allItems = items.map(item => item.name).join(', ');
+    return axios.post('/web3', {allItems, currentUser})
       .then(result => {
         // console.log('RESULT', result)
         const contractAddress = result.data
         // console.log('Web3 RESULT.data: ', result.data)
-        dispatch(createContractApi(contractAddress, currentUser.id, soliciteeId))
+        items.forEach(item =>
+          dispatch(createContractApi(contractAddress, currentUser.id, soliciteeId, item.id)))
         console.log("END OF CREATE CONTRACT")
       })
       .catch(err => console.log(err))
+  }
 /**
  * REDUCER
  */

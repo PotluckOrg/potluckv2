@@ -30,14 +30,20 @@ export const fetchContracts = () => dispatch => {
         // dispatch(returnToMyMarket(data))
   }
 
-export const createContractApi = (contractAddress, currentUserId, soliciteeId) => dispatch => {
+export const createContractApi = (contractAddress, currentUserId, soliciteeId, itemId) => dispatch => {
       // all params are successfully reaching this point
       axios
-      .post('/api/contracts', {contractAddress, currentUserId, soliciteeId})
+      .post('/api/contracts', {contractAddress, currentUserId, soliciteeId, itemId})
       .then(res => dispatch(getContracts(res.data)))
       .catch(err => console.log(err))
       // let data = defaultMarket.find(item => item.id === itemId)
       // dispatch(returnToMyMarket(data))
+}
+
+export const updateContract = (item, contractAddress) => dispatch => {
+  axios.post('/web3/contract', {item, contractAddress})
+  .then(res => dispatch(fetchContracts()))
+  .catch(err => console.log(err))
 }
 
 /**

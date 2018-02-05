@@ -4,10 +4,10 @@ import Pantry from './Pantry'
 
 const RequestTicket = (props) => {
     const { items, contractId, sender, senderPantry } = props
-    const buttonIcon = 
+    // const buttonIcon =
     return (
         <div className="request-ticket">
-            <h5>Let's make a swap!</h5>
+            <h5>Lets make a swap!</h5>
             <div className="requested-items">
                 <ul>
                     {items &&
@@ -24,4 +24,19 @@ const RequestTicket = (props) => {
     )
 }
 
-export default RequestTicket
+const mapState = (state) => {
+  return {
+    //state items here
+  }
+}
+const mapDispatch = (dispatch) => {
+  return {
+          updateContractHandler: (item, contractAddress) => {
+            dispatch(updateContract(item, contractAddress)) // sends update to contract via web3, and then gets all contracts
+            // will request ticket automatically update?
+            // need to send message to the user who initiated the contract
+          }
+      }
+  }
+
+export default connect(mapState, mapDispatch)(RequestTicket)

@@ -18,7 +18,7 @@ const users = [
     ipcAddr: "../../nodeDir/ruthtown",
     port: 4001,
     rpcport: 40011,
-    cbAddr: "0x6ba566b156c8323430c4bf29e1d5582d1dba7dcc",
+    cbAddr: "0x9cbaacc29f0aeeff4fb928ce24307fb6c4301b14",
     email: "ru@ru.com",
     tradesCompleted: 3
   },
@@ -28,7 +28,7 @@ const users = [
     ipcAddr: "../../nodeDir/oczane1",
     port: 4002,
     rpcport: 40021,
-    cbAddr: "0x2b0a5afa84317e65a9069089cebcefdf0d288d78",
+    cbAddr: "0xa0e3b0c17cd1dcf0467809aaa4d8828b088eb4ac",
     email: "oczane@web.com",
     tradesCompleted: 8
   },
