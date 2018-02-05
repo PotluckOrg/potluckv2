@@ -28,7 +28,7 @@ body {
     font-family: 'Handlee', sans-serif;
   }
 
-  .item-card {
+  .item-card, .request-ticket-card {
     list-style: none !important;
   }
 
