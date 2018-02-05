@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {logout} from '../store'
+import {logout, startGethInst, stopGethInst} from '../store'
 import axios from 'axios'
 
 /**
@@ -12,8 +12,7 @@ import axios from 'axios'
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-  const {children, handleClick, isLoggedIn, user} = props
-
+  const {children, handleClick, isLoggedIn, user, startGeth, stopGeth} = props
   return (
     <div>
       <h1 id="title">POTLUCK</h1>
@@ -21,7 +20,9 @@ const Main = (props) => {
         {
           isLoggedIn
             ? <div>
-              {/* The navbar will show these links after you log in */}
+              {/* The navbar will show these links after you log in */
+                startGeth(user)
+              }
               <Link to="/home">Home</Link>
               <Link to="/market">Market</Link>
               <Link to="/basket"><i className="fas fa-shopping-basket" />({props.basket.length})</Link>
@@ -29,7 +30,7 @@ const Main = (props) => {
               <Link to="/account"><i className="fas fa-cog" /></Link>
               <Link to="/messageinbox">Messages</Link>
               <Link to="/pantry"><img src="./icons/489212-200.png" className="menu-icon" /></Link>
-              <a href="#" onClick={handleClick}>Logout</a>
+              <a href="#" onClick={(event) => handleClick(event, user, stopGeth)}>Logout</a>
             </div>
             : <div>
                 {/* The navbar will show these links before you log in */}
@@ -57,8 +58,15 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick () {
+    handleClick (evt, user, stopGeth) {
       dispatch(logout())
+      stopGeth(user)
+    },
+    startGeth (user) {
+      dispatch(startGethInst(user))
+    },
+    stopGeth (user) {
+      dispatch(stopGethInst(user))
     }
   }
 }
