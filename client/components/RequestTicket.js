@@ -2,13 +2,13 @@ import React from 'react'
 import {connect} from 'react-redux'
 import ItemCard from './ItemCard'
 import Pantry from './Pantry'
-import { fetchContractAssociations } from '../store'
+import { fetchContractAssociations, updateContract } from '../store'
 
 const RequestTicket = (props) => {
     console.log('PROPS FROM request ticket', props)
     const request = props.currentUser.contracts.find(contract => +contract.id === +props.match.params.id)
 
-    const { items, contractId, associations, currentUser } = props
+    const { items, contractId, associations, currentUser, offer, updateContractHandler } = props
     let itemsRequested = []
 
 
@@ -75,6 +75,14 @@ const RequestTicket = (props) => {
                         })
                     }
                 </ul>
+                {(offer ? (
+                    <div>
+                        <h3>Offer</h3>
+                        <div class="btn" onClick={() => updateContractHandler([{name: '1 eggplant', id: 1, description: 'lol'}], )}>Want an Eggplant?</div>
+                    
+                    </div>
+                ) : null)}
+                
             </div>
             <hr />
             <div className="sender-pantry">
@@ -90,13 +98,25 @@ const mapState = (state, ownProps) => {
         requests: state.contracts,
         currentUser: state.user,
         associations: state.contractAssociations,
-        contractId: ownProps.match.params.id
+        contractId: ownProps.match.params.id,
+        offer: state.offer
     }
 }
 
 const mapDispatch = (dispatch, ownProps) => {
 
-    return {}
+    return {
+        updateContractHandler: (items, dummyContract, sender, currentUser) => {
+        const solicitorId = sender.id
+        dispatch(updateContract(items, dummyContract, currentUser, solicitorId)) 
+            // sends update to contract via web3, and then gets all contracts
+             // will request ticket automatically update?
+          // need to send message to the user who initiated the contract
+         }
+
+    }
 }
+
+
 
 export default connect(mapState, mapDispatch)(RequestTicket)
