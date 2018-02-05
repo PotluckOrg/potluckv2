@@ -1,9 +1,11 @@
 import React from 'react'
 import ItemCard from './ItemCard'
 import Pantry from './Pantry'
+import {updateContract} from '../store'
+import {connect} from 'react-redux'
 
 const RequestTicket = (props) => {
-    const { items, contractId, sender, senderPantry } = props
+    const { items, contractId, sender, senderPantry, updateContractHandler } = props
     return (
         <div className="request-ticket">
             <h5>Let's make a swap!</h5>
@@ -23,4 +25,18 @@ const RequestTicket = (props) => {
     )
 }
 
-export default RequestTicket
+const mapState = (state) => {
+  return {
+    //state items here
+  }
+}
+
+const mapDispatch = (dispatch) => {
+  return {
+          updateContractHandler: (item) => {
+            dispatch(updateContract(item))
+          }
+      }
+  }
+
+  export default connect(mapState, mapDispatch)(RequestTicket)
