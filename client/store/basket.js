@@ -24,7 +24,8 @@ export const removeFromBasket = itemId => ({ type: REMOVE_BASKET_ITEM, itemId })
  */
 export const createContractWeb3 = (item, currentUser, soliciteeId) =>
   dispatch =>
-    axios.post('/web3', {item, currentUser})
+    { console.log("REACHERE HERE IN WEB# ROUTES")
+      return axios.post('/web3', {item, currentUser})
       .then(result => {
         // console.log('RESULT', result)
         const contractAddress = result.data
@@ -32,7 +33,7 @@ export const createContractWeb3 = (item, currentUser, soliciteeId) =>
         dispatch(createContractApi(contractAddress, currentUser.id, soliciteeId))
         console.log("END OF CREATE CONTRACT")
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err))}
 /**
  * REDUCER
  */

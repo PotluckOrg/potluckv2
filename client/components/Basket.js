@@ -83,6 +83,7 @@ const mapDispatch = (dispatch, ownProps) => {
                 // The modal failed to appear when I tried to format the item as just a string?!
                 // dispatch(createContractWeb3(allItems, currentUser, soliciteeId))
                 items.forEach(item => {
+                  console.log("INSIDE THE ITEMS FOREACH")
                     dispatch(removeFromBasket(item.id))
                     dispatch(removeFromMyMarket(item.id))
                 })

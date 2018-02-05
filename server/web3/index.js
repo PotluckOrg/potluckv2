@@ -42,6 +42,7 @@ let ProduceSwapContract;
 router.use((req, res, next) => {
   const relIpc = req.body.currentUser.ipcAddr;
   ipcAddr = path.join(__dirname, relIpc, '/geth.ipc')
+  console.log("IPCADDR: ", ipcAddr)
   web3 = new Web3(ipcAddr, net);
   coinbaseAddress = req.body.currentUser.cbAddr
 
