@@ -5,13 +5,14 @@ import Modal from './Modal'
 import ItemForm from './ItemForm'
 
 const Pantry = (props) => {
-    const { items, currentUser,  } = props
+    const { items, currentUser, path, senderId } = props
     // const modalBody = <ItemForm />
     const modalBody = "ITEM FORM"
-    const inPantry = props.match.path === '/pantry' ? true : false
+    const inPantry = path === '/pantry' ? true : false
     const myItems = items.filter(item => item.userId === currentUser.id)
+    const theirItems = items.filter(item => item.userId === senderId)
 
-    
+
     return (
         <div>
             <div>
@@ -29,19 +30,25 @@ const Pantry = (props) => {
                     </button>}
                 {/*<Modal body={modalBody} name="addItem" />*/}
             </div>
-            {myItems &&
+            {inPantry && myItems &&
                 myItems.map(item => {
-                    return <ItemCard key={item.id} item={item} path={props.match.path} />
+                    return <ItemCard key={item.id} item={item} path={path} />
+                })
+            }
+            {!inPantry && theirItems &&
+                theirItems.map(item => {
+                    return <ItemCard key={item.id} item={item} path={'/pantry'} />
                 })
             }
         </div>
     )
 }
 
-const mapState = (state) => {
+const mapState = (state, ownProps) => {
     return {
         items: state.market,
         currentUser: state.user,
+        // path: ownProps.match.path
     }
 }
 

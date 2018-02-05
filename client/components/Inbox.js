@@ -27,7 +27,7 @@ const Inbox = (props) => {
                     requests.map(request => {
                         return (
                             <li key={request.id} className="request-ticket-card">
-                                <Link to={`/trades/${request.id}`}>
+                                <Link to={`/${request.id}`}>
                                     <InboxCard request={request} />
                                 </Link>
                             </li>
@@ -42,7 +42,7 @@ const Inbox = (props) => {
                     pendingRequests.map(request => {
                         return (
                             <li key={request.id} className="request-ticket-card">
-                                <Link to={`/trades/${request.id}`}>
+                                <Link to={`/${request.id}`}>
                                     <InboxCard request={request} />
                                 </Link>
                             </li>
@@ -57,7 +57,7 @@ const Inbox = (props) => {
                     completedRequests.map(request => {
                         return (
                             <li key={request.id} className="request-ticket-card">
-                                <Link to={`/trades/${request.id}`}>
+                                <Link to={`/${request.id}`}>
                                     <InboxCard request={request} />
                                 </Link>
                             </li>
