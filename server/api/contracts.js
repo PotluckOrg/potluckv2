@@ -13,11 +13,13 @@ router.post('/', (req, res, next) => {
     .then(newContract => {
         ContractAssociations.bulkCreate([{
             contractId: newContract.id,
-            userId: req.body.currentUserId
+            userId: req.body.currentUserId,
+            itemId: req.body.itemId
         },
         {
             contractId: newContract.id,
-            userId: req.body.soliciteeId
+            userId: req.body.soliciteeId,
+            itemId: req.body.itemId
         }], {individualHooks: true})
         return newContract
     })

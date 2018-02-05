@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import ItemCard from './ItemCard'
 import Pantry from './Pantry'
+import {updateContract} from '../store'
 
 const RequestTicket = (props) => {
     console.log('PROPS FROM request ticket', props)
@@ -60,7 +61,7 @@ const RequestTicket = (props) => {
 
     return (
         <div className="request-ticket">
-            <h5>Let's make a swap!</h5>
+            <h5>Lets make a swap!</h5>
             <p>Status: {request.status} </p>
             <div className="requested-items">
                 <ul className="request-ticket-card"  >
@@ -75,22 +76,30 @@ const RequestTicket = (props) => {
             <div className="sender-pantry">
                 <Pantry userId={sender} />
             </div>
+            <button type="button" className="btn btn-primary" onClick={event => props.updateContractHandler(event, dummyContract, items, sender, currentUser)}>Update Contract</button>
         </div>
     )
 }
 
 const mapState = (state, ownProps) => {
-    return {
-        items: state.market,
-        requests: state.contracts,
-        currentUser: state.user,
-        associations: state.associations
-    }
+  return {
+    currentUser: state.user,
+    items: state.market,
+    requests: state.contracts,
+    associations: state.associations
+  }
 }
-
 const mapDispatch = (dispatch, ownProps) => {
-    // dispatch(fetchContractAssociations(ownProps.request.id))
-    return {}
+  return {
+          updateContractHandler: (items, dummyContract, sender, currentUser) => {
+            const solicitorId = sender.id
+            dispatch(updateContract(items, dummyContract, currentUser, solicitorId)) // sends update to contract via web3, and then gets all contracts
+            // will request ticket automatically update?
+            // need to send message to the user who initiated the contract
+          }
+          // dispatch(fetchContractAssociations(ownProps.request.id))
+          // return {}
+  }
 }
 
 export default connect(mapState, mapDispatch)(RequestTicket)

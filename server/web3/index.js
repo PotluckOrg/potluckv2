@@ -1,4 +1,4 @@
-// const Web3 = require('web3');
+const Web3 = require('web3');
 const net = require('net');
 const path = require('path');
 // const config = require('config');
@@ -41,7 +41,8 @@ let ProduceSwapContract;
 
 router.use((req, res, next) => {
   const relIpc = req.body.currentUser.ipcAddr;
-  ipcAddr = path.join(__dirname, relIpc)
+  ipcAddr = path.join(__dirname, relIpc, '/geth.ipc');
+  console.log("IPC", ipcAddr)
   web3 = new Web3(ipcAddr, net);
   coinbaseAddress = req.body.currentUser.cbAddr
 
@@ -61,7 +62,7 @@ router.use((req, res, next) => {
 
 router.post('/', (req, res) => {
   console.log("Web3 Post req.body", req.body);
-  const item = req.body.item;
+  const item = req.body.allItems;
   console.log("Coinbase Address: ", coinbaseAddress)
   web3.eth.personal.unlockAccount(coinbaseAddress, coinbasePassphrase, function(err, uares) {
     ProduceSwapContract.deploy({data: byteCode, arguments: [item]}).send({from: coinbaseAddress, gas: 2000000})

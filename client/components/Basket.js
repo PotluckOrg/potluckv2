@@ -76,12 +76,12 @@ const mapState = (state) => {
 const mapDispatch = (dispatch, ownProps) => {
     return {
         sendRequestHandler: (event, items, itemOwner, currentUser) => {
-                let allItems = items.map(item => item.name).join(', ')
+                // let allItems = items.map(item => item.name).join(', ')
                 const soliciteeId = itemOwner
                 console.log("mapDispatch UserIpcAddr: ", currentUser)
                 console.log('ITEMS', items)
                 // The modal failed to appear when I tried to format the item as just a string?!
-                // dispatch(createContractWeb3(allItems, currentUser, soliciteeId))
+                dispatch(createContractWeb3(items, currentUser, soliciteeId))
                 items.forEach(item => {
                     dispatch(removeFromBasket(item.id))
                     dispatch(removeFromMyMarket(item.id))
