@@ -49,6 +49,26 @@ const users = [
     rpcport: 40041,
     email: "lwyatt@net.com",
     tradesCompleted: 22
+  },
+  {
+    username: "nat",
+    password: "password",
+    ipcAddr: "../../nodeDir/nat",
+    port: 4005,
+    rpcport: 40051,
+    cbAddr: "0x7e69a04d3059ea7df7e13dafcde46906b463294a",
+    email: "nat@nat.com",
+    tradesCompleted: 3
+  },
+  {
+    username: "nat2",
+    password: "password",
+    ipcAddr: "../../nodeDir/nat2",
+    port: 4006,
+    rpcport: 40061,
+    cbAddr: "0xd583c533a103eb4459fca932d6bc717d6a05fb40",
+    email: "nat2@nat.com",
+    tradesCompleted: 2
   }
 ]
 
@@ -129,6 +149,26 @@ const contracts = [
   },
   {
     contractAddress: '0xqr4f4D4Ef8CUm4dy3cEEFAc985f414e3E562Ga49'
+  },
+  {
+    contractAddress: '0xgh4TESTEgH4Ec4dd5cEYHAc932f473e3E312Aa22',
+    status: 'FirstReview'
+  },
+  {
+    contractAddress: '0xqr4f4D4Ef8TESTdy3cEEFAc985f414e3E562Ga49',
+    status: 'SecondReview'
+  },
+  {
+    contractAddress: '0xac4f4D4Ef8TESTdd5cEEFAc935f414e3E562Aa33',
+    status: 'Pending'
+  },
+  {
+    contractAddress: '0xac4f4D4Ef8TESTdd5cEEFAc9TEST14e3E562Aa33',
+    status: 'Completed'
+  },
+  {
+    contractAddress: '0xac4f4D4Ef8TESTdd5cEEFAc9TEST14e3ETESTa33',
+    status: 'Canceled'
   }
 ];
 
@@ -139,7 +179,11 @@ const contractAssociations = [
   {userId: 2, contractId: 2, itemId: 3, comment: 'Good stuff!'},
   {userId: 3, contractId: 2, itemId: 4, comment: 'yum oranges!'},
   {userId: 3, contractId: 3, itemId: 5, comment: 'Soup dejour amor!'},
-  {userId: 2, contractId: 3, itemId: 6, comment: 'very delicious!'}
+  {userId: 2, contractId: 3, itemId: 6, comment: 'delish!'},
+  {userId: 5, contractId: 6, itemId: 7, comment: 'great experience!'},
+  {userId: 6, contractId: 6, itemId: 8, comment: 'very delicious!'},
+  {userId: 6, contractId: 7, itemId: 9, comment: 'amazing!'},
+  {userId: 5, contractId: 7, itemId: 10, comment: 'thank you, love the veggies!'}
 ]
 
 const messages = [
