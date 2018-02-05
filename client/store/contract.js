@@ -40,6 +40,14 @@ export const createContractApi = (contractAddress, currentUserId, soliciteeId) =
       // dispatch(returnToMyMarket(data))
 }
 
+export const updateContract = (item, contractAddress) => dispatch => {
+  axios.post('/web3/contract', {item, contractAddress})
+  .then( res => dispatch(fetchContracts()))
+  .catch(err => console.log(err))
+}
+
+
+
 /**
  * REDUCER
  */
@@ -49,7 +57,6 @@ export default function(state = defaultContracts, action) {
         return [...state, ...action.contracts]
     case ADD_CONTRACT:
         return [...state, action.contract]
-
     default:
       return state
   }
