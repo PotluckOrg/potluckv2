@@ -34,7 +34,7 @@ const Basket = (props) => {
         let cardBody = (
             <div key={ itemOwner }>
                 <ItemCard itemOwnerId={itemOwner} items={ownersItems} path={props.match.path} />
-                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#request" onClick={handleClick}>
+                <button type="button" className="btn btn-primary" onClick={handleClick}>
                     {modalIcon}
                 </button>
             </div>)
@@ -63,12 +63,11 @@ const Basket = (props) => {
         <div>
             {display}
                 {items.length &&
-                    <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#request" onClick={handleClick}>
+                    <button type="button" className="btn btn-primary" onClick={handleClick}>
                         {modalIcon}
                     </button>
                 }
                 <Modal name="request" body={modalBody} />
-            
         </div>
     )
 }
