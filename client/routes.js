@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Route, Switch, Router } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, Market, Basket, Inbox, Account, MessageInbox, Pantry} from './components'
+import {Main, Login, Signup, UserHome, Market, Basket, Inbox, Account, MessageInbox, Pantry, RequestTicket} from './components'
 import {me, fetchContracts, fetchAllItems} from './store'
 
 
@@ -35,6 +35,7 @@ class Routes extends Component {
               <Route path="/account" component={Account} />
               <Route path="/messageinbox" component={MessageInbox} />
               <Route path="/pantry" component={Pantry} />
+              <Route path="/trades/:id" component={RequestTicket} />
               </Switch>
             }
             {/* Displays our Login component as a fallback */}

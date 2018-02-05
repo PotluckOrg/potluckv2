@@ -46,7 +46,6 @@ const ItemCard = (props) => {
 
 const mapState = (state) => {
     return {
-        items: state.items,
         currentUser: state.user
     }
 }

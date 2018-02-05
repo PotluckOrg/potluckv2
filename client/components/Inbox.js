@@ -1,10 +1,15 @@
 import React from 'react'
 import InboxCard from './InboxCard'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 const Inbox = (props) => {
     // const { requests } = props
     const requests = props.currentUser.contracts
+    const createdRequests = requests.filter(request => {
+        console.log('REQUEST', request)
+        return request.status === 'Created'
+    })
     const pendingRequests = requests.filter(request => {
         console.log('REQUEST', request)
         return request.status === 'Pending'
@@ -13,10 +18,6 @@ const Inbox = (props) => {
         return request.status === 'Completed'
     })
 
-    console.log('COMPLETEDREQUEST', completedRequests)
-    console.log('PENDINGREQUEST', pendingRequests)
-
-    console.log('REQUESTS', requests)
     return (
         <div>
             <h3>Review</h3>
@@ -25,11 +26,10 @@ const Inbox = (props) => {
                 {requests &&
                     requests.map(request => {
                         return (
-                            <li key={request.id} className="request-ticket">
-                            {/*
-                                <InboxCard key={request.id} request={request} />
-                            */}
-                                  
+                            <li key={request.id} className="request-ticket-card">
+                                <Link to={`/trades/${request.id}`}>
+                                    <InboxCard request={request} />
+                                </Link>
                             </li>
                         )
                     })
@@ -41,12 +41,10 @@ const Inbox = (props) => {
                 {pendingRequests &&
                     pendingRequests.map(request => {
                         return (
-                            <li key={request.id} className="request-ticket">
-                            <p>{request.id}</p>
-                            <InboxCard request={request}/>
-                                {/*
-                                <InboxCard key={request.id} request={request} />
-                            */}
+                            <li key={request.id} className="request-ticket-card">
+                                <Link to={`/trades/${request.id}`}>
+                                    <InboxCard request={request} />
+                                </Link>
                             </li>
                         )
                     })
@@ -58,12 +56,10 @@ const Inbox = (props) => {
                 {completedRequests &&
                     completedRequests.map(request => {
                         return (
-                            <li key={request.id} className="request-ticket">
-                            <p>{request.id}</p>
-                            <InboxCard request={request} />
-                                {/*
-                                <InboxCard key={request.id} request={request} />
-                            */} 
+                            <li key={request.id} className="request-ticket-card">
+                                <Link to={`/trades/${request.id}`}>
+                                    <InboxCard request={request} />
+                                </Link>
                             </li>
                         )
                     })
