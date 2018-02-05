@@ -3,8 +3,7 @@ import {connect} from 'react-redux'
 import { addToBasket, removeFromBasket, returnToMyMarketThunk, removeFromMyMarket } from '../store'
 
 const ItemCard = (props) => {
-    // console.log("ItemCard props: ", props)
-
+    const user = props.currentUser
     const item = props.item
     const inPantry = props.path === '/pantry'
     const inMarket = props.path === '/market'
@@ -25,7 +24,8 @@ const ItemCard = (props) => {
 
 const mapState = (state) => {
     return {
-        items: state.items
+        items: state.items,
+        currentUser: state.user
     }
 }
 
