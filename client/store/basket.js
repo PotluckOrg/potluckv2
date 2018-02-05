@@ -32,6 +32,8 @@ export const createContractWeb3 = (items, currentUser, soliciteeId) =>
         // console.log('Web3 RESULT.data: ', result.data)
         items.forEach(item =>
           dispatch(createContractApi(contractAddress, currentUser.id, soliciteeId, item.id)))
+          // separate routes for creating contract and creating contract associations:
+          // dispatch(createContractAssociations(currentUser.id, soliciteeId, item.id))
         console.log("END OF CREATE CONTRACT")
       })
       .catch(err => console.log(err))

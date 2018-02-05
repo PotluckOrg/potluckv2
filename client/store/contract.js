@@ -40,9 +40,18 @@ export const createContractApi = (contractAddress, currentUserId, soliciteeId, i
       // dispatch(returnToMyMarket(data))
 }
 
-export const updateContract = (item, contractAddress) => dispatch => {
-  axios.post('/web3/contract', {item, contractAddress})
-  .then(res => dispatch(fetchContracts()))
+export const updateContract = (items, contract, solicitorId, currentUser) => dispatch => {
+  let contractAddress = contract.contractAddress
+  let allItems = items.map(item => item.name).join(', ');
+  return axios.post('/web3/contract', {allItems, contractAddress})
+  .then(res => {
+    console.log("** MADE IT THROUGH UpdateContract **")
+    items.forEach(item => {
+      dispatch(createContractAssociations(contract.id, currentUser.id, solicitorId, item.id))
+    })
+    dispatch(fetchContracts())
+    console.log("END OF CREATE CONTRACT")
+  })
   .catch(err => console.log(err))
 }
 

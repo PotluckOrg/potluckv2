@@ -4,6 +4,7 @@ const db = require('../db')
 const Contract = db.define('contract', {
   contractAddress: {
     type: Sequelize.STRING,
+    unique: true,
     allowNull: false
   },
   status: {
