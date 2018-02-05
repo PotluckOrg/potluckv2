@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Modal from './Modal'
-import SwipeableViews from 'react-swipeable-views';
 import { addToBasket, removeFromBasket, returnToMyMarketThunk, removeFromMyMarket, createContractWeb3 } from '../store'
 
 
@@ -46,7 +45,7 @@ const ItemCard = (props) => {
 
 const mapState = (state) => {
     return {
-        currentUser: state.user
+        currentUser: state.user,
     }
 }
 

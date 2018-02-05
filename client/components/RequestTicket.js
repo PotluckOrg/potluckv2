@@ -7,8 +7,9 @@ const RequestTicket = (props) => {
     console.log('PROPS FROM request ticket', props)
     const request = props.currentUser.contracts.find(contract => +contract.id === +props.match.params.id)
 
-    const { items, contractId, sender, senderPantry } = props
+    const { items, contractId, sender, senderPantry, associations } = props
     let itemsRequested = []
+    console.log('ASSOCIATIONS', associations)
 
     // UPDATE ASSOCIATIONS MODEL TO MAKE ASSOCIATIONS FOR MULTIPLE ITEMS
     // request.contractAssociations.map(association => {
@@ -62,7 +63,7 @@ const RequestTicket = (props) => {
             </div>
             <hr />
             <div className="sender-pantry">
-                {/*<Pantry userId={sender} />*/}
+                <Pantry userId={sender} />
             </div>
         </div>
     )
@@ -72,7 +73,8 @@ const mapState = (state, ownProps) => {
     return {
         items: state.market,
         requests: state.contracts,
-        currentUser: state.user
+        currentUser: state.user,
+        associations: state.associations
     }
 }
 

@@ -1,36 +1,55 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { fetchAllItems } from '../store'
+import { fetchAllItems, fetchContractAssociations } from '../store'
 
 
 const InboxCard = (props) => {
-    const { request } = props
-    let message
+    const { request, associations, currentUser, items } = props
+    let message, item, filteredAssociations
     
-    const item = props.items.find(item => {
-        return item.id === request.contractAssociation.itemId
-    })
+    // const item = props.items.find(item => {
+    //     return item.id === request.contractAssociation.itemId
+    // })
+    let lengthCheck = associations.length
+
+    console.log('ASSOCIATIONS', associations)
+
+    if (lengthCheck) {
+        filteredAssociations = associations.filter(association => association.userId !== currentUser.id)
+        item = items.find(item => item.id === filteredAssociations[0].itemId)
+        if (request) message = `You have a new request from ${item.user.username}`
+    }
+
+    
+
+    console.log('FILTEREDASSOCIATIONS', filteredAssociations)
+
 
     //add different messages based off of contract status
-    if (request) message = `You have a new request from ${item.user.username}`
+    
 
+   
     return (
-        <div className="card w-100">
-            <div className="card-body">
-                {message}
-            </div>
-        </div>
+            lengthCheck &&
+                <div className="card w-100">
+                <div className="card-body">
+                    {message}
+                </div>
+            </div> 
     )
 }
 
 const mapState = (state) => {
     return {
-        items: state.market
+        items: state.market,
+        associations: state.contractAssociations,
+        currentUser: state.user
     }
 }
 
 const mapDispatch = (dispatch, ownProps) => {
     dispatch(fetchAllItems())
+    dispatch(fetchContractAssociations(ownProps.request.id))
     return {}
 }
 

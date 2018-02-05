@@ -7,6 +7,7 @@ import history from '../history'
 const GET_CONTRACTS = 'GET_CONTRACTS'
 const ADD_CONTRACT = 'ADD_CONTRACT'
 
+
 /**
  * INITIAL STATE
  */

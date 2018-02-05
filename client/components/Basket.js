@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import ItemCard from './ItemCard'
 import Modal from './Modal'
-import SwipeableViews from 'react-swipeable-views';
 
 import { createContractWeb3, removeFromBasket, removeFromMyMarket } from '../store'
 
