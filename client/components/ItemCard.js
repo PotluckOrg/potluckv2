@@ -24,10 +24,10 @@ const ItemCard = (props) => {
                 <div className="card-text-wrapper col-7 d-inline-flex flex-column justify-content-center">
                     <h5 className="card-title">{singleItem.name}</h5>
                     <p className="card-text">{singleItem.description}</p>
+                    {/*<h6>On offer by {singleItem.user.username}</h6>*/}
                 </div>
                 <div className="col-2" onClick={clickHandler}>{buttonText}</div>
             </div>
-            
         )
     }
 

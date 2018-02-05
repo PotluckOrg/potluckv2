@@ -1,8 +1,8 @@
 const router = require("express").Router();
-const { Item } = require("../db/models");
+const { Item, User } = require("../db/models");
 
 router.get('/', (req, res, next) => {
-    Item.findAll()
+    Item.findAll({ include: [ User ] })
       .then(items => res.json(items))
       .catch(next);
   // should eager load/query for userId
