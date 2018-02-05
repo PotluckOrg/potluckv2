@@ -13,7 +13,7 @@ const InboxCard = (props) => {
     let lengthCheck = associations.length
 
 
-    if (lengthCheck) {
+    if (lengthCheck && items) {
         filteredAssociations = associations.filter(association => association.userId !== currentUser.id)
         item = items.find(item => item.id === filteredAssociations[0].itemId)
         if (request) message = `You have a new request from ${item.user.username}`
@@ -45,7 +45,7 @@ const mapState = (state) => {
 }
 
 const mapDispatch = (dispatch, ownProps) => {
-    dispatch(fetchAllItems())
+    // dispatch(fetchAllItems())
     dispatch(fetchContractAssociations(ownProps.request.id))
     return {}
 }
