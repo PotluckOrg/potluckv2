@@ -3,17 +3,23 @@ import {connect} from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import ItemCard from './ItemCard'
 import Modal from './Modal'
+import SwipeableViews from 'react-swipeable-views';
+
 import { createContractWeb3, removeFromBasket, removeFromMyMarket } from '../store'
+
+
 
 const Basket = (props) => {
     console.log('basket Props', props)
-    let display, hasItems, cardDisplay = []
+    let display, hasItems, hasItemsByOwner, cardDisplay = []
+    let handleClick
+     
     let itemsByOwner = new Map()
 
     const items = props.basket
     const itemOwners = new Set()
     items.forEach(item => itemOwners.add(item.userId))
-    const buttonIcon = <i className="fas fa-arrow-circle-right" />
+    const modalIcon = <i className="fas fa-arrow-circle-right" />
     const modalBody = 'Your request has been sent!'
     const currentUser = props.currentUser
 
@@ -22,11 +28,20 @@ const Basket = (props) => {
     })
 
     itemsByOwner.forEach((ownersItems, itemOwner, map) => {
-        cardDisplay.push(<ItemCard key={itemOwner} items={ownersItems} path={props.match.path} />)
-    })
+        handleClick = hasItemsByOwner ? event => {
+            console.log('ive been clicked!', hasItemsByOwner)
+            props.sendRequestHandler(event, ownersItems, itemOwner, currentUser) } : () => {}
+        let cardBody = (
+            <div key={ itemOwner }>
+                <ItemCard itemOwnerId={itemOwner} items={ownersItems} path={props.match.path} />
+                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#request" onClick={handleClick}>
+                    {modalIcon}
+                </button>
+            </div>)
+        cardDisplay.push(cardBody)
+        })
 
     if (!items.length) {
-        hasItems = false
         display = (
             <div>
                 <p>Your basket is empty.</p>
@@ -48,7 +63,10 @@ const Basket = (props) => {
         <div>
             {display}
             <div onClick={event => props.sendRequestHandler(event, items, currentUser)} >
-                <Modal name="batch-request" isVisible={hasItems} icon={buttonIcon} body={modalBody} />
+                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#request" onClick={handleClick}>
+                    {modalIcon}
+                </button>
+                <Modal name="request" body={modalBody} />
             </div>
         </div>
     )
@@ -63,17 +81,18 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch, ownProps) => {
     return {
-        sendRequestHandler: (event, items, currentUser) => {
+        sendRequestHandler: (event, items, itemOwner, currentUser) => {
                 let allItems = items.map(item => item.name).join(', ')
-                const soliciteeId = items[0].userId
+                const soliciteeId = itemOwner
                 console.log("mapDispatch UserIpcAddr: ", currentUser)
-                console.log('ALLITEMS', allItems)
+                console.log('ITEMS', items)
                 // The modal failed to appear when I tried to format the item as just a string?!
                 dispatch(createContractWeb3(allItems, currentUser, soliciteeId))
                 items.forEach(item => {
                     dispatch(removeFromBasket(item.id))
                     dispatch(removeFromMyMarket(item.id))
                 })
+
                 //should items keep a state? pending
         }
     }

@@ -12,9 +12,6 @@ const Market = (props) => {
         <div>
             <h3>Market</h3>
             <ul className="market-list">
-
-
-
                 {items &&
                     items.map(item => {
                         return (

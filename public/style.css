@@ -61,3 +61,7 @@ body {
   .market-list {
     padding-left: 0;
   }
+
+  .modalStyle {
+    transform: translate(200%)
+  }
