@@ -5,12 +5,13 @@ import Modal from './Modal'
 import ItemForm from './ItemForm'
 
 const Pantry = (props) => {
-    const { items, currentUser } = props
+    const { items, currentUser,  } = props
     // const modalBody = <ItemForm />
     const modalBody = "ITEM FORM"
     const inPantry = props.match.path === '/pantry' ? true : false
     const myItems = items.filter(item => item.userId === currentUser.id)
 
+    
     return (
         <div>
             <div>
@@ -26,7 +27,7 @@ const Pantry = (props) => {
                     >
                         <i className="fa fa-plus" aria-hidden="true" />
                     </button>}
-                <Modal body={modalBody} name="addItem" />
+                {/*<Modal body={modalBody} name="addItem" />*/}
             </div>
             {myItems &&
                 myItems.map(item => {
