@@ -4,52 +4,33 @@ import history from '../history'
 /**
  * ACTION TYPES
  */
+const GET_ITEMS = 'GET_ITEMS'
 const ADD_MARKET_ITEM = 'ADD_MARKET_ITEM'
 const REMOVE_MARKET_ITEM = 'REMOVE_MARKET_ITEM'
 
 /**
  * INITIAL STATE
  */
-const defaultMarket = [
-    {
-        id: 1,
-        name: '1/2 Bag of Carrots',
-        description: 'A delicious half bag of organic carrots!',
-        iconUrl: './icons/carrot.svg',
-        userId: 1
-    },
-    {
-        id: 2,
-        name: '2 Lemons',
-        description: 'Two lemons looking for a home.',
-        iconUrl: './icons/lemon.svg',
-        userId: 1
-    },
-    {
-        id: 3,
-        name: '4 Pears',
-        description: 'These four pears are FOR you!',
-        iconUrl: './icons/pear.svg',
-        userId: 2
-    },
-    {
-        id: 4,
-        name: '1 Watermelon',
-        description: 'Such a yummy watermelon!',
-        iconUrl: './icons/watermelon.svg',
-        userId: 2
-    },
-]
+const defaultMarket = []
 /**
  * ACTION CREATORS
  *
  */
+export const getItems = items => ({ type: GET_ITEMS, items})
 export const returnToMyMarket = item => ({ type: ADD_MARKET_ITEM, item })
 export const removeFromMyMarket = itemId => ({ type: REMOVE_MARKET_ITEM, itemId })
 
 /**
  * THUNK CREATORS
  */
+
+export const fetchAllItems = () =>
+  dispatch => {
+  axios.get('/api/items')
+    .then(res => dispatch(getItems(res.data || defaultMarket)))
+    .catch(err => console.log(err))
+}
+
 export const returnToMyMarketThunk = (itemId) => dispatch => {
     //   axios
     //     .get(`/api/items/${itemId}`)
@@ -64,6 +45,9 @@ export const returnToMyMarketThunk = (itemId) => dispatch => {
  */
 export default function(state = defaultMarket, action) {
   switch (action.type) {
+    case GET_ITEMS:
+      return [...state, ...action.items]
+
     case ADD_MARKET_ITEM:
         return [...state, action.item]
 

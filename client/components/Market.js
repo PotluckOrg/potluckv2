@@ -5,7 +5,7 @@ import axios from 'axios'
 
 
 const Market = (props) => {
-    console.log(props)
+    console.log("Market props: ", props)
     const { items } = props
 
     return (
@@ -16,7 +16,10 @@ const Market = (props) => {
 
 
                 {items &&
-                    items.map(item => {
+                    items.filter(item => {
+                      return item.userId !== props.user.id
+                    })
+                    .map(item => {
                         return (
                             <li key={item.id} className="item-card">
                                 <ItemCard key={item.id} item={item} path={props.match.path} />
