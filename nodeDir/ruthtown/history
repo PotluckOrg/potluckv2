@@ -1,0 +1,17 @@
+miner.start()
+miner.stop()
+admin
+miner.start()
+miner.stop()
+admin
+miner.start()
+miner.stop()
+miner.start()
+admin.addPeer("enode://4a31b9d9208370cd2eae3d6dc6a08af3529af5c8d3f9f76d83dd2329fb655c74f7df7c80c98cc57831b5db528765398df3bd7c960be38ab936adf97c59801da0@[::]:30302?discport=0")
+admin.peers
+miner.start()
+miner.stop()
+miner.start()
+miner.stop()
+admin
+miner.start()
