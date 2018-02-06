@@ -1,5 +1,4 @@
 const router = require('express').Router()
-module.exports = router
 const geth = require('geth-private')
 const { User } = require('../db/models')
 
@@ -7,12 +6,16 @@ let gethInstances = []
 let ipcAddresses = []
 let coinbases = []
 let currentNode
+let currentUser
 
 router.post('/geth-start-script', (req, res, next) => {
+
+  currentUser = req.body.user
   if (ipcAddresses === [] || !ipcAddresses.includes(req.body.user.ipcAddr)) {
 
     //declaring node geth instance
     let inst = geth({
+      autoMine: true,
       verbose: true,
       gethOptions: {
       datadir: `./nodeDir/${req.body.user.username}`,
@@ -35,6 +38,10 @@ router.post('/geth-start-script', (req, res, next) => {
   currentNode.inst.start()
   .then(function() {
     console.log(`${req.body.user.username} has started geth.`)
+  })
+  .then(function() {
+    console.log(`${req.body.user.username} creating new Account...`)
+    return currentNode.inst.consoleExec(`personal.newAccount(${req.body.user.password})`)
   })
   .then(function() {
     console.log(`${req.body.user.username} getting Account info...`)
@@ -61,7 +68,7 @@ router.post('/geth-start-script', (req, res, next) => {
   })
   .then( function () {
     console.log("Starting to mine...")
-    currentNode.inst.consoleExec('miner.start()')
+    //currentNode.inst.consoleExec('miner.start()')
   })
   .catch(function(err) {
     console.error(err)
@@ -73,10 +80,9 @@ router.post('/geth-stop-script', (req, res, next) => {
   if (ipcAddresses.includes(req.body.user.ipcAddr))
     {
     currentNode = gethInstances.find(node => node.ipcAddr === req.body.user.ipcAddr)
-    console.log("Stopping mining...")
-    currentNode.inst.consoleExec('miner.stop()')
+    currentNode.inst.stop()
     .then(function() {
-      currentNode.inst.stop()
+
       let index = ipcAddresses.indexOf(req.body.user.ipcAddr)
       gethInstances.splice(index, 1)
       ipcAddresses.splice(index, 1)
@@ -101,3 +107,5 @@ router.get('/check-peers/:user', (req, res, next) => {
   }
   res.json("Testing peers")
 })
+
+module.exports = {router, currentUser}
