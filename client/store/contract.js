@@ -23,23 +23,46 @@ export const addContract = contract => ({ type: ADD_CONTRACT, contract })
  * THUNK CREATORS
  */
 export const fetchContracts = () => dispatch => {
-      axios
-        .get('/api/contracts')
-        .then(res => dispatch(getContracts(res.data)))
-        .catch(err => console.log(err))
-        // let data = defaultMarket.find(item => item.id === itemId)
-        // dispatch(returnToMyMarket(data))
-  }
-
-export const createContractApi = (contractAddress, currentUserId, soliciteeId, items) => dispatch => {
-      // all params are successfully reaching this point
-      axios
-      .post('/api/contracts', {contractAddress, currentUserId, soliciteeId, items})
+    axios
+      .get('/api/contracts')
       .then(res => dispatch(getContracts(res.data)))
       .catch(err => console.log(err))
       // let data = defaultMarket.find(item => item.id === itemId)
       // dispatch(returnToMyMarket(data))
 }
+
+export const createContractApi = (contractAddress, currentUserId, soliciteeId, itemIds) => dispatch => {
+    axios
+      .post('/api/contracts', {contractAddress, currentUserId, soliciteeId, itemIds})
+      .then(res => dispatch(getContracts(res.data)))
+      .catch(err => console.log(err))
+}
+
+export const updateContractAssoc = (contractId, soliciteeId, itemIds) => dispatch => {
+    axios
+      .put(`/api/contractassociations/${contractId}`, {soliciteeId, itemIds})
+      .then(res => dispatch(getContracts(res.data)))
+      .catch(err => console.log(err))
+}
+
+export const updateContractStatus = contractId => dispatch => {
+  axios
+    .put(`/api/contracts/${contractId}`, {status: 'Pending'})
+    .then(res => dispatch(getContracts(res.data)))
+    .catch(err => console.log(err))
+}
+
+// when the request has made it back to the solicitor and they press 'Confirm Trade' button
+// activates "approveSwap" function in contract via web3 route (state = 'Locked')
+// updates contract status in database (to 'Pending')
+export const confirmTrade = () => dispatch => {
+
+}
+
+// when each user confirms that items have been traded
+// activates completeSwap() function in contract (internal counter increments once for each user inside contract, and after 2 changes the state to 'Completed')
+
+// when BOTH users have done so, status of contract in DB needs to update to 'Completed' also
 
 /**
  * REDUCER

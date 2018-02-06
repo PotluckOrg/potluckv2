@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import {createContractApi} from './contract'
+import {updateContractAssoc, updateContractStatus} from './contract'
 
 /**
  * ACTION TYPES
@@ -26,17 +26,18 @@ export const removeFromOffer = itemId => ({ type: REMOVE_OFFER_ITEM, itemId })
 export const updateContract = (items, contract, solicitorId, currentUser) => dispatch => {
     let contractAddress = contract.contractAddress
     let allItems = items.map(item => item.name).join(', ');
+    let itemIds = []
+    items.forEach(itemObj => {itemIds.push(itemObj.id)})
+    itemIds = itemIds.join(', ')
     axios.post('/web3/contract', {allItems, currentUser, contractAddress})
     .then(res => {
+      console.log('----Reached other side of web3/contract POST----')
+      console.log('contract.id, currentUser.id, solicitorId: ', contract.id, currentUser.id, solicitorId)
+      console.log("RES.DATA (contractAddress): ", res.data)
+      dispatch(updateContractAssoc(contract.id, solicitorId, itemIds))
+      dispatch(updateContractStatus(contract.id))
       console.log("** MADE IT THROUGH UpdateContract **")
-      console.log('OFFER STUFF', contract.id, currentUser.id, solicitorId)
-      console.log("RES: ", res.data)
-      items.forEach(item => {
-          console.log('ITEM IN OFFER', item)
-        // dispatch(createContractAssociations(contract.id, currentUser.id, solicitorId, item.id))
-      })
-    //   dispatch(fetchContracts())
-      console.log("END OF CREATE CONTRACT")
+ //   dispatch(fetchContracts())
     })
     .catch(err => console.log(err))
   }
