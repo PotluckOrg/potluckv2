@@ -20,6 +20,7 @@ const Main = (props) => {
           isLoggedIn
             ? <div>
               {/* The navbar will show these links after you log in */}
+              <Link to="/community">Community</Link>
               <Link to="/market">Market</Link>
               <Link to="/basket"><i className="fas fa-shopping-basket" />({props.basket && props.basket.length})</Link>
               <Link to="/inbox"><i className="fas fa-envelope" />({props.user.contracts ? props.user.contracts.length : 0})</Link>

@@ -5,6 +5,7 @@
  */
 export {default as Main} from './Main'
 export {default as Market} from './Market'
+export {default as Ledger} from './Ledger'
 export {default as Basket} from './Basket'
 export {default as Modal} from './Modal'
 export {Login, Signup} from './auth-form'

@@ -74,3 +74,31 @@
 11:39:11.024591 version@stat F·[2 1] S·71KiB[66KiB 5KiB] Sc·[0.50 0.00]
 11:39:11.088040 db@janitor F·5 G·0
 11:39:11.088113 db@open done T·121.754566ms
+=============== Feb 6, 2018 (EST) ===============
+13:02:57.639446 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+13:03:51.321140 db@open opening
+13:03:51.358821 version@stat F·[] S·0B[] Sc·[]
+13:03:53.440623 db@janitor F·2 G·0
+13:03:53.440698 db@open done T·2.119494339s
+=============== Feb 6, 2018 (EST) ===============
+13:03:53.950050 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+13:03:53.963032 version@stat F·[] S·0B[] Sc·[]
+13:03:53.963066 db@open opening
+13:03:53.963161 journal@recovery F·1
+13:03:53.963605 journal@recovery recovering @1
+13:03:54.071287 memdb@flush created L0@2 N·9 S·550B "Hb\xd4..\x0e;\xb5,v3":"r\x00\x00..\x0e;\xb5,v5"
+13:03:54.071904 version@stat F·[1] S·550B[550B] Sc·[0.25]
+13:03:54.172874 db@janitor F·3 G·0
+13:03:54.172903 db@open done T·209.822016ms
+13:03:56.882923 db@close closing
+13:03:56.882981 db@close done T·57.18µs
+=============== Feb 6, 2018 (EST) ===============
+13:03:56.971864 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+13:03:56.972014 version@stat F·[1] S·550B[550B] Sc·[0.25]
+13:03:56.972028 db@open opening
+13:03:56.972104 journal@recovery F·1
+13:03:56.972471 journal@recovery recovering @3
+13:03:57.014258 memdb@flush created L0@5 N·3 S·290B "Blo..ion,v12":"dbU..ata,v11"
+13:03:57.014829 version@stat F·[2] S·840B[840B] Sc·[0.50]
+13:03:57.116633 db@janitor F·4 G·0
+13:03:57.116698 db@open done T·144.62934ms
