@@ -3,12 +3,12 @@ import {connect} from 'react-redux'
 import ItemCard from './ItemCard'
 import Modal from './Modal'
 import ItemForm from './ItemForm'
+import AddPantryItem from './AddPantryItem'
 
 const Pantry = (props) => {
     console.log('I AM PANTRY PROPS', props)
     const { items, currentUser, path, senderId, pantryItems } = props
-    // const modalBody = <ItemForm />
-    const modalBody = "ITEM FORM"
+
     const inPantry = path === '/pantry'
     const title = inPantry ? 'My Pantry' : `${pantryItems[0].user.username}'s Pantry`
     return (
@@ -26,7 +26,6 @@ const Pantry = (props) => {
                     >
                         <i className="fa fa-plus" aria-hidden="true" />
                     </button>}
-                {/*<Modal body={modalBody} name="addItem" />*/}
             </div>
             {inPantry && pantryItems &&
                 pantryItems.map(item => {
@@ -38,6 +37,14 @@ const Pantry = (props) => {
                     return <ItemCard key={item.id} item={item} path={'/pantry'} />
                 })
             }
+
+            {inPantry && 
+            
+                <AddPantryItem />
+            
+            
+            }
+            <AddPantryItem />
         </div>
     )
 }
