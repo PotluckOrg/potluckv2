@@ -2,20 +2,16 @@ const router = require('express').Router()
 const geth = require('geth-private')
 const { User } = require('../db/models')
 
-let gethInstances = []
-let ipcAddresses = []
-let coinbases = []
-let currentNode
-let currentUser
+let gethInstances = [] //keeping track of running insts
+let ipcAddresses = [] //keeping track of running nodes
+let coinbases = [] //for replacing outdated account data in the db with newly created accounts
+let currentNode //to set apart the current user's working node
 
 router.post('/geth-start-script', (req, res, next) => {
-
-  currentUser = req.body.user
-  if (ipcAddresses === [] || !ipcAddresses.includes(req.body.user.ipcAddr)) {
-
-    //declaring node geth instance
+  //check to see if the node is running
+  if (ipcAddresses === [] || !ipcAddresses.includes(req.body.user.ipcAddr)) {//declaring node geth instance
     let inst = geth({
-      verbose: true,
+      verbose: true, //for console log
       gethOptions: {
       datadir: `./nodeDir/${req.body.user.username}`,
       networkid: 5,
@@ -43,16 +39,16 @@ router.post('/geth-start-script', (req, res, next) => {
     return currentNode.inst.consoleExec('eth.coinbase')
   })
   .then(coinbase => {
-    //will not work with coinbases when network is les than 2 people
-    console.log("COINBASE: ", coinbase)
     coinbases.push(coinbase)
     let cbAddr = coinbase.replace(/^"(.*)"$/, '$1')
+    //Make sure account in db is the same as the account of the running nodeor web3 will complain
     User.update({cbAddr}, {
       where: {
         id: req.body.user.id
       }
     })
     console.log(`Adding ${req.body.user.username} to peer network.`)
+    //peers will not be added if only one node is running
     if (gethInstances.length > 1) {
       for (let i = 0; i < gethInstances.length - 1; i++){
         for (let j = 0; j < coinbases.length; j++){
@@ -71,7 +67,12 @@ router.post('/geth-start-script', (req, res, next) => {
   res.json('Geth Script success')
 })
 
+
+/**
+ * Route to close geth Instaces
+ */
 router.post('/geth-stop-script', (req, res, next) => {
+  //check if node is running
   if (ipcAddresses.includes(req.body.user.ipcAddr))
     {
     currentNode = gethInstances.find(node => node.ipcAddr === req.body.user.ipcAddr)
@@ -91,6 +92,10 @@ router.post('/geth-stop-script', (req, res, next) => {
     else res.json("No geth instance to close")
 })
 
+
+/**
+ * Route to check peers
+ */
 router.get('/check-peers/:user', (req, res, next) => {
   if (ipcAddresses.includes(req.body.user.ipcAddr))
   {

@@ -19,6 +19,7 @@ const defaultOffer = []
  */
 export const addToOffer = item => ({ type: ADD_OFFER_ITEM, item })
 export const removeFromOffer = itemId => ({ type: REMOVE_OFFER_ITEM, itemId })
+
 /**
  * THUNK CREATORS
  */

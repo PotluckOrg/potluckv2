@@ -52,7 +52,6 @@ router.use((req, res, next) => {
   //   console.log('Coinbase Address: ', coinbaseAddress);
   // });
   coinbasePassphrase = '1234';
-  console.log("PASSPHRASE: ", coinbasePassphrase)
   byteCode = compiledContract.byteCode;
   ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
   next();
@@ -61,9 +60,7 @@ router.use((req, res, next) => {
 // router.get('/', (req, res) => res.render('home'));
 
 router.post('/', (req, res) => {
-  console.log("Web3 Post req.body", req.body);
   const item = req.body.allItems;
-  console.log("Coinbase Address: ", coinbaseAddress)
   web3.eth.personal.unlockAccount(coinbaseAddress, coinbasePassphrase, function(err, uares) {
     ProduceSwapContract.deploy({data: byteCode, arguments: [item]}).send({from: coinbaseAddress, gas: 2000000})
       .on('receipt', function (receipt) {
@@ -85,8 +82,7 @@ router.get('/contract', function(req, res) {
       console.log(currentTradeItems);
       const solicitorItemRequest = currentTradeItems['0'];
       const soliciteeItemRequest = currentTradeItems['1'];
-      data = {contractAddress: contractAddress, solicitorItemRequest: solicitorItemRequest, soliciteeItemRequest: soliciteeItemRequest};
-      console.log(data);
+      let data = {contractAddress: contractAddress, solicitorItemRequest: solicitorItemRequest, soliciteeItemRequest: soliciteeItemRequest};
       res.render('question', data);
     });
   }

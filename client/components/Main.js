@@ -20,17 +20,14 @@ const Main = (props) => {
         {
           isLoggedIn
             ? <div>
-              {/* The navbar will show these links after you log in */
-
-              }
-              <Link to="/home">Home</Link>
+              {/* The navbar will show these links after you log in */}
               <Link to="/market">Market</Link>
-              <Link to="/basket"><i className="fas fa-shopping-basket" />({props.basket.length})</Link>
+              <Link to="/basket"><i className="fas fa-shopping-basket" />({props.basket && props.basket.length})</Link>
               <Link to="/inbox"><i className="fas fa-envelope" />({props.user.contracts ? props.user.contracts.length : 0})</Link>
               <Link to="/account"><i className="fas fa-cog" /></Link>
               <Link to="/messageinbox">Messages</Link>
               <Link to="/pantry"><img src="./icons/489212-200.png" className="menu-icon" /></Link>
-              <a href="#" onClick={(event) => handleClick(event, user, stopGeth)}>Logout</a>
+              <a href="/" onClick={handleClick}>Logout</a>
             </div>
             : <div>
                 {/* The navbar will show these links before you log in */}

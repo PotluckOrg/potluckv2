@@ -30,15 +30,13 @@ export const fetchContractAssociations = (contractId) => dispatch => {
         .catch(err => console.log(err))
   }
 
-
-
 /**
  * REDUCER
  */
 export default function(state = defaultContractAssociations, action) {
   switch (action.type) {
     case GET_CONTRACT_ASSOCIATIONS:
-        return [...state, ...action.associations]
+        return [...action.associations]
 
     default:
       return state

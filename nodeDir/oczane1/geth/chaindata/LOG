@@ -56,3 +56,15 @@
 04:22:32.189521 table@remove removed @8
 04:22:32.189551 table@remove removed @5
 04:22:32.189579 table@remove removed @2
+=============== Feb 6, 2018 (EST) ===============
+04:33:24.889266 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+04:33:24.895758 version@stat F·[0 1] S·19KiB[0B 19KiB] Sc·[0.00 0.00]
+04:33:24.895774 db@open opening
+04:33:24.895825 journal@recovery F·1
+04:33:24.896274 journal@recovery recovering @12
+04:33:24.930300 memdb@flush created L0@15 N·2 S·243B "Blo..ion,v350":"Las..der,v351"
+04:33:24.930918 version@stat F·[1 1] S·19KiB[243B 19KiB] Sc·[0.25 0.00]
+04:33:25.002233 db@janitor F·4 G·0
+04:33:25.002275 db@open done T·106.486753ms
+04:35:50.447533 db@close closing
+04:35:50.447755 db@close done T·213.937µs
