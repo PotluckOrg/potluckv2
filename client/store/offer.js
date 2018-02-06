@@ -25,14 +25,14 @@ export const removeFromOffer = itemId => ({ type: REMOVE_OFFER_ITEM, itemId })
 export const updateContract = (items, contract, solicitorId, currentUser) => dispatch => {
     let contractAddress = contract.contractAddress
     let allItems = items.map(item => item.name).join(', ');
-    return axios.post('/web3/contract', {allItems, contractAddress})
+    axios.post('/web3/contract', {allItems, currentUser, contractAddress})
     .then(res => {
       console.log("** MADE IT THROUGH UpdateContract **")
-      console.log('OFFER STUFF', contract.id,currentUser.id, solicitorId)
+      console.log('OFFER STUFF', contract.id, currentUser.id, solicitorId)
+      console.log("RES: ", res.data)
       items.forEach(item => {
           console.log('ITEM IN OFFER', item)
         // dispatch(createContractAssociations(contract.id, currentUser.id, solicitorId, item.id))
-
       })
     //   dispatch(fetchContracts())
       console.log("END OF CREATE CONTRACT")

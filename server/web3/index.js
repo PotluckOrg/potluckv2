@@ -62,7 +62,7 @@ router.use((req, res, next) => {
 
 router.post('/', (req, res) => {
   console.log("Web3 Post req.body", req.body);
-  const item = req.body.item;
+  const item = req.body.allItems;
   console.log("Coinbase Address: ", coinbaseAddress)
   web3.eth.personal.unlockAccount(coinbaseAddress, coinbasePassphrase, function(err, uares) {
     ProduceSwapContract.deploy({data: byteCode, arguments: [item]}).send({from: coinbaseAddress, gas: 2000000})
@@ -96,9 +96,9 @@ router.get('/contract', function(req, res) {
 });
 
 router.post('/contract', function(req, res) {
-  const contractAddress = req.query.address;
-  console.log(req.body);
-  const returnedItemRequest = req.body.item;
+  const contractAddress = req.body.contractAddress;
+  console.log("REQ.BODY: ", req.body);
+  const returnedItemRequest = req.body.allItems;
   console.log(`Requesting Produce at address ${contractAddress} with answer ${returnedItemRequest}`);
   if (web3.utils.isAddress(contractAddress)) {
     console.log('is valid address');
