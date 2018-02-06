@@ -9,7 +9,6 @@ import { createContractWeb3, removeFromBasket, removeFromMyMarket } from '../sto
 
 
 const Basket = (props) => {
-    console.log('basket Props', props)
     let display, hasItems, hasItemsByOwner, cardDisplay = []
     let itemsByOwner = new Map()
 

@@ -6,10 +6,9 @@ import { addToBasket, removeFromBasket, returnToMyMarketThunk, removeFromMyMarke
 
 
 const ItemCard = (props) => {
-    console.log('PROPS ON THE CARD', props)
     const { currentUser, items, item, itemOwnerId, modalBody, modalIcon, inRequest } = props
     let modalButton, buttonText, clickHandler
-    
+
     const cardBody = singleItem => {
             switch (props.path) {
                 case '/pantry':
@@ -46,7 +45,7 @@ const ItemCard = (props) => {
                 </div>
                 <div className="card-text-wrapper col-7 d-inline-flex flex-column justify-content-center">
                     <h5 className="card-title">{singleItem.name}</h5>
-                    {!inRequest && 
+                    {!inRequest &&
                         <div>
                             <p className="card-text">{singleItem.description}</p>
                             <h6>On offer by {singleItem.user.username}</h6>

@@ -30,6 +30,7 @@ export const createContractWeb3 = (items, currentUser, soliciteeId) =>
       .then(result => {
         // console.log('RESULT', result)
         const contractAddress = result.data
+        console.log("BASCKET.JS RESULTDATA: ", result.data)
         // console.log('Web3 RESULT.data: ', result.data)
         dispatch(createContractApi(contractAddress, currentUser.id, soliciteeId, items))
         console.log("END OF CREATE CONTRACT")
