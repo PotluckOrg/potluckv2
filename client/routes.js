@@ -65,11 +65,13 @@ const mapDispatch = (dispatch) => {
       dispatch(me())
       dispatch(fetchContracts())
       dispatch(fetchAllItems())
+      dispatch(fetchInbox())
     }
   }
 }
 
 export default connect(mapState, mapDispatch)(Routes)
+
 // export default Routes
 
 /**

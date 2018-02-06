@@ -24,10 +24,7 @@ export const clearInbox = () => ({ type: CLEAR_INBOX })
 export const fetchInbox = () => dispatch =>
   axios
     .get('/api/inbox')
-    .then(res => {
-        console.log('I AM THE RES.DATA', res.data)
-        dispatch(getInbox(res.data || defaultInbox))
-    })
+    .then(res => dispatch(getInbox(res.data || defaultInbox)))
     .catch(err => console.log(err))
 
 export const updateInbox = updatedItem => dispatch =>

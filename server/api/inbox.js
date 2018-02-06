@@ -24,9 +24,6 @@ router.get('/', (req, res, next) => {
         //compose inbox Map by contract ID
         associationContractIds.forEach((contractId, v2, set) => {
             let contract, assocs, otherUser
-            
-            //find Contract instance
-            
             assocs = rAssociations.filter(association => +association.contractId === +contractId)
             
             //find other user by looking through assocs and filtering out current user
