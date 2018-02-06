@@ -5,6 +5,7 @@ const { User } = require('../db/models')
 
 let gethInstances = []
 let ipcAddresses = []
+let coinbases = []
 let currentNode
 
 router.post('/geth-start-script', (req, res, next) => {
@@ -36,15 +37,25 @@ router.post('/geth-start-script', (req, res, next) => {
     console.log(`${req.body.user.username} has started geth.`)
   })
   .then(function() {
-    console.log(`${req.body.user.username} getting enode info...`)
-    return currentNode.inst.consoleExec('admin.nodeInfo.enode')
+    console.log(`${req.body.user.username} getting Account info...`)
+    return currentNode.inst.consoleExec('eth.coinbase')
   })
-  .then(enode => {
-    //will not work with enodes when network is les than 2 people
+  .then(coinbase => {
+    //will not work with coinbases when network is les than 2 people
+    console.log("COINBASE: ", coinbase)
+    coinbases.push(coinbase)
+    let cbAddr = coinbase.replace(/^"(.*)"$/, '$1')
+    User.update({cbAddr}, {
+      where: {
+        id: req.body.user.id
+      }
+    })
     console.log(`Adding ${req.body.user.username} to peer network.`)
     if (gethInstances.length > 1) {
       for (let i = 0; i < gethInstances.length - 1; i++){
-        gethInstances[i].inst.consoleExec(`admin.addPeer(${enode})`)
+        for (let j = 0; j < coinbases.length; j++){
+          gethInstances[i].inst.consoleExec(`admin.addPeer(${coinbases[j]})`)
+        }
       }
     }
   })

@@ -1,4 +1,4 @@
-// const Web3 = require('web3');
+const Web3 = require('web3');
 const net = require('net');
 const path = require('path');
 // const config = require('config');
