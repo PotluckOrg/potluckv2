@@ -11,14 +11,24 @@ router.post('/', (req, res, next) => {
   const contractAddress = req.body.contractAddress
     Contract.create({contractAddress})
     .then(newContract => {
+        // const newAssocs = req.body.items.map(singleItem => {
+        //   return {
+        //     contractId: newContract.id,
+        //     userId: singleItem.userId,
+        //     itemId: singleItem.id
+        //   }
+        // })
+        // console.log("newAssocs: ", newAssocs)
+        // ContractAssociations.bulkCreate(newAssocs)
         ContractAssociations.bulkCreate([{
             contractId: newContract.id,
-            userId: req.body.currentUserId
+            userId: req.body.currentUserId,
+            itemId: req.body.items[0].id
         },
         {
             contractId: newContract.id,
             userId: req.body.soliciteeId
-        }], {individualHooks: true})
+        }])
         return newContract
     })
     .then(newContract => {
