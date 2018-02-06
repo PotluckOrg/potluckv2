@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import {getContractUsersAndItems} from '../store'
 
 const LedgerCard = (props) => {
-  const {contract, getRelatedUsersAndItems} = props
-  let newTrade = getRelatedUsersAndItems(contract)
+  const {contract, newTrade, getRelatedUsersAndItems} = props
+  //getRelatedUsersAndItems(contract)
   console.log("NEWTRADE: ", newTrade)
     //const trade = props.trade
     // const trade = {
@@ -19,13 +19,14 @@ const LedgerCard = (props) => {
 
     return (
         <div className="card w-100">
-            <h1>Ledger Card!</h1>
+        <h1>Cards!</h1>
         </div>
     )
 }
 
 const mapState = (state) => {
     return {
+      newTrade: state.ledger.trade
     }
 }
 

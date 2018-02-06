@@ -6,19 +6,13 @@ import LedgerCard from './LedgerCard'
 const Ledger = (props) => {
 
     const {completedContracts} = props
-
-  // componentWillUdate(nextProps) {
-  //   if (nextProps.completedContracts !== this.prevProps.completedContracts) {
-  //     let newTrade = getContractUsersAndItems()
-  //     console.log(newTrade)
-  //   }
-  // }
+  console.log("COMPLETED CONTRACTS: ", completedContracts)
 
     return (
           <div>
             <h3>Communit Board</h3>
             <ul className="ledger-list">
-                {completedContracts.length > 0 ?
+                {completedContracts ?
                     completedContracts.map(contract => {
                         return (
                             <li key={contract.id} className="item-card">
@@ -35,7 +29,7 @@ const Ledger = (props) => {
 
 const mapState = (state) => {
     return {
-        completedContracts: state.ledger
+        completedContracts: state.ledger.completedContracts
     }
 }
 
