@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import Modal from './Modal'
 import { addToBasket, removeFromBasket, returnToMyMarketThunk, removeFromMyMarket, addToOffer, removeFromOffer, createContractWeb3 } from '../store'
 
@@ -96,4 +97,4 @@ const mapDispatch = (dispatch, ownProps) => {
     }
 }
 
-export default connect(mapState, mapDispatch)(ItemCard)
+export default withRouter(connect(mapState, mapDispatch)(ItemCard))

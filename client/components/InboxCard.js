@@ -14,6 +14,7 @@ const InboxCard = (props) => {
 
     if (lengthCheck && items) {
         filteredAssociations = associations.filter(association => association.userId !== currentUser.id)
+        console.log('filteredAssociations', filteredAssociations)
         item = items.find(item => item.id === filteredAssociations[0].itemId)
         if (request) message = `You have a new request from ${item.user.username}`
     }

@@ -10,7 +10,7 @@ const Pantry = (props) => {
     // const modalBody = <ItemForm />
     const modalBody = "ITEM FORM"
     const inPantry = path === '/pantry'
-    const title = inPantry ? 'My Pantry' : `${pantryItems[0].user.username}'s Pantry`
+    const title = inPantry ? 'My Pantry' : (pantryItems.length && `${pantryItems[0].user.username}'s Pantry`)
     return (
         <div>
             <div>
