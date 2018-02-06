@@ -36,6 +36,7 @@ export const createContractWeb3 = (items, currentUser, soliciteeId) =>
       })
       .catch(err => console.log(err))
     }
+
 /**
  * REDUCER
  */
