@@ -24,8 +24,14 @@ body {
     display: inline-block;
   }
 
-  #title, h3 {
+  #title, h1, h2, h3, h4 {
     font-family: 'Handlee', sans-serif;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
+  #title {
+    text-align: center;
   }
 
   .item-card, .request-ticket-card {
@@ -60,7 +66,7 @@ body {
     line-height: 1rem;
   }
 
-  .market-list {
+  ul {
     padding-left: 0;
   }
 
