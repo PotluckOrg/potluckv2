@@ -25,9 +25,15 @@ export const startGethInst = (user) => dispatch =>
       .catch(err => console.log(err))
 
 export const stopGethInst = (user) => dispatch =>
-        axios.post(`/api/geth/geth-stop-script`, {user})
-        .then(res => dispatch(stopGeth()))
-        .catch(err => console.log(err))
+      axios.post(`/api/geth/geth-stop-script`, {user})
+      .then(res => dispatch(stopGeth()))
+      .catch(err => console.log(err))
+        
+export const checkGethPeers = (user) => dispatch =>
+      axios.post('/api/geth/check-peers', {user})
+      .then( res => console.log(res.data))
+      .catch(err => console.log(err))
+      
 /**
  * REDUCER
  */

@@ -10,16 +10,33 @@ let currentNode //to set apart the current user's working node
 
 router.post('/geth-start-script', (req, res, next) => {
   //check to see if the node is running
-  if (ipcAddresses === [] || !ipcAddresses.includes(req.body.user.ipcAddr)) {//declaring node geth instance
+  if (!ipcAddresses.includes(req.body.user.ipcAddr)) {//declaring node geth instance
     let inst = geth({
       verbose: true, //for console log
       gethOptions: {
       datadir: `./nodeDir/${req.body.user.username}`,
-      networkid: 5,
+      networkid: 800,
       port: req.body.user.port + 1,
       rpcport: req.body.user.rpcport + 1,
       nodiscover: false,
       maxpeers: 100
+      },
+      genesisBlock: {
+        "alloc": {},
+        "config": {
+          "homesteadBlock": 0,
+          "chainID": 72,
+          "eip155Block": 0,
+          "eip158Block": 0
+        },
+        "nonce": "0x0000000000000000",
+        "difficulty": "0x4000",
+        "mixhash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "coinbase": "0x0000000000000000000000000000000000000000",
+        "timestamp": "0x00",
+        "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "extraData": "0x0000000000000000000000000000000000000000000000000000000000000000",
+        "gasLimit": "0xffffffff"
       }
     })
     //Keeping track of what nodes have geth running for the sake of the other scripts
@@ -52,20 +69,26 @@ router.post('/geth-start-script', (req, res, next) => {
   })
   .then( enode => {
     enodes.push(enode)
-    console.log(`Adding ${req.body.user.username} to peer network.`)
-    //peers will not be added if only one node is running
-    if (gethInstances.length > 1) {
-      for (let j = 0; j < enodes.length; j++){
-        currentNode.inst.consoleExec(`admin.addPeer(${enodes[j]})`)
-      }
-      let peers = currentNode.inst.consoleExec(`admin.peers`)
-      console.log(`${req.body.user.username} has ${peers} peers.`)
-    }
-  })
-  .then( function () {
+
     console.log("Starting to mine...")
-    currentNode.inst.consoleExec('miner.start()')
+     currentNode.inst.consoleExec('miner.start()')
+
   })
+  // .then( function() {
+  //   //peers will not be added if only one node is running
+  //   if (gethInstances.length > 1) {
+  //     console.log(`Adding ${req.body.user.username} to peer network.`)
+  //     for (let j = 0; j < enodes.length - 1; j++){
+  //       console.log("ENODES: ", enodes[j])
+  //       let singleEnode = enodes[j]
+  //       currentNode.inst.consoleExec(`admin.addPeer(${singleEnode})`)
+  //     }
+  //   }
+  //   return currentNode.inst.consoleExec(`admin.peers`)
+  // // })
+  // .then( peers => {
+  //   console.log(`${req.body.user.username} has ${peers} peers.`)
+  //})
   .catch(function(err) {
     console.error(err)
   })
@@ -87,9 +110,9 @@ router.post('/geth-stop-script', (req, res, next) => {
       //eliminate node and its information from all our current arrays
       let index = ipcAddresses.indexOf(req.body.user.ipcAddr)
       gethInstances.splice(index, 1)
-      ipcAddresses.splice(index, 1)
       coinbases.splice(index, 1)
       enodes.splice(index, 1)
+      ipcAddresses.splice(index, 1)
     })
     .catch(function(err){
       console.error(err)
@@ -104,16 +127,16 @@ router.post('/geth-stop-script', (req, res, next) => {
 /**
  * Route to check peers
  */
-router.get('/check-peers/:user', (req, res, next) => {
+router.post('/check-peers/', (req, res, next) => {
   if (ipcAddresses.includes(req.body.user.ipcAddr))
   {
      currentNode = gethInstances.find(node => node.ipcAddr === req.body.user.ipcAddr)
-    currentNode.inst.consoleExec('net.peerCount')
+    currentNode.inst.consoleExec('admin.peers')
     .then(peers => {
-      console.log(`This node has ${peers} peers.`)
+      console.log(`${req.body.user.username} has ${peers} peers.`)
     })
   }
   res.json("Testing peers")
 })
 
-module.exports = {router, currentUser}
+module.exports = router
