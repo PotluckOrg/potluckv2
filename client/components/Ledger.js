@@ -1,60 +1,48 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import LedgerCard from './LedgerCard'
 
 
-class Ledger extends Component {
+const Ledger = (props) => {
 
+    const {completedContracts} = props
 
-  componentWillUdate(nextProps) {
-    if (nextProps.foodContracts !== this.prevProps.foodContracts) {
-      let tradedUsers = getContractUsers(foodContract.contractAddress)
-        this.trade = {
-        user1: {
-          username: tradedUsers[0].username,
-          comments: tradedUsers[0].comments
-        },
-        user2: {
-          username: tradedUsers[1].username,
-          comments: tradedUsers[1].comments
-        }
-      }
-    }
-  }
+  // componentWillUdate(nextProps) {
+  //   if (nextProps.completedContracts !== this.prevProps.completedContracts) {
+  //     let newTrade = getContractUsersAndItems()
+  //     console.log(newTrade)
+  //   }
+  // }
 
-    render () {
-      let {foodContracts} = this.props.foodContracts
-        return (
+    return (
           <div>
             <h3>Communit Board</h3>
             <ul className="ledger-list">
-                {foodContracts &&
-                    foodContracts.map(contract => {
+                {completedContracts.length > 0 ?
+                    completedContracts.map(contract => {
                         return (
                             <li key={contract.id} className="item-card">
-                                <LedgerCard trade={this.trade} />
+                                <LedgerCard contract={contract} />
                             </li>
                         )
                     })
+                    : <h1>No contracts have been created.</h1>
                 }
             </ul>
           </div>
-      )
-    }
+    )
 }
 
 const mapState = (state) => {
     return {
-        foodContracts: state.foodContracts
+        completedContracts: state.ledger
     }
 }
 
 const mapDispatch = (dispatch) => {
   return {
-    getContractUsers() {
-      dispatch(fetchContractUsers(foodContract.contractAddress))
+
     }
-  }
 }
 
 export default connect(mapState, mapDispatch)(Ledger)

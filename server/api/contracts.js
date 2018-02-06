@@ -40,8 +40,10 @@ router.post('/', (req, res, next) => {
 
 //Get All Contracts that have been completed
 router.get('/completed', (req, res, next) => {
-  Contract.findAll({where: {status: 'completed'}})
-    .then( contracts => res.status(204).json(contracts))
+  Contract.findAll({where: {status: 'Completed'}})
+    .then( contracts => {
+      res.status(200).json(contracts)})
+    .catch(next)
 })
 
 module.exports = router;

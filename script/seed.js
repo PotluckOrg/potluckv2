@@ -147,7 +147,7 @@ const contracts = [
   },
   {
     contractAddress: '0xgh4f6D4EgH4Ec4dd5cEYHAc932f473e3E312Aa21',
-    stats: 'Completed'
+    status: 'Completed'
   },
   {
     contractAddress: '0xqr4f4D4Ef8CUm4dy3cEEFAc985f414e3E562Ga49',
