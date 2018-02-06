@@ -38,4 +38,10 @@ router.post('/', (req, res, next) => {
     .catch(err => console.log(err))
 })
 
+//Get All Contracts that have been completed
+router.get('/completed', (req, res, next) => {
+  Contract.findAll({where: {status: 'completed'}})
+    .then( contracts => res.status(204).json(contracts))
+})
+
 module.exports = router;
