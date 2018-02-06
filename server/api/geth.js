@@ -15,7 +15,6 @@ router.post('/geth-start-script', (req, res, next) => {
 
     //declaring node geth instance
     let inst = geth({
-      autoMine: true,
       verbose: true,
       gethOptions: {
       datadir: `./nodeDir/${req.body.user.username}`,
@@ -38,10 +37,6 @@ router.post('/geth-start-script', (req, res, next) => {
   currentNode.inst.start()
   .then(function() {
     console.log(`${req.body.user.username} has started geth.`)
-  })
-  .then(function() {
-    console.log(`${req.body.user.username} creating new Account...`)
-    return currentNode.inst.consoleExec(`personal.newAccount(${req.body.user.password})`)
   })
   .then(function() {
     console.log(`${req.body.user.username} getting Account info...`)
@@ -68,7 +63,7 @@ router.post('/geth-start-script', (req, res, next) => {
   })
   .then( function () {
     console.log("Starting to mine...")
-    //currentNode.inst.consoleExec('miner.start()')
+    currentNode.inst.consoleExec('miner.start()')
   })
   .catch(function(err) {
     console.error(err)
