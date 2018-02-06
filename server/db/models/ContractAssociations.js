@@ -6,7 +6,7 @@ const ContractAssociations = db.define('contractAssociation', {
     type: Sequelize.INTEGER
   },
   comment: {
-    type: Sequelize.TEXT
+    type: Sequelize.STRING
   }
 })
 

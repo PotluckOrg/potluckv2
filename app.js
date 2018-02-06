@@ -2,7 +2,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const compression = require('compression')
-// const Web3 = require('web3');
+const Web3 = require('web3');
 const net = require('net');
 const config = require('config');
 const compiledContract = require('./contracts/contractv1');
@@ -57,7 +57,7 @@ const createApp = () => {
   // auth and api routes
   app.use('/api', require('./server/api'))
   app.use('/auth', require('./server/auth'))
-  // app.use('/web3', require('./server/web3'))
+  app.use('/web3', require('./server/web3'))
 
 
   // static file serving middleware

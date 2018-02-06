@@ -12,6 +12,7 @@ router.post('/geth-start-script', (req, res, next) => {
   //check to see if the node is running
   if (!ipcAddresses.includes(req.body.user.ipcAddr)) {//declaring node geth instance
     let inst = geth({
+      balance: 2000,
       verbose: true, //for console log
       gethOptions: {
       datadir: `./nodeDir/${req.body.user.username}`,
@@ -70,25 +71,10 @@ router.post('/geth-start-script', (req, res, next) => {
   .then( enode => {
     enodes.push(enode)
 
-    console.log("Starting to mine...")
-     currentNode.inst.consoleExec('miner.start()')
+   // console.log("Starting to mine...")
+     //currentNode.inst.consoleExec('miner.start()')
 
   })
-  // .then( function() {
-  //   //peers will not be added if only one node is running
-  //   if (gethInstances.length > 1) {
-  //     console.log(`Adding ${req.body.user.username} to peer network.`)
-  //     for (let j = 0; j < enodes.length - 1; j++){
-  //       console.log("ENODES: ", enodes[j])
-  //       let singleEnode = enodes[j]
-  //       currentNode.inst.consoleExec(`admin.addPeer(${singleEnode})`)
-  //     }
-  //   }
-  //   return currentNode.inst.consoleExec(`admin.peers`)
-  // // })
-  // .then( peers => {
-  //   console.log(`${req.body.user.username} has ${peers} peers.`)
-  //})
   .catch(function(err) {
     console.error(err)
   })
@@ -128,13 +114,30 @@ router.post('/geth-stop-script', (req, res, next) => {
  * Route to check peers
  */
 router.post('/check-peers/', (req, res, next) => {
+
   if (ipcAddresses.includes(req.body.user.ipcAddr))
   {
      currentNode = gethInstances.find(node => node.ipcAddr === req.body.user.ipcAddr)
-    currentNode.inst.consoleExec('admin.peers')
-    .then(peers => {
-      console.log(`${req.body.user.username} has ${peers} peers.`)
-    })
+
+     //peers will not be added if only one node is running
+    if (gethInstances.length > 1) {
+      console.log(`Adding ${req.body.user.username} to peer network.`)
+      for (let j = 0; j < enodes.length - 1; j++){
+        console.log("ENODES: ", enodes[j])
+        let singleEnode = enodes[j]
+        currentNode.inst.consoleExec(`admin.addPeer(${singleEnode})`)
+      }
+    }
+  currentNode.inst.consoleExec(`admin.peers`)
+  .then( peers => {
+    console.log(`${req.body.user.username} has ${peers} peers.`)
+  })
+  .catch( err => console.log(err))
+
+    // currentNode.inst.consoleExec('admin.peers')
+    // .then(peers => {
+    //   console.log(`${req.body.user.username} has ${peers} peers.`)
+    // })
   }
   res.json("Testing peers")
 })

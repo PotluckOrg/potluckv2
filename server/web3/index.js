@@ -47,10 +47,10 @@ router.use((req, res, next) => {
 
   // I replaced the block below with the line above this one:
 
-  // web3.eth.getCoinbase(function(err, cba) {
-  //   coinbaseAddress = cba;
-  //   console.log('Coinbase Address: ', coinbaseAddress);
-  // });
+  web3.eth.getCoinbase(function(err, cba) {
+    coinbaseAddress = cba;
+    console.log('Coinbase Address: ', coinbaseAddress);
+  });
   coinbasePassphrase = '1234';
   byteCode = compiledContract.byteCode;
   ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
