@@ -5,6 +5,7 @@ const { User } = require('../db/models')
 let gethInstances = [] //keeping track of running insts
 let ipcAddresses = [] //keeping track of running nodes
 let coinbases = [] //for replacing outdated account data in the db with newly created accounts
+let enodes = [] //keeping check of all the enodes to add to peers
 let currentNode //to set apart the current user's working node
 
 router.post('/geth-start-script', (req, res, next) => {
@@ -47,14 +48,18 @@ router.post('/geth-start-script', (req, res, next) => {
         id: req.body.user.id
       }
     })
+    return currentNode.inst.consoleExec('admin.nodeInfo.enode')
+  })
+  .then( enode => {
+    enodes.push(enode)
     console.log(`Adding ${req.body.user.username} to peer network.`)
     //peers will not be added if only one node is running
     if (gethInstances.length > 1) {
-      for (let i = 0; i < gethInstances.length - 1; i++){
-        for (let j = 0; j < coinbases.length; j++){
-          gethInstances[i].inst.consoleExec(`admin.addPeer(${coinbases[j]})`)
-        }
+      for (let j = 0; j < enodes.length; j++){
+        currentNode.inst.consoleExec(`admin.addPeer(${enodes[j]})`)
       }
+      let peers = currentNode.inst.consoleExec(`admin.peers`)
+      console.log(`${req.body.user.username} has ${peers} peers.`)
     }
   })
   .then( function () {
@@ -79,9 +84,12 @@ router.post('/geth-stop-script', (req, res, next) => {
     currentNode.inst.stop()
     .then(function() {
 
+      //eliminate node and its information from all our current arrays
       let index = ipcAddresses.indexOf(req.body.user.ipcAddr)
       gethInstances.splice(index, 1)
       ipcAddresses.splice(index, 1)
+      coinbases.splice(index, 1)
+      enodes.splice(index, 1)
     })
     .catch(function(err){
       console.error(err)
