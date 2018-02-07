@@ -41,6 +41,7 @@ export const returnToMyMarketThunk = (itemId) => dispatch => {
 
   export function addPantryItemToDB(allItemInfo) {
     return function (dispatch) {
+      console.log('ALLITEMINFO', allItemInfo)
         axios.post('/api/items', allItemInfo)
             .then(res => {
                 console.log('RES>DATA', res.data)

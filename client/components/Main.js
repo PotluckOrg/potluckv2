@@ -12,7 +12,7 @@ import {logout, stopGethInst, checkGethPeers} from '../store'
  */
 const Main = (props) => {
   console.log('i am props', props)
-  const {children, handleClick, isLoggedIn, user, inbox, basket. stopGeth} = props
+  const {children, handleClick, isLoggedIn, user, inbox, basket, stopGeth} = props
   return (
     <div>
       <h1 id="title">POTLUCK</h1>
