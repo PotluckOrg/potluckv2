@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import LedgerCard from './LedgerCard'
 import {fetchAllTrades} from '../store'
+import toast from 'toastr'
 
 
 class Ledger extends Component {
@@ -22,7 +23,11 @@ class Ledger extends Component {
       }
 
     render () {
-      const {allTrades} = this.props
+      const {allTrades, inbox} = this.props
+      toast.options.positionClass = "toast-top-right"
+      if (inbox['1']) {
+        toast.warning('You have pending requests!')
+      }
       return (
         <div>
           <h3>Community Board</h3>
@@ -44,10 +49,10 @@ class Ledger extends Component {
 }
 
 const mapState = (state) => {
-  console.log("STATE: ", state)
   return {
     allTrades: state.trade,
-    contracts: state.ledger
+    contracts: state.ledger,
+    inbox: state.inbox
   }
 }
 

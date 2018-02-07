@@ -13,7 +13,7 @@ router.post('/geth-start-script', (req, res, next) => {
   if (!ipcAddresses.includes(req.body.user.ipcAddr)) {//declaring node geth instance
     let inst = geth({
       balance: 2000,
-      verbose: false, //for console log
+      verbose: true, //for console log
       gethOptions: {
       datadir: `./nodeDir/${req.body.user.username}`,
       networkid: 800,

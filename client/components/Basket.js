@@ -3,12 +3,14 @@ import {connect} from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import ItemCard from './ItemCard'
 import Modal from './Modal'
+import toast from 'toastr'
 
 import { createContractWeb3, removeFromBasket, removeFromMyMarket } from '../store'
 
 
 
 const Basket = (props) => {
+    toast.options.positionClass = "toast-top-right"
     let display, hasItems, hasItemsByOwner, cardDisplay = []
     let itemsByOwner = new Map()
 
@@ -55,10 +57,11 @@ const Basket = (props) => {
     return (
         <div>
             {display}
-                {items.length &&
-                    <button type="button" className="btn btn-primary" onClick={event => props.sendBatchRequestHandler(event, items, currentUser)}>
-                        {modalIcon}
-                    </button>
+                {
+                  // items.length &&
+                  //   <button type="button" className="btn btn-primary" onClick={event => props.sendBatchRequestHandler(event, items, currentUser)}>
+                  //       {modalIcon}
+                  //   </button>
                 }
                 <Modal name="request" body={modalBody} />
         </div>
@@ -83,6 +86,7 @@ const mapDispatch = (dispatch, ownProps) => {
                     dispatch(removeFromBasket(item.id))
                     dispatch(removeFromMyMarket(item.id))
                 })
+                toast.success('Your requet has been sent!')
 
                 //should items keep a state? pending
         },
