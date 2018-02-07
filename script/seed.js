@@ -18,7 +18,6 @@ const users = [
     ipcAddr: "../../nodeDir/ruthtown",
     port: 4001,
     rpcport: 40011,
-    cbAddr: "0x9cbaacc29f0aeeff4fb928ce24307fb6c4301b14",
     email: "ru@ru.com",
     tradesCompleted: 3
   },
@@ -28,7 +27,6 @@ const users = [
     ipcAddr: "../../nodeDir/oczane1",
     port: 4002,
     rpcport: 40021,
-    cbAddr: "0xa0e3b0c17cd1dcf0467809aaa4d8828b088eb4ac",
     email: "oczane@web.com",
     tradesCompleted: 8
   },
@@ -38,8 +36,7 @@ const users = [
     ipcAddr: "../../nodeDir/ooong",
     port: 4003,
     rpcport: 40031,
-    cdAddr: '0x5d6963b2f401eed4927ea1b1fccd3062828cdcfb',
-    email: "oong@gh.com",
+    email: "ooong@gh.com",
     tradesCompleted: 0
   },
   {
@@ -48,29 +45,26 @@ const users = [
     ipcAddr: "../../nodeDir/lwyatt",
     port: 4004,
     rpcport: 40041,
-    cbAddr: '0x76dba01d7564e4ec7e6b7bc76f08e453f481a944',
     email: "lwyatt@net.com",
     tradesCompleted: 22
   },
   {
-    username: "nat",
+    username: "smurf",
     password: "password",
-    ipcAddr: "../../nodeDir/nat",
+    ipcAddr: "../../nodeDir/smurf",
     port: 4005,
     rpcport: 40051,
-    cbAddr: "0x7e69a04d3059ea7df7e13dafcde46906b463294a",
-    email: "nat@nat.com",
+    email: "smurf@smurf.com",
     tradesCompleted: 3
   },
   {
-    username: "nat2",
+    username: "guest",
     password: "password",
-    ipcAddr: "../../nodeDir/nat2",
+    ipcAddr: "../../nodeDir/guest",
     port: 4006,
     rpcport: 40061,
-    cbAddr: "0xd583c533a103eb4459fca932d6bc717d6a05fb40",
-    email: "nat2@nat.com",
-    tradesCompleted: 2
+    email: "guest@guest.com",
+    tradesCompleted: 0
   }
 ]
 
@@ -139,6 +133,12 @@ const items = [
     description: "Used half of this carton to make whipped cream, but I don't need the rest",
     userId: 4,
     iconUrl: './icons/milk.svg'
+  },
+  {
+    name: 'A handful of shiitake mushrooms',
+    description: "Didn't use 'em all - a week old'",
+    userId: 5,
+    iconUrl: './icons/mushroom.svg'
   }
 ]
 
@@ -206,6 +206,21 @@ const messages = [
     subject: 'Greetings from the 25th floor!',
     messageBody: 'Hi there! When are you free to exchange groceries? You can find me on the 25th floor or I can come to the 11th floor or meet in the lobby',
     recipientUserId: 3
+  },
+  {
+    subject: 'Greetings from the 25th floor!',
+    messageBody: 'Hi there! When are you free to exchange groceries? You can find me on the 25th floor or I can come to the 11th floor or meet in the lobby',
+    recipientUserId: 4
+  },
+  {
+    subject: 'Greetings from the 25th floor!',
+    messageBody: 'Hi there! When are you free to exchange groceries? You can find me on the 25th floor or I can come to the 11th floor or meet in the lobby',
+    recipientUserId: 5
+  },
+  {
+    subject: 'Greetings from the 25th floor!',
+    messageBody: 'Hi there! When are you free to exchange groceries? You can find me on the 25th floor or I can come to the 11th floor or meet in the lobby',
+    recipientUserId: 6
   }
 ];
 
