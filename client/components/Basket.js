@@ -86,7 +86,7 @@ const mapDispatch = (dispatch, ownProps) => {
                     dispatch(removeFromBasket(item.id))
                     dispatch(removeFromMyMarket(item.id))
                 })
-                toast.success('Your requet has been sent!')
+                toast.success('Your request has been sent!')
 
                 //should items keep a state? pending
         },
