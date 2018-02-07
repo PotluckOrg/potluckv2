@@ -11,6 +11,19 @@ router.get('/:contractId', (req, res, next) => {
     .catch(next);
 });
 
+router.put('/:contractId', (req, res, next) => {
+  return ContractAssociations.findOne({where: {
+      userId: req.body.soliciteeId
+  }})
+  .then(contractAssoc => {
+    return contractAssoc.update({itemIds: req.body.itemIds})
+  })
+  .then(updatedCA => {
+    console.log("Updated ContractAssociation: ", updatedCA)
+    res.json(updatedCA)
+  })
+  .catch(next)
+})
 
 
 module.exports = router;

@@ -107,7 +107,8 @@ router.post('/contract', function(req, res) {
         })
         .on('receipt', function (receipt) {
           console.log(`Item with address ${contractAddress} updated.`);
-          res.redirect('/questions?address=' + contractAddress);
+          res.json(receipt.contractAddress)
+          // res.redirect('/contract');
         }
       );
     });
