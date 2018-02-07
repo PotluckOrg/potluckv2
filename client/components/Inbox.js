@@ -7,17 +7,21 @@ const Inbox = (props) => {
     // const { requests } = props
     console.log('INBOX PROPS:', props)
     const requests = props.currentUser.contracts
-    const createdRequests = requests.filter(request => {
-        console.log('REQUEST', request)
-        return request.status === 'Created'
-    })
-    const pendingRequests = requests.filter(request => {
-        console.log('REQUEST', request)
-        return request.status === 'Pending'
-    })
-    const completedRequests = requests.filter(request => {
-        return request.status === 'Completed'
-    })
+    let createdRequests, pendingRequests, completedRequests;
+    if (requests) {
+      createdRequests = requests.filter(request => {
+          console.log('REQUEST', request)
+          return request.status === 'Created'
+      })
+      pendingRequests = requests.filter(request => {
+          console.log('REQUEST', request)
+          return request.status === 'Pending'
+      })
+      completedRequests = requests.filter(request => {
+          return request.status === 'Completed'
+      })
+  }
+    else "No current requests!"
 
     return (
         <div>

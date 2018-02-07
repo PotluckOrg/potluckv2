@@ -42,7 +42,7 @@ const RequestTicket = (props) => {
                             <li>
                                 <ItemCard itemOwnerId={currentUser.id} items={itemsRequested} path={props.match.path} inRequest="true" />
                             </li>
-                        
+
                     }
                 </ul>
                 <h3>Offer</h3>

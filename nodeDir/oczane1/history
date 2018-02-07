@@ -7,3 +7,5 @@ miner.stop()
 admin
 miner.start()
 miner.stop()
+miner.start()
+miner.stop()
