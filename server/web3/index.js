@@ -115,3 +115,27 @@ router.post('/contract', function(req, res) {
     });
   }
 });
+
+router.post('/complete', function(req, res) {
+  const contractAddress = req.body.contractAddress;
+  const currentUser = req.body.currentUser
+
+  if (web3.utils.isAddress(contractAddress)) {
+    console.log('is valid address');
+    web3.eth.personal.unlockAccount(coinbaseAddress, coinbasePassphrase, function(err, uares) {
+      console.log('account unlocked');
+      ProduceSwapContract.options.address = contractAddress;
+      ProduceSwapContract.methods.completeSwap().send({from: coinbaseAddress, gas: 1000000})
+        .on('error', function (error) {
+          console.log('Contract creation error:' + error);
+        })
+        .on('receipt', function (receipt) {
+          console.log(`The receipt from the end of WEB3 complete`, receipt);
+          res.json(receipt.contractAddress)
+          // res.redirect('/contract');
+          // when receipt says swap completed, that's when we want to dispatch updateContractStatus
+        }
+      );
+    });
+  }
+});
