@@ -35,7 +35,7 @@ export const updateContract = (items, contract, solicitor, solicitorId, currentU
       console.log('----Reached other side of web3/contract POST----')
       console.log("RES.DATA (contractAddress): ", res.data)
       dispatch(updateContractAssoc(contract.id, currentUser.id, itemIds))
-      dispatch(updateContractStatus(contract.id))
+      dispatch(updateContractStatus(contract.id, {status: 'SecondReview'}))
       console.log("** MADE IT THROUGH UpdateContract **")
  //   dispatch(fetchContracts())
     })
