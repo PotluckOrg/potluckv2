@@ -23,14 +23,14 @@ router.get('/ledger/:contractId', (req, res, next) => {
         id: assocs[0].userId,
         name: 'name',
         itemId: assocs[0].itemId,
-        itemName: 'itemName',
+        itemImg: '',
         comments: assocs[0].comment
       }
       newTrade.user2 = {
         id: assocs[1].userId,
         name: 'name',
         itemId: assocs[1].itemId,
-        itemName: 'itemName',
+        itemImg: '',
         comments: assocs[1].comment
       }
       return Promise.all([User.findById(assocs[0].userId), User.findById(assocs[1].userId)])
@@ -42,8 +42,8 @@ router.get('/ledger/:contractId', (req, res, next) => {
        return Promise.all([Item.findById(newTrade.user1.itemId), Item.findById(newTrade.user2.itemId)])
      })
      .then( foundItems => {
-       newTrade.user1.itemName = foundItems[0].name
-       newTrade.user2.itemName = foundItems[1].name
+       newTrade.user1.itemImg = foundItems[0].iconUrl
+       newTrade.user2.itemImg = foundItems[1].iconUrl
      })
     .then( function () {
       res.status(200).json(newTrade)

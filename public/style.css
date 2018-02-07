@@ -121,3 +121,11 @@ body {
   .auth-form-bg {
     background-color: #BCED91;
   }
+
+  /*
+  **LEDGER STYLES
+  */
+  .ledger-item-img {
+    width: 8%;
+    height: auto;
+  }
