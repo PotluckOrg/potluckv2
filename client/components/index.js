@@ -16,3 +16,5 @@ export {default as MessageInbox} from './MessageInbox'
 export {default as MessageCard} from './MessageCard'
 export {default as Pantry} from './Pantry'
 export {default as RequestTicket} from './RequestTicket'
+export {default as AddPantryItem} from './AddPantryItem'
+

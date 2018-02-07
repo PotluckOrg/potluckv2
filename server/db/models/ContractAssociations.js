@@ -2,8 +2,8 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const ContractAssociations = db.define('contractAssociation', {
-  itemId: {
-    type: Sequelize.INTEGER
+  itemIds: {
+    type: Sequelize.STRING
   },
   comment: {
     type: Sequelize.STRING

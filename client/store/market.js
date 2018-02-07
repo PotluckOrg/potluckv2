@@ -32,13 +32,26 @@ export const fetchAllItems = () =>
 }
 
 export const returnToMyMarketThunk = (itemId) => dispatch => {
-    //   axios
-    //     .get(`/api/items/${itemId}`)
-    //     .then(res => dispatch(returnToMyMarket(res.data)))
-    //     .catch(err => console.log(err))
-        let data = defaultMarket.find(item => item.id === itemId)
-        dispatch(returnToMyMarket(data))
+  console.log
+      axios
+        .get(`/api/items/${itemId}`)
+        .then(res => dispatch(returnToMyMarket(res.data)))
+        .catch(err => console.log(err))
   }
+
+  export function addPantryItemToDB(allItemInfo) {
+    return function (dispatch) {
+      console.log('ALLITEMINFO', allItemInfo)
+        axios.post('/api/items', allItemInfo)
+            .then(res => {
+                console.log('RES>DATA', res.data)
+                const itemId = res.data.id
+                return dispatch(returnToMyMarketThunk(itemId))
+            })
+            .catch(err => console.error(err))
+    }
+}
+
 
 /**
  * REDUCER

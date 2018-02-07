@@ -1,3 +1,5 @@
+
+
 const router = require("express").Router();
 const { Item, Contract, ContractAssociations } = require("../db/models");
 
@@ -7,23 +9,22 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+//Get All Contracts that have been completed
+router.get('/completed', (req, res, next) => {
+  Contract.findAll({where: {status: 'Completed'}})
+    .then( contracts => {
+      res.status(200).json(contracts)})
+    .catch(next)
+})
+
 router.post('/', (req, res, next) => {
   const contractAddress = req.body.contractAddress
     Contract.create({contractAddress})
     .then(newContract => {
-        // const newAssocs = req.body.items.map(singleItem => {
-        //   return {
-        //     contractId: newContract.id,
-        //     userId: singleItem.userId,
-        //     itemId: singleItem.id
-        //   }
-        // })
-        // console.log("newAssocs: ", newAssocs)
-        // ContractAssociations.bulkCreate(newAssocs)
         ContractAssociations.bulkCreate([{
             contractId: newContract.id,
             userId: req.body.currentUserId,
-            itemId: req.body.items[0].id
+            itemIds: req.body.itemIds
         },
         {
             contractId: newContract.id,
@@ -38,12 +39,17 @@ router.post('/', (req, res, next) => {
     .catch(err => console.log(err))
 })
 
-//Get All Contracts that have been completed
-router.get('/completed', (req, res, next) => {
-  Contract.findAll({where: {status: 'Completed'}})
-    .then( contracts => {
-      res.status(200).json(contracts)})
-    .catch(next)
+router.put('/:contractId', (req, res, next) => {
+  Contract.findById(req.params.contractId)
+  .then(contract => {
+    return contract.update({status: req.body.status})
+  })
+  .then(updatedContract => {
+    console.log(`Updated Contract, status should be ${req.body.status}: `, updatedContract)
+    res.json(updatedContract)
+  })
+  .catch(next)
 })
 
 module.exports = router;
+

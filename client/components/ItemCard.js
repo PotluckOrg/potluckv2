@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import Modal from './Modal'
 import { addToBasket, removeFromBasket, returnToMyMarketThunk, removeFromMyMarket, addToOffer, removeFromOffer, createContractWeb3 } from '../store'
 
@@ -7,12 +8,15 @@ import { addToBasket, removeFromBasket, returnToMyMarketThunk, removeFromMyMarke
 
 const ItemCard = (props) => {
     const { currentUser, items, item, itemOwnerId, modalBody, modalIcon, inRequest } = props
+    console.log('ITEMCARDPROPS', props)
     let modalButton, buttonText, clickHandler
 
     const cardBody = singleItem => {
             switch (props.path) {
                 case '/pantry':
-                    buttonText = <i className="fa fa-plus" aria-hidden="true" />
+                console.log('SINGLEITEM', singleItem)
+                    buttonText = <i className="fa fa-minus" aria-hidden="true" />
+                    // clickHandler = event => props.handleAddToOffer(event, singleItem, currentUser.id)
                     clickHandler = event => props.handleAddToOffer(event, singleItem, currentUser.id)
                 break;
 
@@ -95,4 +99,4 @@ const mapDispatch = (dispatch, ownProps) => {
     }
 }
 
-export default connect(mapState, mapDispatch)(ItemCard)
+export default withRouter(connect(mapState, mapDispatch)(ItemCard))

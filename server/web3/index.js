@@ -15,7 +15,7 @@ module.exports = router
 // const configPort = 4001
 
 //web3 work
-// let web3 = new Web3(ipcAddr, net);
+// let  = new Web3(ipcAddr, net);
 //
 // web3.eth.getCoinbase(function(err, cba) {
 //   coinbaseAddress = cba;
@@ -107,7 +107,8 @@ router.post('/contract', function(req, res) {
         })
         .on('receipt', function (receipt) {
           console.log(`Item with address ${contractAddress} updated.`);
-          res.redirect('/questions?address=' + contractAddress);
+          res.json(receipt.contractAddress)
+          // res.redirect('/contract');
         }
       );
     });
