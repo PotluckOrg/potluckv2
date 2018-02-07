@@ -132,6 +132,7 @@ router.post('/complete', function(req, res) {
           console.log(`The receipt from the end of WEB3 complete`, receipt);
           res.json(receipt.contractAddress)
           // res.redirect('/contract');
+          // when receipt says swap completed, that's when we want to dispatch updateContractStatus
         }
       );
     });

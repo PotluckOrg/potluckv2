@@ -62,18 +62,16 @@ export const updateContractStatus = contractId => dispatch => {
 // when BOTH users have done so, status of contract in DB needs to update to 'Completed' also
 
 export const completeContractStatus = (contract, currentUser) => dispatch => {
+  const contractAddress = contract.address
   const contractId = contract.id
 
   // update the contract status in solidity via web3 to completed
   axios.post('/web3/complete', {contractAddress, currentUser})
   .then(res => {
     console.log('THIS IS THE RESULT FROM WEB3 AFTER COMPLETE', res.data)
-
-    // update the contract status in the database to 'Completed'
-    axios.put(`/api/contracts/${contractId}`, {status: 'Completed'})
-    .then(res => dispatch(getContracts(res.data)))
-    .catch(err => console.log(err))
+    dispatch(updateContractStatus(contractId, {status: 'Completed'}))
   })
+  .catch(err => console.log(err))
 }
 
 
