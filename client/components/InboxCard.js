@@ -14,10 +14,10 @@ const InboxCard = (props) => {
 
     if (lengthCheck > 0 && items.length > 0) {
         filteredAssociations = associations.filter(association => association.userId !== currentUser.id)
-        //item number items.lenght-1 is turning out as undefined
-        items.pop()
-        item = items.find(itemElem => itemElem.id === filteredAssociations[0].itemId)
+        console.log('filteredAssociations', filteredAssociations)
+        item = items.find(item => item.id === filteredAssociations[0].itemId)
         if (request && item) message = `You have a new request from ${item.user.username}`
+
     }
 
     //add different messages based off of contract status

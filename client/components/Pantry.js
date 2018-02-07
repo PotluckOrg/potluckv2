@@ -11,7 +11,7 @@ const Pantry = (props) => {
     const { items, currentUser, senderId, pantryItems } = props
     const path = props.match.path
     const inPantry = path === '/pantry'
-    const title = inPantry ? 'My Pantry' : `${pantryItems[0].user.username}'s Pantry`
+    const title = inPantry ? 'My Pantry' : (pantryItems.length && `${pantryItems[0].user.username}'s Pantry`)
     return (
         <div>
             <div>

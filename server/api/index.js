@@ -6,6 +6,7 @@ router.use('/geth', require('./geth'))
 router.use('/contracts', require('./contracts'))
 router.use('/messages', require('./messages'))
 router.use('/contractassociations', require('./contractassociations'))
+router.use('/inbox', require('./inbox'))
 
 
 router.use((req, res, next) => {

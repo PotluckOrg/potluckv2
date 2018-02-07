@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import { Route, Switch, Router } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, Market, Basket, Inbox, Account, MessageInbox, Pantry, RequestTicket, AddPantryItem} from './components'
-import {me, fetchContracts, fetchAllItems} from './store'
+import {Main, Login, Signup, UserHome, Market, Basket, Inbox, Account, MessageInbox, Pantry, RequestTicket} from './components'
+import {me, fetchContracts, fetchAllItems, fetchInbox} from './store'
+
 
 
 /**
@@ -65,11 +66,13 @@ const mapDispatch = (dispatch) => {
       dispatch(me())
       dispatch(fetchContracts())
       dispatch(fetchAllItems())
+      dispatch(fetchInbox())
     }
   }
 }
 
 export default connect(mapState, mapDispatch)(Routes)
+
 // export default Routes
 
 /**

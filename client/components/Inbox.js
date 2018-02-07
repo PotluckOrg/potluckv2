@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom'
 
 const Inbox = (props) => {
     // const { requests } = props
+    console.log('INBOX PROPS:', props)
     const requests = props.currentUser.contracts
     let createdRequests, pendingRequests, completedRequests;
     if (requests) {
@@ -75,7 +76,7 @@ const Inbox = (props) => {
 
 const mapState = (state) => {
     return {
-      requests: state.contracts,
+      requests: state.inbox,
       currentUser: state.user
     }
 }

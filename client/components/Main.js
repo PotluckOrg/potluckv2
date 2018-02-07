@@ -11,7 +11,8 @@ import {logout, stopGethInst, checkGethPeers} from '../store'
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-  const {children, handleClick, handlePeersClick, isLoggedIn, user, stopGeth, checkPeers} = props
+  console.log('i am props', props)
+  const {children, handleClick, isLoggedIn, user, inbox, basket. stopGeth} = props
   return (
     <div>
       <h1 id="title">POTLUCK</h1>
@@ -21,8 +22,8 @@ const Main = (props) => {
             ? <div>
               {/* The navbar will show these links after you log in */}
               <Link to="/market">Market</Link>
-              <Link to="/basket"><i className="fas fa-shopping-basket" />({props.basket && props.basket.length})</Link>
-              <Link to="/inbox"><i className="fas fa-envelope" />({props.user.contracts ? props.user.contracts.length : 0})</Link>
+              <Link to="/basket"><i className="fas fa-shopping-basket" />({basket.length})</Link>
+              <Link to="/inbox"><i className="fas fa-envelope" />({Object.keys(inbox).length})</Link>
               <Link to="/account"><i className="fas fa-cog" /></Link>
               <Link to="/messageinbox">Messages</Link>
               <Link to="/pantry"><img src="./icons/489212-200.png" className="menu-icon" /></Link>
@@ -49,7 +50,8 @@ const mapState = (state) => {
   return {
     isLoggedIn: !!state.user.id,
     basket: state.basket,
-    user: state.user
+    user: state.user,
+    inbox: state.inbox
   }
 }
 
