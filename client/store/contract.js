@@ -47,7 +47,7 @@ export const updateContractAssoc = (contractId, soliciteeId, itemIds) => dispatc
 
 export const updateContractStatus = contractId => dispatch => {
   axios
-    .put(`/api/contracts/${contractId}`, {status: 'Pending'})
+    .put(`/api/contracts/${contractId}`, {status: 'SecondReview'})
     .then(res => dispatch(getContracts(res.data)))
     .catch(err => console.log(err))
 }

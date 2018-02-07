@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { Route, Switch, Router } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, Market, Basket, Inbox, Account, MessageInbox, Pantry, RequestTicket} from './components'
-import {me, fetchContracts, fetchAllItems, fetchInbox} from './store'
+import {Main, Login, Signup, UserHome, Market, Basket, Inbox, Account, MessageInbox, Pantry, RequestTicket, Ledger} from './components'
+import {me, fetchContracts, fetchAllItems, fetchCompletedContracts, fetchInbox} from './store'
 
 
 
@@ -31,6 +31,7 @@ class Routes extends Component {
               <Switch>
               {/* Routes placed here are available to logged in users */}
               <Route path="/market" component={Market} />
+              <Route path="/community" component={Ledger} />
               <Route path="/basket" component={Basket} />
               <Route path="/inbox" component={Inbox} />
               <Route path="/account" component={Account} />
@@ -53,8 +54,6 @@ class Routes extends Component {
  */
 const mapState = (state) => {
   return {
-    // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
-    // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
     currentUser: state.user
   }
@@ -66,6 +65,7 @@ const mapDispatch = (dispatch) => {
       dispatch(me())
       dispatch(fetchContracts())
       dispatch(fetchAllItems())
+      dispatch(fetchCompletedContracts())
       dispatch(fetchInbox())
     }
   }

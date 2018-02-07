@@ -13,7 +13,7 @@ router.post('/geth-start-script', (req, res, next) => {
   if (!ipcAddresses.includes(req.body.user.ipcAddr)) {//declaring node geth instance
     let inst = geth({
       balance: 2000,
-      verbose: true, //for console log
+      verbose: false, //for console log
       gethOptions: {
       datadir: `./nodeDir/${req.body.user.username}`,
       networkid: 800,
@@ -71,8 +71,8 @@ router.post('/geth-start-script', (req, res, next) => {
   .then( enode => {
     enodes.push(enode)
 
-   // console.log("Starting to mine...")
-     //currentNode.inst.consoleExec('miner.start()')
+    console.log("Starting to mine...")
+     currentNode.inst.consoleExec('miner.start()')
 
   })
   .catch(function(err) {

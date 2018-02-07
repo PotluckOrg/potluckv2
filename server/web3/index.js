@@ -40,6 +40,7 @@ let byteCode;
 let ProduceSwapContract;
 
 router.use((req, res, next) => {
+  console.log("REQ.BODY.CurrentUser: ", req.body.currentUser)
   const relIpc = req.body.currentUser.ipcAddr;
   ipcAddr = path.join(__dirname, relIpc, '/geth.ipc')
   web3 = new Web3(ipcAddr, net);
