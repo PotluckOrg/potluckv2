@@ -22,6 +22,7 @@ router.get('/:itemId', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
+  console.log('REQBODY', req.body)
   Item.create(req.body)
     .then(newItem => res.status(201).json(newItem))
     .catch(next);

@@ -24,6 +24,7 @@ const RequestTicket = (props) => {
         associationsBySender = associations.filter(association => +association.userId !== +currentUser.id)
         console.log('associationsBySender', associationsBySender)
         sender = +associationsBySender[0].userId
+        console.log('SENDER', sender)
     }
 
     // UPDATE ASSOCIATIONS MODEL TO MAKE ASSOCIATIONS FOR MULTIPLE ITEMS
@@ -57,10 +58,13 @@ const RequestTicket = (props) => {
 
             </div>
             <hr />
-            <div className="sender-pantry">
+                <div className="sender-pantry">
                 <Pantry senderId={sender} path={props.match.path} />
             </div>
+            
         </div>
+            
+            
     )
 }
 
