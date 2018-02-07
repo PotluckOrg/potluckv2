@@ -260,3 +260,23 @@
 19:11:15.348465 version@stat F·[2 1] S·601KiB[34KiB 567KiB] Sc·[0.50 0.01]
 19:11:15.352513 db@janitor F·5 G·0
 19:11:15.352582 db@open done T·8.404501ms
+=============== Feb 7, 2018 (EST) ===============
+12:28:53.402824 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+=============== Feb 7, 2018 (EST) ===============
+12:28:53.405176 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+12:28:53.405383 table@recovery F·2
+12:28:53.405414 table@recovery recovering @75
+12:28:53.417694 table@recovery recovered @75 Gk·8685 Ck·0 Cb·0 S·616846 Q·65920
+12:28:53.417755 table@recovery recovering @76
+12:28:53.419662 table@recovery recovered @76 Gk·268 Ck·0 Cb·0 S·26281 Q·66189
+12:28:53.419779 table@recovery recovered F·2 N·8953 Gk·8953 Ck·0 Q·66189
+12:28:53.421681 version@stat F·[2] S·628KiB[628KiB] Sc·[0.50]
+12:28:53.422009 db@open opening
+12:28:53.422706 journal@recovery F·1
+12:28:53.425412 journal@recovery recovering @77
+12:28:53.432205 memdb@flush created L0@78 N·758 S·39KiB "\x04z*..:\xa1\xe2,v66426":"\xfdV\x9b..\xc1\x17\xdf,v66931"
+12:28:53.433595 version@stat F·[3] S·667KiB[667KiB] Sc·[0.75]
+12:28:53.436095 db@janitor F·6 G·0
+12:28:53.436365 db@open done T·14.218398ms
+12:29:01.702296 db@close closing
+12:29:01.705421 db@close done T·3.118623ms
