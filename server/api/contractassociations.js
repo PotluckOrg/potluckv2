@@ -58,8 +58,10 @@ router.get('/ledger/:contractId', (req, res, next) => {
 })
 
 router.put('/:contractId', (req, res, next) => {
+  console.log('REQ>BODYSOLICITEEID', req.body.soliciteeId)
   return ContractAssociations.findOne({where: {
-      userId: req.body.soliciteeId
+      userId: req.body.soliciteeId,
+      contractId: req.params.contractId
   }})
   .then(contractAssoc => {
     return contractAssoc.update({itemIds: req.body.itemIds})
