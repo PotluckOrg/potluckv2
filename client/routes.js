@@ -4,7 +4,7 @@ import { Route, Switch, Router } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome, Market, Basket, Inbox, Account, MessageInbox, Pantry, RequestTicket, Ledger} from './components'
-import {me, fetchContracts, fetchAllItems, fetchCompletedContracts, getContractUsersAndItems} from './store'
+import {me, fetchContracts, fetchAllItems, fetchCompletedContracts} from './store'
 
 
 /**
@@ -54,8 +54,7 @@ class Routes extends Component {
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.user.id,
-    currentUser: state.user,
-    completedContracts: state.ledger
+    currentUser: state.user
   }
 }
 
@@ -64,8 +63,8 @@ const mapDispatch = (dispatch) => {
     loadInitialData () {
       dispatch(me())
       dispatch(fetchContracts())
-      dispatch(fetchCompletedContracts())
       dispatch(fetchAllItems())
+      dispatch(fetchCompletedContracts())
     }
   }
 }
