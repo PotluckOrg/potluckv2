@@ -4,81 +4,133 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
 const Inbox = (props) => {
-    // const { requests } = props
-    console.log('INBOX PROPS:', props)
-    const requests = props.currentUser.contracts
-    let createdRequests, pendingRequests, completedRequests;
-    if (requests) {
-      createdRequests = requests.filter(request => {
-          console.log('REQUEST', request)
-          return request.status === 'Created'
-      })
-      pendingRequests = requests.filter(request => {
-          console.log('REQUEST', request)
-          return request.status === 'Pending'
-      })
-      completedRequests = requests.filter(request => {
-          return request.status === 'Completed'
-      })
-  }
-    else "No current requests!"
+    const { requests, contracts, currentUser, inbox } = props
+    
+    let contractIds = Object.keys(requests)
+    let createdRequests = [], firstReviewRequests = [], secondReviewRequests = [], pendingRequests = [], completedRequests = [], canceledRequests = [];
+    
+    contractIds.forEach(contractId => {
+        let currentContract = contracts.find(contract => +contract.id === +contractId)
+        switch (currentContract.status) {
+            case 'Created':
+                createdRequests.push(currentContract)
+                break;
+            case 'FirstReview':
+                firstReviewRequests.push(currentContract)
+                break;
+            case 'SecondReview':
+                secondReviewRequests.push(currentContract)
+                break;
+            case 'Pending':
+                pendingRequests.push(currentContract)
+                break;
+            case 'Completed':
+                completedRequests.push(currentContract)
+                break;
+            case 'Canceled':
+                canceledRequests.push(currentContract)
+                break;
+            default:
+                createdRequests.push(currentContract)
+        }
+    })
 
-    return (
+    let inboxBody
+    if (!Object.keys(requests).length) inboxBody = <h5>No current requests.</h5>
+    else inboxBody = (
         <div>
-            <h3>Review</h3>
-            <h5>A user is interested in making a trade!</h5>
-            <ul className="ticket-list">
-                {requests &&
-                    requests.map(request => {
-                        return (
-                            <li key={request.id} className="request-ticket-card">
-                                <Link to={`/${request.id}`}>
-                                    <InboxCard request={request} />
-                                </Link>
-                            </li>
-                        )
-                    })
+            <h3>New Requests</h3>
+            {createdRequests.length &&
+                <div>
+                    <h5>A user is interested in making a trade!</h5>
+                    <ul className="ticket-list">
+                        {createdRequests.map(request => {
+                            return (
+                                <li key={request.id} className="request-ticket-card">
+                                    <Link to={`/${request.id}`}>
+                                        <InboxCard request={request} otherUserId={requests[request.id].otherUserId} />
+                                    </Link>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </div>
+            }
+            <h3>In Review</h3>
+            { (secondReviewRequests.length || firstReviewRequests.length) &&
+                <div>
+                    <h5>Your request is being reviewed!</h5>
+                    <ul className="ticket-list">
+                        {secondReviewRequests && 
+                            secondReviewRequests.map(request => {
+                                return (
+                                    <li key={request.id} className="request-ticket-card">
+                                        <Link to={`/${request.id}`}>
+                                            <InboxCard request={request} otherUserId={requests[request.id].otherUserId} />
+                                        </Link>
+                                    </li>
+                                )
+                            })
+                        }
+                        {firstReviewRequests.length &&
+                            firstReviewRequests.map(request => {
+                                return (
+                                    <li key={request.id} className="request-ticket-card">
+                                        <Link to={`/${request.id}`}>
+                                            <InboxCard request={request} otherUserId={requests[request.id].otherUserId} />
+                                        </Link>
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
+                </div>
                 }
-            </ul>
             <h3>Pending</h3>
-            <h5>Congrats! Both users have confirmed the trade. Meet up in person to exchange your foods and receive 10 Potluck Points!</h5>
-            <ul className="ticket-list">
-                {pendingRequests &&
-                    pendingRequests.map(request => {
-                        return (
-                            <li key={request.id} className="request-ticket-card">
-                                <Link to={`/${request.id}`}>
-                                    <InboxCard request={request} />
-                                </Link>
-                            </li>
-                        )
-                    })
-                }
-            </ul>
+            {pendingRequests.length &&
+                <div>
+                    <h5>Congrats! Both users have confirmed the trade. Meet up in person to exchange your foods and receive 10 Potluck Points!</h5>
+                    <ul className="ticket-list">
+                            {pendingRequests.map(request => {
+                                return (
+                                    <li key={request.id} className="request-ticket-card">
+                                        <Link to={`/${request.id}`}>
+                                            <InboxCard request={request} otherUserId={requests[request.id].otherUserId} />
+                                        </Link>
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                </div>
+            }
             <h3>Completed</h3>
-            <h5>Way to go! Here's a list of your successful trades:</h5>
-            <ul className="ticket-list">
-                {completedRequests &&
-                    completedRequests.map(request => {
-                        return (
-                            <li key={request.id} className="request-ticket-card">
-                                <Link to={`/${request.id}`}>
-                                    <InboxCard request={request} />
-                                </Link>
-                            </li>
-                        )
-                    })
-                }
-            </ul>
+            {completedRequests.length &&
+                <div>
+                <h5>Way to go! Here's a list of your successful trades:</h5>
+                <ul className="ticket-list">
+                        {completedRequests.map(request => {
+                            return (
+                                <li key={request.id} className="request-ticket-card">
+                                    <Link to={`/${request.id}`}>
+                                        <InboxCard request={request} otherUserId={requests[request.id].otherUserId} />
+                                    </Link>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </div>
+            }
         </div>
     )
+
+    return inboxBody
 }
 
 const mapState = (state) => {
     return {
-      requests: state.inbox,
-      currentUser: state.user,
-      contracts: state.contracts
+        requests: state.inbox,
+        currentUser: state.user,
+        contracts: state.requests
     }
 }
 
