@@ -4,11 +4,18 @@ import {connect} from 'react-redux'
 const LedgerCard = (props) => {
 
       const {trade} = props
+      let tradeItemImgsUser1 = trade.user1.itemImgs.map( (item, index) => <img className="ledger-item-img" src={item} key={index} />)
+      console.log("ITEMS: ", trade.user1.itemImgs)
+      console.log("ITEMS USER2: ", trade.user2.itemImgs)
+      let tradeItemImgsUser2 = trade.user2.itemImgs.map( (item, index) => <img className="ledger-item-img" src={item} key={index} />)
         return (
           <div className="card w-100">
           { trade.user1 ?
             <div className="card-body">
-            <h5 className="card-title">{trade.user1.name} traded <img className="ledger-item-img" src={trade.user1.itemImg} /> for {trade.user2.name}'s  <img className="ledger-item-img"src={trade.user2.itemImg} /> !</h5>
+            <h5 className="card-title">{trade.user1.name} traded
+            {tradeItemImgsUser1} for {trade.user2.name}'s
+              {tradeItemImgsUser2}
+              !</h5>
             <p className="card-text">
             {trade.user1.name} : {trade.user1.comments}
             </p>

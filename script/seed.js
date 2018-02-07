@@ -179,16 +179,16 @@ const contracts = [
 
 // comment is about the user - written by the other person involved in the contract
 const contractAssociations = [
-  {userId: 1, contractId: 1, itemIds: '1', comment: 'Soup dejour amor!'},
-  {userId: 2, contractId: 1, itemIds: '2', comment: 'This is BANANAS!'},
-  {userId: 2, contractId: 2, itemIds: '3', comment: 'Good stuff!'},
-  {userId: 3, contractId: 2, itemIds: '4', comment: 'yum oranges!'},
+  {userId: 1, contractId: 1, itemIds: '1, 2', comment: 'Soup dejour amor!'},
+  {userId: 2, contractId: 1, itemIds: '5, 4', comment: 'This is BANANAS!'},
+  {userId: 2, contractId: 2, itemIds: '3, 1', comment: 'Good stuff!'},
+  {userId: 3, contractId: 2, itemIds: '4, 6', comment: 'yum oranges!'},
   {userId: 3, contractId: 3, itemIds: '5', comment: 'Soup dejour amor!'},
-  {userId: 2, contractId: 3, itemIds: '6', comment: 'delish!'},
+  {userId: 2, contractId: 3, itemIds: '6, 10', comment: 'delish!'},
   {userId: 5, contractId: 6, itemIds: '7', comment: 'great experience!'},
   {userId: 6, contractId: 6, itemIds: '8', comment: 'very delicious!'},
   {userId: 6, contractId: 7, itemIds: '9', comment: 'amazing!'},
-  {userId: 5, contractId: 7, itemIds: '10', comment: 'thank you, love the veggies!'}
+  {userId: 5, contractId: 7, itemIds: '10, 8', comment: 'thank you, love the veggies!'}
 ]
 
 const messages = [

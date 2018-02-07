@@ -10,26 +10,27 @@ router.get('/:contractId', (req, res, next) => {
 })
 
 //Get the user and items associated with a single contract and place them within an object before returning to store
+
 router.get('/ledger/:contractId', (req, res, next) => {
   const newTrade = {}
     ContractAssociations.findAll({
       where: {
         contractId: req.params.contractId
             },
-      attributes: ['userId', 'itemId', 'comment' ]
+      attributes: ['userId', 'itemIds', 'comment' ]
   })
     .then( assocs => {
       newTrade.user1 = {
         id: assocs[0].userId,
         name: 'name',
-        itemId: assocs[0].itemId,
+        itemIds: assocs[0].itemIds.split(", "),
         itemImg: '',
         comments: assocs[0].comment
       }
       newTrade.user2 = {
         id: assocs[1].userId,
         name: 'name',
-        itemId: assocs[1].itemId,
+        itemIds: assocs[1].itemIds.split(", "),
         itemImg: '',
         comments: assocs[1].comment
       }
@@ -39,15 +40,20 @@ router.get('/ledger/:contractId', (req, res, next) => {
      {
        newTrade.user1.name = foundUsers[0].username
        newTrade.user2.name = foundUsers[1].username
-       return Promise.all([Item.findById(newTrade.user1.itemId), Item.findById(newTrade.user2.itemId)])
+       newTrade.user1.itemImgs = newTrade.user1.itemIds.map(itemId => Item.findById(+itemId))
+       newTrade.user2.itemImgs = newTrade.user2.itemIds.map(itemId => Item.findById(+itemId))
+       return Promise.all(newTrade.user1.itemImgs)
+      })
+     .then( foundUser1Items => {
+       newTrade.user1.itemImgs = foundUser1Items.map(item => item.iconUrl)
+
+       return Promise.all(newTrade.user2.itemImgs)
      })
-     .then( foundItems => {
-       newTrade.user1.itemImg = foundItems[0].iconUrl
-       newTrade.user2.itemImg = foundItems[1].iconUrl
+     .then( foundUser2Items => {
+      newTrade.user2.itemImgs = foundUser2Items.map(item => item.iconUrl)
+      console.log("User2  Items: ", newTrade.user2.itemImgs)
+      return res.status(200).json(newTrade)
      })
-    .then( function () {
-      res.status(200).json(newTrade)
-    })
     .catch(next)
 })
 
