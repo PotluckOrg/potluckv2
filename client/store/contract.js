@@ -55,10 +55,18 @@ export const updateContractStatus = contractId => dispatch => {
 // when the request has made it back to the solicitor and they press 'Confirm Trade' button
 // activates "approveSwap" function in contract via web3 route (state = 'Locked')
 // updates contract status in database (to 'Pending')
-export const completeTrade = (contractAddress, currentUser) => dispatch => {
+export const completeContractStatus = (contract, currentUser) => dispatch => {
+  const contractId = contract.id
+
+  // update the contract status in solidity via web3 to completed
   axios.post('/web3/complete', {contractAddress, currentUser})
   .then(res => {
-    console.log('THIS IS THE RESULT FROM WEB3', res.data)
+    console.log('THIS IS THE RESULT FROM WEB3 AFTER COMPLETE', res.data)
+
+    // update the contract status in the database to 'Completed'
+    axios.put(`/api/contracts/${contractId}`, {status: 'Completed'})
+    .then(res => dispatch(getContracts(res.data)))
+    .catch(err => console.log(err))
   })
 }
 
