@@ -45,6 +45,10 @@ export const updateContractAssoc = (contractId, soliciteeId, itemIds) => dispatc
       .catch(err => console.log(err))
 }
 
+// when the request has made it back to the solicitor and they press 'Confirm Trade' button
+// activates "approveSwap" function in contract via web3 route (state = 'Locked')
+// updates contract status in database (to 'Pending')
+
 export const updateContractStatus = contractId => dispatch => {
   axios
     .put(`/api/contracts/${contractId}`, {status: 'Pending'})
@@ -52,9 +56,11 @@ export const updateContractStatus = contractId => dispatch => {
     .catch(err => console.log(err))
 }
 
-// when the request has made it back to the solicitor and they press 'Confirm Trade' button
-// activates "approveSwap" function in contract via web3 route (state = 'Locked')
-// updates contract status in database (to 'Pending')
+// when each user confirms that items have been traded
+// activates completeSwap() function in contract (internal counter increments once for each user inside contract, and after 2 changes the state to 'Completed')
+
+// when BOTH users have done so, status of contract in DB needs to update to 'Completed' also
+
 export const completeContractStatus = (contract, currentUser) => dispatch => {
   const contractId = contract.id
 
@@ -70,10 +76,6 @@ export const completeContractStatus = (contract, currentUser) => dispatch => {
   })
 }
 
-// when each user confirms that items have been traded
-// activates completeSwap() function in contract (internal counter increments once for each user inside contract, and after 2 changes the state to 'Completed')
-
-// when BOTH users have done so, status of contract in DB needs to update to 'Completed' also
 
 /**
  * REDUCER
