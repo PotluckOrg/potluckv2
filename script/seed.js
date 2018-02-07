@@ -144,13 +144,16 @@ const items = [
 
 const contracts = [
   {
-    contractAddress: '0xac4f4D4Ef8CEc4dd5cEEFAc935f414e3E562Aa33'
+    contractAddress: '0xac4f4D4Ef8CEc4dd5cEEFAc935f414e3E562Aa33',
+    status: 'Completed'
   },
   {
-    contractAddress: '0xgh4f6D4EgH4Ec4dd5cEYHAc932f473e3E312Aa21'
+    contractAddress: '0xgh4f6D4EgH4Ec4dd5cEYHAc932f473e3E312Aa21',
+    status: 'Completed'
   },
   {
-    contractAddress: '0xqr4f4D4Ef8CUm4dy3cEEFAc985f414e3E562Ga49'
+    contractAddress: '0xqr4f4D4Ef8CUm4dy3cEEFAc985f414e3E562Ga49',
+    status: 'Completed'
   },
   {
     contractAddress: '0xgh4TESTEgH4Ec4dd5cEYHAc932f473e3E312Aa22',
@@ -176,16 +179,16 @@ const contracts = [
 
 // comment is about the user - written by the other person involved in the contract
 const contractAssociations = [
-  {userId: 1, contractId: 1, itemIds: '1', comment: 'Soup dejour amor!'},
-  {userId: 2, contractId: 1, itemIds: '2', comment: 'This is BANANAS!'},
-  {userId: 2, contractId: 2, itemIds: '3', comment: 'Good stuff!'},
-  {userId: 3, contractId: 2, itemIds: '4', comment: 'yum oranges!'},
+  {userId: 1, contractId: 1, itemIds: '1, 2', comment: 'Soup dejour amor!'},
+  {userId: 2, contractId: 1, itemIds: '5, 4', comment: 'This is BANANAS!'},
+  {userId: 2, contractId: 2, itemIds: '3, 1', comment: 'Good stuff!'},
+  {userId: 3, contractId: 2, itemIds: '4, 6', comment: 'yum oranges!'},
   {userId: 3, contractId: 3, itemIds: '5', comment: 'Soup dejour amor!'},
-  {userId: 2, contractId: 3, itemIds: '6', comment: 'delish!'},
+  {userId: 2, contractId: 3, itemIds: '6, 10', comment: 'delish!'},
   {userId: 5, contractId: 6, itemIds: '7', comment: 'great experience!'},
   {userId: 6, contractId: 6, itemIds: '8', comment: 'very delicious!'},
   {userId: 6, contractId: 7, itemIds: '9', comment: 'amazing!'},
-  {userId: 5, contractId: 7, itemIds: '10', comment: 'thank you, love the veggies!'}
+  {userId: 5, contractId: 7, itemIds: '10, 8', comment: 'thank you, love the veggies!'}
 ]
 
 const messages = [

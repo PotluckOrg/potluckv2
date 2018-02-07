@@ -1,3 +1,5 @@
+
+
 const router = require("express").Router();
 const { Item, Contract, ContractAssociations } = require("../db/models");
 
@@ -6,6 +8,14 @@ router.get('/', (req, res, next) => {
     .then(contracts => {res.json(contracts)})
     .catch(next);
 });
+
+//Get All Contracts that have been completed
+router.get('/completed', (req, res, next) => {
+  Contract.findAll({where: {status: 'Completed'}})
+    .then( contracts => {
+      res.status(200).json(contracts)})
+    .catch(next)
+})
 
 router.post('/', (req, res, next) => {
   const contractAddress = req.body.contractAddress
@@ -42,3 +52,4 @@ router.put('/:contractId', (req, res, next) => {
 })
 
 module.exports = router;
+

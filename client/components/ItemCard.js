@@ -7,17 +7,19 @@ import { addToBasket, removeFromBasket, returnToMyMarketThunk, removeFromMyMarke
 
 
 const ItemCard = (props) => {
-    const { currentUser, items, item, itemOwnerId, modalBody, modalIcon, inRequest } = props
-    console.log('ITEMCARDPROPS', props)
+    const { currentUser, items, item, modalBody, modalIcon, inRequest, ownProps } = props
+    console.log('ITEMCARD ownPROPS', ownProps)
     let modalButton, buttonText, clickHandler
+
+    let inRequestTicket = ownProps.match.path === '/:id'
 
     const cardBody = singleItem => {
             switch (props.path) {
                 case '/pantry':
                 console.log('SINGLEITEM', singleItem)
-                    buttonText = <i className="fa fa-minus" aria-hidden="true" />
+                    buttonText = inRequestTicket ? <i className="fa fa-plus" aria-hidden="true" /> : <i className="fa fa-minus" aria-hidden="true" />
                     // clickHandler = event => props.handleAddToOffer(event, singleItem, currentUser.id)
-                    clickHandler = event => props.handleAddToOffer(event, singleItem, currentUser.id)
+                    clickHandler = inRequestTicket ? event => props.handleAddToOffer(event, singleItem, currentUser.id) : () => {}
                 break;
 
                 case '/market':
@@ -72,9 +74,10 @@ const ItemCard = (props) => {
     )
 }
 
-const mapState = (state) => {
+const mapState = (state, ownProps) => {
     return {
         currentUser: state.user,
+        ownProps: ownProps
     }
 }
 

@@ -1,7 +1,6 @@
 import React from 'react'
 import ItemCard from './ItemCard'
 import {connect} from 'react-redux'
-import axios from 'axios'
 
 
 const Market = (props) => {

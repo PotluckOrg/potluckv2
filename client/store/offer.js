@@ -23,8 +23,9 @@ export const removeFromOffer = itemId => ({ type: REMOVE_OFFER_ITEM, itemId })
 /**
  * THUNK CREATORS
  */
-export const updateContract = (items, contract, solicitorId, currentUser) => dispatch => {
+export const updateContract = (items, contract, solicitor, solicitorId, currentUser) => dispatch => {
     let contractAddress = contract.contractAddress
+    console.log("contract in updateContract: ", contract)
     let allItems = items.map(item => item.name).join(', ');
     let itemIds = []
     items.forEach(itemObj => {itemIds.push(itemObj.id)})
@@ -32,10 +33,9 @@ export const updateContract = (items, contract, solicitorId, currentUser) => dis
     axios.post('/web3/contract', {allItems, currentUser, contractAddress})
     .then(res => {
       console.log('----Reached other side of web3/contract POST----')
-      console.log('contract.id, currentUser.id, solicitorId: ', contract.id, currentUser.id, solicitorId)
       console.log("RES.DATA (contractAddress): ", res.data)
-      dispatch(updateContractAssoc(contract.id, solicitorId, itemIds))
-      dispatch(updateContractStatus(contract.id))
+      dispatch(updateContractAssoc(contract.id, currentUser.id, itemIds))
+      dispatch(updateContractStatus(contract.id, {status: 'SecondReview'}))
       console.log("** MADE IT THROUGH UpdateContract **")
  //   dispatch(fetchContracts())
     })

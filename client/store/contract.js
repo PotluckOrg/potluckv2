@@ -45,13 +45,13 @@ export const updateContractAssoc = (contractId, soliciteeId, itemIds) => dispatc
       .catch(err => console.log(err))
 }
 
+
 // when the request has made it back to the solicitor and they press 'Confirm Trade' button
 // activates "approveSwap" function in contract via web3 route (state = 'Locked')
 // updates contract status in database (to 'Pending')
-
-export const updateContractStatus = contractId => dispatch => {
+export const updateContractStatus = (contractId, status) => dispatch => {
   axios
-    .put(`/api/contracts/${contractId}`, {status: 'Pending'})
+    .put(`/api/contracts/${contractId}`, status)
     .then(res => dispatch(getContracts(res.data)))
     .catch(err => console.log(err))
 }
