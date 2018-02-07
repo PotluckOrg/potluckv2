@@ -144,13 +144,16 @@ const items = [
 
 const contracts = [
   {
-    contractAddress: '0xac4f4D4Ef8CEc4dd5cEEFAc935f414e3E562Aa33'
+    contractAddress: '0xac4f4D4Ef8CEc4dd5cEEFAc935f414e3E562Aa33',
+    status: 'Completed'
   },
   {
-    contractAddress: '0xgh4f6D4EgH4Ec4dd5cEYHAc932f473e3E312Aa21'
+    contractAddress: '0xgh4f6D4EgH4Ec4dd5cEYHAc932f473e3E312Aa21',
+    status: 'Completed'
   },
   {
-    contractAddress: '0xqr4f4D4Ef8CUm4dy3cEEFAc985f414e3E562Ga49'
+    contractAddress: '0xqr4f4D4Ef8CUm4dy3cEEFAc985f414e3E562Ga49',
+    status: 'Completed'
   },
   {
     contractAddress: '0xgh4TESTEgH4Ec4dd5cEYHAc932f473e3E312Aa22',
