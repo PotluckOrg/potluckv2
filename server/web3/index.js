@@ -15,7 +15,7 @@ module.exports = router
 // const configPort = 4001
 
 //web3 work
-// let web3 = new Web3(ipcAddr, net);
+// let  = new Web3(ipcAddr, net);
 //
 // web3.eth.getCoinbase(function(err, cba) {
 //   coinbaseAddress = cba;
