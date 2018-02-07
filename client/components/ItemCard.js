@@ -12,7 +12,9 @@ const ItemCard = (props) => {
     const cardBody = singleItem => {
             switch (props.path) {
                 case '/pantry':
-                    buttonText = <i className="fa fa-plus" aria-hidden="true" />
+                console.log('SINGLEITEM', singleItem)
+                    buttonText = <i className="fa fa-minus" aria-hidden="true" />
+                    // clickHandler = event => props.handleAddToOffer(event, singleItem, currentUser.id)
                     clickHandler = event => props.handleAddToOffer(event, singleItem, currentUser.id)
                 break;
 
