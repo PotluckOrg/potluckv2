@@ -18,8 +18,8 @@ const Main = (props) => {
       <h1 id="title">POTLUCK</h1>
       <nav>
         {
-          isLoggedIn
-            ? <div>
+          isLoggedIn &&
+             <div>
               {/* The navbar will show these links after you log in */}
               <Link to="/market">Market</Link>
               <Link to="/basket"><i className="fas fa-shopping-basket" />({basket.length})</Link>
@@ -30,11 +30,6 @@ const Main = (props) => {
               <a href="/" onClick={(event) => handleClick(event, user, stopGeth)}>Logout</a>
               <a href="#" onClick={(event) => handlePeersClick(event, user, checkPeers)}>CheckPeers</a>
             </div>
-            : <div>
-                {/* The navbar will show these links before you log in */}
-                <Link to="/login">Login</Link>
-                <Link to="/signup">Sign Up</Link>
-              </div>
         }
       </nav>
       <hr />
