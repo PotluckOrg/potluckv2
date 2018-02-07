@@ -55,8 +55,11 @@ export const updateContractStatus = contractId => dispatch => {
 // when the request has made it back to the solicitor and they press 'Confirm Trade' button
 // activates "approveSwap" function in contract via web3 route (state = 'Locked')
 // updates contract status in database (to 'Pending')
-export const confirmTrade = () => dispatch => {
-
+export const completeTrade = (contractAddress, currentUser) => dispatch => {
+  axios.post('/web3/complete', {contractAddress, currentUser})
+  .then(res => {
+    console.log('THIS IS THE RESULT FROM WEB3', res.data)
+  })
 }
 
 // when each user confirms that items have been traded
