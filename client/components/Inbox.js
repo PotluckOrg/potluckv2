@@ -73,7 +73,8 @@ const Inbox = (props) => {
 const mapState = (state) => {
     return {
       requests: state.inbox,
-      currentUser: state.user
+      currentUser: state.user,
+      contracts: state.contracts
     }
 }
 
