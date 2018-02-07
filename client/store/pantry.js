@@ -1,8 +1,10 @@
 import axios from 'axios'
+import { returnToMyMarket } from './market'
 
 // ACTION TYPES
 
 export const ADD_PANTRY_ITEM = 'ADD_PANTRY_ITEM'
+export const GET_ITEMS_BY_USER_ID = 'GET_ITEMS_BY_USER_ID'
 
 const defaultItems = []
 
@@ -15,36 +17,13 @@ export const addPantryItem = item => ({
 })
 
 
-// const getReviewsByProductId = (reviews) => {
-//     return {
-//         type: GET_REVIEWS_BY_PRODUCT_ID,
-//         reviews
-//     }
-// }
-
-// THUNK CREATOR
-
-export function addPantryItemToDB(allItemInfo) {
-    return function (dispatch) {
-        axios.post('/api/items', allItemInfo)
-            .then(res => {
-                console.log('RES>DATA', res.data)
-            })
-            // .then(newItem => {
-            //     dispatch(fetchItemsByUserId(newItem.userId))
-            // })
-            .catch(err => console.error(err))
+const getItemsByUserId = (items) => {
+    return {
+        type: GET_ITEMS_BY_USER_ID,
+        items
     }
 }
 
-// export function fetchItemsByUserId(userId) {
-//     return function thunk(dispatch) {
-//         axios.get(`/api/items/`)
-//         .then(res => {
-//             dispatch(getReviewsForAllProducts(res.data))
-//         })
-//     }
-// }
 
 // REDUCER 
 
@@ -54,6 +33,12 @@ export default function (state = defaultItems, action) {
             return {
                 ...state,
                 ...action.item
+            }
+
+        case GET_ITEMS_BY_USER_ID:
+            return {
+                ...state,
+                items: action.items
             }
         default:
             return state

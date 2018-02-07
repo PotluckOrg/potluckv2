@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {returnToMyMarketThunk} from './market'
 
 // ACTION TYPES
 
@@ -17,14 +18,25 @@ export const createItemForm = change => ({
     change
 })
 
+// THUNK CREATOR
 
+// export function addPantryItemToDB(allItemInfo) {
+//     return function (dispatch) {
+//         axios.post('/api/items', allItemInfo)
+//             .then(res => {
+//                 console.log('RES>DATA', res.data)
+//                 const itemId = res.data.id
+//                 dispatch(returnToMyMarketThunk(itemId))
+//             })
+//             .catch(err => console.error(err))
+//     }
+// }
 
 // REDUCER 
 
 export default function (state = inputValues, action) {
     switch (action.type) {
         case CREATE_PANTRY_ITEM:
-            // console.log('INSIDE of COMPOSE_REVIEW') // not logging
             return {
                 ...state,
                 ...action.change

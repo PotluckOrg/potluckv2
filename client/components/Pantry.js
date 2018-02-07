@@ -4,11 +4,12 @@ import ItemCard from './ItemCard'
 import Modal from './Modal'
 import ItemForm from './ItemForm'
 import AddPantryItem from './AddPantryItem'
+// import { fetchAllItems } from '../store'
 
 const Pantry = (props) => {
-    console.log('I AM PANTRY PROPS', props)
-    const { items, currentUser, path, senderId, pantryItems } = props
 
+    const { items, currentUser, senderId, pantryItems } = props
+    const path = props.match.path
     const inPantry = path === '/pantry'
     const title = inPantry ? 'My Pantry' : `${pantryItems[0].user.username}'s Pantry`
     return (
@@ -16,6 +17,7 @@ const Pantry = (props) => {
             <div>
                 <h3 className="pantry-title">{title}</h3>
                 {inPantry && 
+                    
                     <button
                         id="addItem"
                         type="button"
@@ -25,11 +27,20 @@ const Pantry = (props) => {
                         data-whatever="addItem"
                     >
                         <i className="fa fa-plus" aria-hidden="true" />
-                    </button>}
+                    </button>
+                   
+                }
             </div>
             {inPantry && pantryItems &&
                 pantryItems.map(item => {
-                    return <ItemCard key={item.id} item={item} path={path} />
+                    return (
+                    
+                        
+                        <ItemCard key={item.id} item={item} path={path} />
+                      
+                    )
+                    
+                    
                 })
             }
             {!inPantry && pantryItems &&
@@ -39,25 +50,24 @@ const Pantry = (props) => {
             }
 
             {inPantry && 
-            
                 <AddPantryItem />
-            
-            
             }
-            <AddPantryItem />
+         
+
         </div>
     )
 }
 
 const mapState = (state, ownProps) => {
-    console.log('I AM OWN PROPS', ownProps)
+    console.log('OWNPROPSPATH', ownProps.path)
     let items
     ownProps.path ?
     // their items
     items = state.market.filter(item => +item.userId === +ownProps.senderId)
     :
     // my items
-    items = state.market.filter(item => +item.userId === +state.user.id)
+    items = state.market.filter(item => +item.userId === +state.user.id
+    )
     return {
         pantryItems: items,
         currentUser: state.user,
@@ -65,10 +75,10 @@ const mapState = (state, ownProps) => {
     }
 }
 
-const mapDispatch = (dispatch) => {
-    return {
+const mapDispatch = (dispatch, ownProps) => {
+    console.log('OWN PROPS IN PANTRY', ownProps)
 
-    }
+    return {}
 }
 
 export default connect(mapState, mapDispatch)(Pantry)

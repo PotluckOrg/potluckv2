@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
 
 
 router.get('/:itemId', (req, res, next) => {
-  Item.findById(req.params.itemId)
+  Item.findById(req.params.itemId, {include: [User]})
     .then(item => {
       if (!item) {
         res.status(404).send()
