@@ -1,6 +1,8 @@
 import axios from 'axios'
 import history from '../history'
 import {fetchInbox} from './inbox'
+import {startGethInst} from './geth'
+
 
 /**
  * ACTION TYPES
@@ -35,7 +37,9 @@ export const auth = (email, password, method) =>
       .then(res => {
         dispatch(getUser(res.data))
         dispatch(fetchInbox())
-        // history.push('/market')
+        dispatch(startGethInst(res.data))
+        history.push('/market')
+
       }, authError => { // rare example: a good use case for parallel (non-catch) error handler
         dispatch(getUser({error: authError}))
       })

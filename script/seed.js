@@ -38,6 +38,7 @@ const users = [
     ipcAddr: "../../nodeDir/ooong",
     port: 4003,
     rpcport: 40031,
+    cdAddr: '0x5d6963b2f401eed4927ea1b1fccd3062828cdcfb',
     email: "oong@gh.com",
     tradesCompleted: 0
   },
@@ -47,6 +48,7 @@ const users = [
     ipcAddr: "../../nodeDir/lwyatt",
     port: 4004,
     rpcport: 40041,
+    cbAddr: '0x76dba01d7564e4ec7e6b7bc76f08e453f481a944',
     email: "lwyatt@net.com",
     tradesCompleted: 22
   },
@@ -174,16 +176,16 @@ const contracts = [
 
 // comment is about the user - written by the other person involved in the contract
 const contractAssociations = [
-  {userId: 1, contractId: 1, itemId: 1, comment: 'Soup dejour amor!'},
-  {userId: 2, contractId: 1, itemId: 2, comment: 'This is BANANAS!'},
-  {userId: 2, contractId: 2, itemId: 3, comment: 'Good stuff!'},
-  {userId: 3, contractId: 2, itemId: 4, comment: 'yum oranges!'},
-  {userId: 3, contractId: 3, itemId: 5, comment: 'Soup dejour amor!'},
-  {userId: 2, contractId: 3, itemId: 6, comment: 'delish!'},
-  {userId: 5, contractId: 6, itemId: 7, comment: 'great experience!'},
-  {userId: 6, contractId: 6, itemId: 8, comment: 'very delicious!'},
-  {userId: 6, contractId: 7, itemId: 9, comment: 'amazing!'},
-  {userId: 5, contractId: 7, itemId: 10, comment: 'thank you, love the veggies!'}
+  {userId: 1, contractId: 1, itemIds: '1', comment: 'Soup dejour amor!'},
+  {userId: 2, contractId: 1, itemIds: '2', comment: 'This is BANANAS!'},
+  {userId: 2, contractId: 2, itemIds: '3', comment: 'Good stuff!'},
+  {userId: 3, contractId: 2, itemIds: '4', comment: 'yum oranges!'},
+  {userId: 3, contractId: 3, itemIds: '5', comment: 'Soup dejour amor!'},
+  {userId: 2, contractId: 3, itemIds: '6', comment: 'delish!'},
+  {userId: 5, contractId: 6, itemIds: '7', comment: 'great experience!'},
+  {userId: 6, contractId: 6, itemIds: '8', comment: 'very delicious!'},
+  {userId: 6, contractId: 7, itemIds: '9', comment: 'amazing!'},
+  {userId: 5, contractId: 7, itemIds: '10', comment: 'thank you, love the veggies!'}
 ]
 
 const messages = [

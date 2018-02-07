@@ -20,19 +20,20 @@ export const stopGeth = () => ({ type: STOP_GETH })
  * THUNK CREATORS
  */
 export const startGethInst = (user) => dispatch =>
-    axios.get(`/geth-start-script/${user.ipcAddr}/${user.port}`)
+    axios.post(`/api/geth/geth-start-script`, {user})
       .then(res => dispatch(startGeth()))
       .catch(err => console.log(err))
 
 export const stopGethInst = (user) => dispatch =>
-      axios.get(`/geth-stop-script/${user.ipcAddr}`)
-        .then(res => dispatch(stopGeth()))
-        .catch(err => console.log(err))
-
-export const checkPeers = (user) =>
-        axios.get(`/geth-stop-script/${user.ipcAddr}`)
-          .then(res => console.log(res.data))
-          .catch(err => console.log(err))
+      axios.post(`/api/geth/geth-stop-script`, {user})
+      .then(res => dispatch(stopGeth()))
+      .catch(err => console.log(err))
+        
+export const checkGethPeers = (user) => dispatch =>
+      axios.post('/api/geth/check-peers', {user})
+      .then( res => console.log(res.data))
+      .catch(err => console.log(err))
+      
 /**
  * REDUCER
  */

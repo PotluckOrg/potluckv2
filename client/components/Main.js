@@ -2,8 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {logout} from '../store'
-import axios from 'axios'
+import {logout, stopGethInst, checkGethPeers} from '../store'
 
 /**
  * COMPONENT
@@ -13,8 +12,7 @@ import axios from 'axios'
  */
 const Main = (props) => {
   console.log('i am props', props)
-  const {children, handleClick, isLoggedIn, user, inbox, basket} = props
-
+  const {children, handleClick, isLoggedIn, user, inbox, basket. stopGeth} = props
   return (
     <div>
       <h1 id="title">POTLUCK</h1>
@@ -29,7 +27,8 @@ const Main = (props) => {
               <Link to="/account"><i className="fas fa-cog" /></Link>
               <Link to="/messageinbox">Messages</Link>
               <Link to="/pantry"><img src="./icons/489212-200.png" className="menu-icon" /></Link>
-              <a href="/" onClick={handleClick}>Logout</a>
+              <a href="/" onClick={(event) => handleClick(event, user, stopGeth)}>Logout</a>
+              <a href="#" onClick={(event) => handlePeersClick(event, user, checkPeers)}>CheckPeers</a>
             </div>
             : <div>
                 {/* The navbar will show these links before you log in */}
@@ -58,8 +57,18 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick () {
+    handleClick (evt, user, stopGeth) {
       dispatch(logout())
+      stopGeth(user)
+    },
+    handlePeersClick (evt, user, checkPeers) {
+      checkPeers(user)
+    },
+    stopGeth (user) {
+      dispatch(stopGethInst(user))
+    },
+    checkPeers (user) {
+      dispatch(checkGethPeers(user))
     }
   }
 }

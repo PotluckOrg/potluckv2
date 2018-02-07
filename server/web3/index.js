@@ -1,4 +1,4 @@
-// const Web3 = require('web3');
+const Web3 = require('web3');
 const net = require('net');
 const path = require('path');
 // const config = require('config');
@@ -47,11 +47,11 @@ router.use((req, res, next) => {
 
   // I replaced the block below with the line above this one:
 
-  // web3.eth.getCoinbase(function(err, cba) {
-  //   coinbaseAddress = cba;
-  //   console.log('Coinbase Address: ', coinbaseAddress);
-  // });
-  coinbasePassphrase = 'passphrase';
+  web3.eth.getCoinbase(function(err, cba) {
+    coinbaseAddress = cba;
+    console.log('Coinbase Address: ', coinbaseAddress);
+  });
+  coinbasePassphrase = '1234';
   byteCode = compiledContract.byteCode;
   ProduceSwapContract = new web3.eth.Contract(compiledContract.abi);
   next();
@@ -60,9 +60,7 @@ router.use((req, res, next) => {
 // router.get('/', (req, res) => res.render('home'));
 
 router.post('/', (req, res) => {
-  console.log("Web3 Post req.body", req.body);
   const item = req.body.allItems;
-  console.log("Coinbase Address: ", coinbaseAddress)
   web3.eth.personal.unlockAccount(coinbaseAddress, coinbasePassphrase, function(err, uares) {
     ProduceSwapContract.deploy({data: byteCode, arguments: [item]}).send({from: coinbaseAddress, gas: 2000000})
       .on('receipt', function (receipt) {
@@ -84,8 +82,7 @@ router.get('/contract', function(req, res) {
       console.log(currentTradeItems);
       const solicitorItemRequest = currentTradeItems['0'];
       const soliciteeItemRequest = currentTradeItems['1'];
-      data = {contractAddress: contractAddress, solicitorItemRequest: solicitorItemRequest, soliciteeItemRequest: soliciteeItemRequest};
-      console.log(data);
+      let data = {contractAddress: contractAddress, solicitorItemRequest: solicitorItemRequest, soliciteeItemRequest: soliciteeItemRequest};
       res.render('question', data);
     });
   }
@@ -110,7 +107,8 @@ router.post('/contract', function(req, res) {
         })
         .on('receipt', function (receipt) {
           console.log(`Item with address ${contractAddress} updated.`);
-          res.redirect('/questions?address=' + contractAddress);
+          res.json(receipt.contractAddress)
+          // res.redirect('/contract');
         }
       );
     });

@@ -15,3 +15,4 @@ miner.start()
 miner.stop()
 admin
 miner.start()
+miner.stop()

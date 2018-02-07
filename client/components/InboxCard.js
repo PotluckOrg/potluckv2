@@ -6,28 +6,29 @@ import { fetchAllItems, fetchContractAssociations } from '../store'
 const InboxCard = (props) => {
     const { request, associations, currentUser, items } = props
     let message, item, filteredAssociations
-    
+
     // const item = props.items.find(item => {
     //     return item.id === request.contractAssociation.itemId
     // })
     let lengthCheck = associations.length
 
-    if (lengthCheck && items) {
+    if (lengthCheck > 0 && items.length > 0) {
         filteredAssociations = associations.filter(association => association.userId !== currentUser.id)
         console.log('filteredAssociations', filteredAssociations)
         item = items.find(item => item.id === filteredAssociations[0].itemId)
-        if (request) message = `You have a new request from ${item.user.username}`
+        if (request && item) message = `You have a new request from ${item.user.username}`
+
     }
 
     //add different messages based off of contract status
- 
+
     return (
             lengthCheck &&
                 <div className="card w-100">
                 <div className="card-body">
                     {message}
                 </div>
-            </div> 
+            </div>
     )
 }
 
