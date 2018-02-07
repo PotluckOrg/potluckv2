@@ -4,11 +4,11 @@ import { withRouter } from 'react-router-dom'
 import { addPantryItemToDB, createItemForm } from '../store'
 
 const AddPantryItem = (props) => {
-  const {user, name, description, handleChange, handleSubmit} = props
+  const {user, name, description, handleChange, handleSubmit, iconUrl} = props
 
   return (
     <div>
-      <form id="submit-review" onSubmit={(event) => props.handleSubmit(user, event)}>
+      <form id="add-pantry-item" onSubmit={(event) => props.handleSubmit(user, event)}>
         <div>Name:
           <br />
           <input
@@ -33,10 +33,37 @@ const AddPantryItem = (props) => {
             placeholder="Leave a description of your item"
           />
         </div>
-
         <br />
+      <label>
+          Pick an image icon:
+          <select name="iconUrl" value={iconUrl} onChange={handleChange}>
+            <option value="./icons/foodbunch2.svg">Food Bunch</option>
+            <option value="./icons/apple.svg">Apple</option>
+            <option value="./icons/artichoke.svg">Artichoke</option>
+            <option value="./icons/avocado.svg">Avocado</option>
+            <option value="./icons/banana.svg">Banana</option>
+            <option value="./icons/carrot.svg">Carrot</option>
+            <option value="./icons/cheese.svg">Cheese</option>
+            <option value="./icons/corn.svg">Corn</option>
+            <option value="./icons/eggs.svg">Eggs</option>
+            <option value="./icons/grapes.svg">Grapes</option>
+            <option value="./icons/ginger.svg">Ginger</option>
+            <option value="./icons/leeks.svg">Leeks</option>
+            <option value="./icons/lemon.svg">Lemon</option>
+            <option value="./icons/lettuce.svg">Lettuce</option>
+            <option value="./icons/lemon.svg">Lemon</option>
+            <option value="./icons/milk.svg">Milk</option>
+            <option value="./icons/mushroom.svg">Mushroom</option>
+            <option value="./icons/onion.svg">Onion</option>
+            <option value="./icons/orange.svg">Orange</option>
+            <option value="./icons/pineapple.svg">Pineapple</option>
+            <option value="./icons/potato.svg">Potato</option>
+            <option value="./icons/pumpkin.svg">Pumpkin</option>
+            <option value="./icons/strawberry.svg">Strawberry</option>
+          </select>
+        </label>
         <button type="Submit" >Add item</button>
-      </form>
+        </form>
     </div>
   )
 }
@@ -46,6 +73,7 @@ const mapState = (state) => {
     user: state.user,
     name: state.itemForm.name,
     description: state.itemForm.description,
+    iconUrl: state.itemForm.iconUrl
   }
 }
 
@@ -62,11 +90,13 @@ const mapDispatch = (dispatch, ownProps) => {
       const name = event.target.name.value
       const description = event.target.description.value
       const userId = user.id
-      dispatch(addPantryItemToDB({name, description, userId}))
+      const iconUrl = event.target.iconUrl.value
+      dispatch(addPantryItemToDB({name, description, userId, iconUrl}))
       dispatch(createItemForm({
         name: '',
         description: '',
-        userId: ''
+        userId: '',
+        iconUrl: ''
       }))
     }
   }

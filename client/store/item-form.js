@@ -9,6 +9,7 @@ const inputValues = {
     name: '',
     description: '',
     userId: 0,
+    iconUrl: ''
 }
 
 // ACTION CREATOR

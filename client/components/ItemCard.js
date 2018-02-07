@@ -8,6 +8,7 @@ import { addToBasket, removeFromBasket, returnToMyMarketThunk, removeFromMyMarke
 
 const ItemCard = (props) => {
     const { currentUser, items, item, itemOwnerId, modalBody, modalIcon, inRequest } = props
+    console.log('ITEMCARDPROPS', props)
     let modalButton, buttonText, clickHandler
 
     const cardBody = singleItem => {
