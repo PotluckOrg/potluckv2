@@ -71,8 +71,8 @@ router.post('/geth-start-script', (req, res, next) => {
   .then( enode => {
     enodes.push(enode)
 
-   // console.log("Starting to mine...")
-     //currentNode.inst.consoleExec('miner.start()')
+    console.log("Starting to mine...")
+     currentNode.inst.consoleExec('miner.start()')
 
   })
   .catch(function(err) {
