@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { fetchAllTrades } from './index';
 
 /**
  * ACTION TYPES
@@ -21,7 +22,11 @@ export const getCompletedContracts = contracts => ({ type: GET_COMPLETE_CONTRACT
  */
 export const fetchCompletedContracts = () => dispatch =>
       axios.get('/api/contracts/completed')
-        .then(res => dispatch(getCompletedContracts(res.data)))
+        .then(res => {
+           dispatch(getCompletedContracts(res.data))
+           return res
+           })
+        .then( res => dispatch(fetchAllTrades(res.data)))
         .catch(err => console.log(err))
 
 /**
