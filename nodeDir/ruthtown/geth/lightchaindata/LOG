@@ -4,3 +4,9 @@
 15:17:50.160146 version@stat F·[] S·0B[] Sc·[]
 15:17:50.236902 db@janitor F·2 G·0
 15:17:50.236929 db@open done T·77.323291ms
+=============== Feb 7, 2018 (EST) ===============
+16:52:58.655049 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+16:52:58.758054 db@open opening
+16:52:58.790056 version@stat F·[] S·0B[] Sc·[]
+16:52:58.803057 db@janitor F·2 G·0
+16:52:58.803057 db@open done T·45.0025ms

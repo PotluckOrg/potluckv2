@@ -10,7 +10,6 @@ const RequestTicket = (props) => {
 
     const contractInQuestion = contracts.find(contract => +contract.id === +contractId)
 
-
     const senderId = requests[contractId].otherUserId
     const senderItems = items.filter(item => item.userId === senderId)
     const sender = senderItems[0].user
@@ -18,44 +17,92 @@ const RequestTicket = (props) => {
     const request = requests[contractId]
 
     const reqAssociation = request.associations.find(assoc => assoc.userId !== currentUser.id)
-
-    const resAssociation = request.associations.find(assoc => assoc.userId === currentUser.id)
-
     const reqItemIds = reqAssociation.itemIds.split(", ")
     const reqContractItems = reqItemIds.map(oneItemId => {
       return items.find(item => +item.id === +oneItemId)
     })
 
-    return (
-        <div className="request-ticket">
-            <h5>Lets make a swap!</h5>
-            <p>Status: {request.status} </p>
-            <div className="requested-items">
-                <h3>Requested from you:</h3>
-                <ul className="request-ticket-card"  >
-                    {reqContractItems &&
+    const resAssociation = request.associations.find(assoc => assoc.userId === currentUser.id)
+    const resItemIds = resAssociation.itemIds.split(", ")
+    const resContractItems = resItemIds.map(oneItemId => {
+      return items.find(item => +item.id === +oneItemId)
+    })
+
+    const ticketBody = (contract) => {
+        switch(contract.status) {
+            case 'Created':
+            (<div>
+                <div className="requested-items">
+                    <h3>Requested from you:</h3>
+                    <ul className="request-ticket-card"  >
+                        {reqContractItems &&
                             <li>
                                 <ItemCard itemOwnerId={currentUser.id} items={reqContractItems} path={props.match.path} inRequest="true" />
                             </li>
+                        }
+                    </ul>
+                    <h3>Your request:</h3>
+                    {offer &&
+                        <div>
+                            <ItemCard itemOwnerId={senderId} items={offer} path={props.match.path} inRequest="true" />
+                            <button type="button" className="btn btn-primary" onClick={() => updateContractHandler(offer, contractInQuestion, sender, senderId, currentUser)}>
+                                <i className="fas fa-arrow-circle-right" />
+                            </button>
+                        </div>
+                    }
+                </div>
+                <hr />
+                <div className="sender-pantry">
+                    <Pantry senderId={senderId} path={props.match.path} />
+                </div>
+            </div>)
+                break;
 
+            case 'FirstReview':
+                firstReviewRequests.push(currentContract)
+                break;
+
+            case 'SecondReview':
+            <div className="requested-items">
+                <button type="button" className="btn btn-primary" onClick={() => {}}>
+                    Let's swap!
+                </button>
+                <h3>Requested from you:</h3>
+                <ul className="request-ticket-card"  >
+                    {reqContractItems &&
+                        <li>
+                            <ItemCard itemOwnerId={currentUser.id} items={reqContractItems} path={props.match.path} inRequest="true" />
+                        </li>
                     }
                 </ul>
                 <h3>Your request:</h3>
-                {offer &&
-                    <div>
-                        <ItemCard itemOwnerId={senderId} items={offer} path={props.match.path} inRequest="true" />
-                        <button type="button" className="btn btn-primary" onClick={() => updateContractHandler(offer, contractInQuestion, sender, senderId, currentUser)}>
-                            <i className="fas fa-arrow-circle-right" />
-                        </button>
-                    </div>
-                }
-
+                    {resContractItems &&
+                        <li>
+                            <ItemCard itemOwnerId={currentUser.id} items={reqContractItems} path={props.match.path} inRequest="true" />
+                        </li>
+                    }
             </div>
-            <hr />
-                <div className="sender-pantry">
-                <Pantry senderId={senderId} path={props.match.path} />
-            </div>
+        
+            case 'Pending':
+                pendingRequests.push(currentContract)
+                break;
+            case 'Completed':
+                completedRequests.push(currentContract)
+                break;
+            case 'Canceled':
+                canceledRequests.push(currentContract)
+                break;
+            default:
+                createdRequests.push(currentContract)
+        
+            }
+        }
 
+    return (
+        <div className="request-ticket">
+            <h5>Lets make a swap!</h5>
+            <p>Status: {contractInQuestion.status} </p>
+            {ticketBody(contractInQuestion)}
         </div>
 
 
