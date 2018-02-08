@@ -21,10 +21,16 @@ const RequestTicket = (props) => {
 
     const resAssociation = request.associations.find(assoc => assoc.userId === currentUser.id)
 
-    const reqItemIds = reqAssociation.itemIds.split(", ")
-    const reqContractItems = reqItemIds.map(oneItemId => {
+    let reqItemIds
+    if (reqAssociation.itemIds) {
+      reqItemIds = reqAssociation.itemIds.split(", ")
+    }
+    let reqContractItems
+    if (reqItemIds) {
+      reqContractItems = reqItemIds.map(oneItemId => {
       return items.find(item => +item.id === +oneItemId)
     })
+  }
 
     return (
         <div className="request-ticket">
