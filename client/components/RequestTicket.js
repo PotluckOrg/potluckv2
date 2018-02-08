@@ -5,13 +5,14 @@ import Pantry from './Pantry'
 import { fetchContractAssociations, updateContract, removeFromOffer, removeFromMyMarket, updateContractStatus } from '../store'
 
 const RequestTicket = (props) => {
-    console.log('PROPS FROM request ticket', props)
-    const { items, contractId, currentUser, offer, updateContractHandler, requests, contracts } = props
+    const { items, contractId, currentUser, offer, updateContractHandler, requests, contracts, approveSwapHandler} = props
 
     const contractInQuestion = contracts.find(contract => +contract.id === +contractId)
 
 
-    const senderId = requests[contractId].otherUserId
+    console.log("REQUESTS: ", requests)
+    let senderId
+    if (contractId){ senderId = requests[contractId].otherUserId}
     const senderItems = items.filter(item => item.userId === senderId)
     const sender = senderItems[0].user
 
@@ -35,15 +36,20 @@ const RequestTicket = (props) => {
     return (
         <div className="request-ticket">
             <h5>Lets make a swap!</h5>
-            <p>Status: {request.status} </p>
+            <p>Status: {contractInQuestion.status} </p>
             <div className="requested-items">
                 <h3>Requested from you:</h3>
                 <ul className="request-ticket-card"  >
                     {reqContractItems &&
                             <li>
                                 <ItemCard itemOwnerId={currentUser.id} items={reqContractItems} path={props.match.path} inRequest="true" />
-                            </li>
 
+                                {
+                                  contractInQuestion.status === 'SecondReview' &&
+                                  <button type="button" className="btn btn-primary" onClick={() => approveSwapHandler(contractId)}> Accept Trade
+                                  </button>
+                                }
+                            </li>
                     }
                 </ul>
                 <h3>Your request:</h3>
@@ -92,8 +98,8 @@ const mapDispatch = (dispatch, ownProps) => {
              // will request ticket automatically update?
           // need to send message to the user who initiated the contract
         },
-         approveSwapHandler: (contract) => {
-           dispatch(updateContractStatus(contract.id, {status: 'Pending'}))
+         approveSwapHandler: (contractId) => {
+           dispatch(updateContractStatus(contractId, {status: 'Pending'}))
          }
 
     }

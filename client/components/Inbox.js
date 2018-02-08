@@ -5,13 +5,14 @@ import {Link} from 'react-router-dom'
 
 const Inbox = (props) => {
     const { requests, contracts, currentUser, inbox } = props
-    
+
     let contractIds = Object.keys(requests)
     let createdRequests = [], firstReviewRequests = [], secondReviewRequests = [], pendingRequests = [], completedRequests = [], canceledRequests = [];
-    
+
     contractIds.forEach(contractId => {
         let currentContract = contracts.find(contract => +contract.id === +contractId)
-        switch (currentContract.status) {
+        if (currentContract.id) {
+          switch (currentContract.status) {
             case 'Created':
                 createdRequests.push(currentContract)
                 break;
@@ -33,6 +34,7 @@ const Inbox = (props) => {
             default:
                 createdRequests.push(currentContract)
         }
+      }
     })
 
     let inboxBody
@@ -44,7 +46,7 @@ const Inbox = (props) => {
                 <div>
                     <h5>A user is interested in making a trade!</h5>
                     <ul className="ticket-list">
-                        {createdRequests.map(request => {
+                        { createdRequests && createdRequests.map(request => {
                             return (
                                 <li key={request.id} className="request-ticket-card">
                                     <Link to={`/${request.id}`}>
@@ -61,12 +63,12 @@ const Inbox = (props) => {
                 <div>
                     <h5>Your request is being reviewed!</h5>
                     <ul className="ticket-list">
-                        {secondReviewRequests && 
+                        {secondReviewRequests &&
                             secondReviewRequests.map(request => {
                                 return (
                                     <li key={request.id} className="request-ticket-card">
                                         <Link to={`/${request.id}`}>
-                                            <InboxCard request={request} otherUserId={requests[request.id].otherUserId} />
+                                            <InboxCard request={request}  otherUserId={requests[request.id].otherUserId} />
                                         </Link>
                                     </li>
                                 )

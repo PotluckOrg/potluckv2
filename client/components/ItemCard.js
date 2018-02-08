@@ -8,7 +8,6 @@ import { addToBasket, removeFromBasket, returnToMyMarketThunk, removeFromMyMarke
 
 const ItemCard = (props) => {
     const { currentUser, items, item, modalBody, modalIcon, inRequest, ownProps } = props
-    console.log('ITEMCARD ownPROPS', ownProps)
     let modalButton, buttonText, clickHandler
 
     let inRequestTicket = ownProps.match.path === '/:id'
@@ -16,7 +15,6 @@ const ItemCard = (props) => {
     const cardBody = singleItem => {
             switch (props.path) {
                 case '/pantry':
-                console.log('SINGLEITEM', singleItem)
                     buttonText = inRequestTicket ? <i className="fa fa-plus" aria-hidden="true" /> : <i className="fa fa-minus" aria-hidden="true" />
                     // clickHandler = event => props.handleAddToOffer(event, singleItem, currentUser.id)
                     clickHandler = inRequestTicket ? event => props.handleAddToOffer(event, singleItem, currentUser.id) : () => {}

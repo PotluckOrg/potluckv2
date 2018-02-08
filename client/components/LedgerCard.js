@@ -5,8 +5,6 @@ const LedgerCard = (props) => {
 
       const {trade} = props
       let tradeItemImgsUser1 = trade.user1.itemImgs.map( (item, index) => <img className="ledger-item-img" src={item} key={index} />)
-      console.log("ITEMS: ", trade.user1.itemImgs)
-      console.log("ITEMS USER2: ", trade.user2.itemImgs)
       let tradeItemImgsUser2 = trade.user2.itemImgs.map( (item, index) => <img className="ledger-item-img" src={item} key={index} />)
         return (
           <div className="card w-100">

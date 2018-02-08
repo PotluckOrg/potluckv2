@@ -51,14 +51,12 @@ router.get('/ledger/:contractId', (req, res, next) => {
      })
      .then( foundUser2Items => {
       newTrade.user2.itemImgs = foundUser2Items.map(item => item.iconUrl)
-      console.log("User2  Items: ", newTrade.user2.itemImgs)
       return res.status(200).json(newTrade)
      })
     .catch(next)
 })
 
 router.put('/:contractId', (req, res, next) => {
-  console.log('REQ>BODYSOLICITEEID', req.body.soliciteeId)
   return ContractAssociations.findOne({where: {
       userId: req.body.soliciteeId,
       contractId: req.params.contractId
@@ -67,7 +65,6 @@ router.put('/:contractId', (req, res, next) => {
     return contractAssoc.update({itemIds: req.body.itemIds})
   })
   .then(updatedCA => {
-    console.log("Updated ContractAssociation: ", updatedCA)
     res.json(updatedCA)
   })
   .catch(next)
