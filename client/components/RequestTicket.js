@@ -96,7 +96,7 @@ const RequestTicket = (props) => {
                     }
                     </ul>
                 </div>)
-
+            break;
         case 'Pending':
             display =
                 (<div className="requested-items">
@@ -118,6 +118,21 @@ const RequestTicket = (props) => {
 
             break;
         case 'Completed':
+        display =
+        (<div className="requested-items">
+            <h3>Requested from you:</h3>
+            <ul className="request-ticket-card"  >
+                {reqContractItems &&
+                    reqContractItems.map(item => <li key={item.id}>{item.name}</li>)}
+            </ul>
+            <h3>Your request:</h3>
+            <ul className="request-ticket-card"  >
+            {resContractItems &&
+                resContractItems.map(item => <li key={item.id}>{item.name}</li>)}
+                </ul>
+
+                <h4>Date completed: {contractInQuestion.updatedAt}</h4>
+        </div>)
 
             break;
         case 'Canceled':
