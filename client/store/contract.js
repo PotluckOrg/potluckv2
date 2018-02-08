@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {fetchInbox} from './inbox'
 
 /**
  * ACTION TYPES
@@ -26,6 +27,7 @@ export const fetchContracts = () => dispatch => {
     axios
       .get('/api/contracts')
       .then(res => dispatch(getContracts(res.data)))
+      .then(res => dispatch(fetchInbox()))
       .catch(err => console.log(err))
       // let data = defaultMarket.find(item => item.id === itemId)
       // dispatch(returnToMyMarket(data))
@@ -35,6 +37,7 @@ export const createContractApi = (contractAddress, currentUserId, soliciteeId, i
     axios
       .post('/api/contracts', {contractAddress, currentUserId, soliciteeId, itemIds})
       .then(res => dispatch(getContracts(res.data)))
+      .then(res => dispatch(fetchInbox()))
       .catch(err => console.log(err))
 }
 
@@ -42,6 +45,7 @@ export const updateContractAssoc = (contractId, soliciteeId, itemIds) => dispatc
     axios
       .put(`/api/contractassociations/${contractId}`, {soliciteeId, itemIds})
       .then(res => dispatch(getContracts(res.data)))
+      .then(res => dispatch(fetchInbox()))
       .catch(err => console.log(err))
 }
 
@@ -53,6 +57,7 @@ export const updateContractStatus = (contractId, status) => dispatch => {
   axios
     .put(`/api/contracts/${contractId}`, status)
     .then(res => dispatch(getContracts(res.data)))
+    .then(res => dispatch(fetchInbox()))
     .catch(err => console.log(err))
 }
 

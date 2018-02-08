@@ -1,7 +1,7 @@
 import React from 'react'
 import InboxCard from './InboxCard'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 
 const Inbox = (props) => {
     const { requests, contracts, currentUser, inbox } = props
@@ -134,4 +134,4 @@ const mapState = (state) => {
     }
 }
 
-export default connect(mapState)(Inbox)
+export default withRouter(connect(mapState)(Inbox))
