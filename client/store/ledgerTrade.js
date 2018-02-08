@@ -23,14 +23,12 @@ export const getCompleteTrade = trade => ({type: GET_COMPLETE_TRADE, trade})
 
   export const fetchAllTrades = (completedContracts) => dispatch =>
       {
-        console.log("CONTRACS: ", completedContracts)
         let promises = completedContracts.map( contract =>
             {
              return (
               axios.get(`/api/contractassociations/ledger/${contract.id}`)
               )
             })
-        console.log("PROMISES: ", promises)
         axios.all(promises)
         .then( axios.spread((...args) => {
           return args.map( res => dispatch(getCompleteTrade(res.data)))

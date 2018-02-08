@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 
 
 const Market = (props) => {
-    console.log("Market props: ", props)
     const { items } = props
 
     return (

@@ -23,14 +23,12 @@ export const removeFromBasket = itemId => ({ type: REMOVE_BASKET_ITEM, itemId })
  * THUNK CREATORS
  */
 export const createContractWeb3 = (items, currentUser, soliciteeId) => dispatch => {
-    console.log("ITEMS inside Web3 createContract", items);
     let allItems = items.map(item => item.name).join(', ');
     let itemIds = []
     items.forEach(itemObj => {
       itemIds.push(itemObj.id)
     })
     itemIds = itemIds.join(', ')
-    console.log('allItems: ', allItems)
     axios.post('/web3', {allItems, currentUser})
       .then(result => {
         // console.log("BASKET.JS RESULTDATA: ", result.data)
@@ -50,7 +48,6 @@ export default function(state = defaultBasket, action) {
         return [...state, action.item]
 
     case REMOVE_BASKET_ITEM:
-    console.log("ACTION.ITEMID", action.itemId)
     return state.filter(item => {
         return item.id !== +action.itemId
       })

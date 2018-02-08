@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import ItemCard from './ItemCard'
 import Pantry from './Pantry'
-import { fetchContractAssociations, updateContract, removeFromOffer, removeFromMyMarket, updateContractStatus } from '../store'
+import { fetchContractAssociations, updateContract, removeFromOffer, removeFromMyMarket, updateContractStatus, fetchInbox, completeSwapHandler, updateContractAssociation} from '../store'
 
 const RequestTicket = (props) => {
     const { items, contractId, currentUser, offer, updateContractHandler, requests, contracts, approveSwapHandler} = props
@@ -10,9 +10,8 @@ const RequestTicket = (props) => {
     const contractInQuestion = contracts.find(contract => +contract.id === +contractId)
 
 
-    console.log("REQUESTS: ", requests)
     let senderId
-    if (contractId){ senderId = requests[contractId].otherUserId}
+    if (requests.length > 0 && contractId){ senderId = requests[contractId].otherUserId}
     const senderItems = items.filter(item => item.userId === senderId)
     const sender = senderItems[0].user
 
@@ -48,6 +47,19 @@ const RequestTicket = (props) => {
                                   contractInQuestion.status === 'SecondReview' &&
                                   <button type="button" className="btn btn-primary" onClick={() => approveSwapHandler(contractId)}> Accept Trade
                                   </button>
+                                }
+
+                                {
+                                  contractInQuestion.status === 'Pending' &&
+                                  (
+                                    <form onSubmit={(event) => completeSwapHandler(event, contractId, currentUser)}>
+                                    Comment on your trade:<br />
+                                    <input type="text" name="comment" />
+                                    <button type="submit" className="btn btn-primary" > Accept Trade
+                                    </button>
+                                    </form>
+                                  )
+
                                 }
                             </li>
                     }
@@ -100,7 +112,14 @@ const mapDispatch = (dispatch, ownProps) => {
         },
          approveSwapHandler: (contractId) => {
            dispatch(updateContractStatus(contractId, {status: 'Pending'}))
-         }
+           dispatch(fetchInbox())
+         },
+         completeSwapHandler: (event, contractId, currentUser) => {
+           event.preventDefault()
+          dispatch(updateContractStatus(contractId, {status: 'Pending'}))
+          dispatch(updateContractAssociation(contractId, currentUser, event.target.comment.value))
+          dispatch(fetchInbox())
+        }
 
     }
 }

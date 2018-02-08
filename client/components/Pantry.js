@@ -19,9 +19,6 @@ const Pantry = (props) => {
     // their items
     items.filter(item => +item.userId === +ownProps.senderId)
 
-    console.log("ownProps: ", ownProps)
-    console.log("Pantry Items: ", pantryItems)
-    console.log("Items: ", items)
 
     const title = inPantry ? 'My Pantry' : (pantryItems.length && `${pantryItems[0].user.username}'s Pantry`)
     return (

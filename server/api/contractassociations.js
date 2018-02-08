@@ -70,5 +70,19 @@ router.put('/:contractId', (req, res, next) => {
   .catch(next)
 })
 
+router.put('/comment/:contractId', (req, res, next) => {
+  return ContractAssociations.findOne({where: {
+      userId: req.body.currentUser,
+      contractId: req.params.contractId
+  }})
+  .then(contractAssoc => {
+    return contractAssoc.update({comment: req.body.comment})
+  })
+  .then(updatedCA => {
+    res.json(updatedCA)
+  })
+  .catch(next)
+})
+
 
 module.exports = router;

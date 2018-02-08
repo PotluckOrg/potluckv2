@@ -41,7 +41,6 @@ const ItemCard = (props) => {
               }
 
 
-        console.log('clickHandler', clickHandler)
         return (
             <div key={singleItem.id} className="row card-body-wrapper">
                 <div className="col-3">

@@ -24,10 +24,15 @@ export const fetchContractAssociations = (contractId) => dispatch => {
       axios
         .get(`/api/contractassociations/${contractId}`)
         .then(res => {
-            console.log('RES>DATA', res.data)
-            dispatch(getContractAssociations(res.data))
-        }) 
+            return dispatch(getContractAssociations(res.data))
+        })
         .catch(err => console.log(err))
+  }
+
+  export const updateContractAssociation = (contractId, currentUser, comment) => dispatch => {
+    axios.get(`/api/contractassociations/comment/${contractId}`, {currentUser, comment})
+      .then( res => dispatch(getContractAssociations(res.data)))
+      .catch(err => console.log(err))
   }
 
 /**

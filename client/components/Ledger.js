@@ -10,17 +10,6 @@ class Ledger extends Component {
           super(props)
       }
 
-      componentDidMount () {
-        // console.log("MOUNTED", this.props)
-        // if (this.props.allTrades.length && this.props.allTrades.length !== this.props.contracts.length){
-        //   console.log("IN IF", this.props.contracts, this.props.allTrades)
-        //   this.props.loadAllTrades(this.props.contracts)
-        // } else {
-        //   //DO NOTHING
-        //   console.log("DO NOTHING")
-        //   return
-        // }
-      }
 
     render () {
       const {allTrades, inbox} = this.props

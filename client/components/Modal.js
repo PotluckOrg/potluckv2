@@ -6,7 +6,7 @@ import { removeFromBasket, removeFromMyMarket, createContractWeb3 } from '../sto
 
 const Modal = (props) => {
     const { name, isVisible, icon, body, clickHandler } = props
-    
+
     $('#addItemModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var recipient = button.data('whatever') // Extract info from data-* attributes
@@ -40,8 +40,6 @@ const mapDispatch = (dispatch, ownProps) => {
         sendRequestHandler: (event, items, itemOwner, currentUser) => {
             let allItems = items.map(item => item.name).join(', ')
             const soliciteeId = itemOwner
-            console.log("mapDispatch UserIpcAddr: ", currentUser)
-            console.log('ITEMS', items)
             // The modal failed to appear when I tried to format the item as just a string?!
             // dispatch(createContractWeb3(allItems, currentUser, soliciteeId))
             items.forEach(item => {

@@ -12,7 +12,6 @@ import {logout, stopGethInst} from '../store'
  */
 const Main = (props) => {
 
-  console.log('i am props', props)
   const {children, handleClick, isLoggedIn, user, inbox, basket, stopGeth} = props
 
   return (
