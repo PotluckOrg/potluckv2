@@ -1,14 +1,14 @@
 import React from 'react'
 import InboxCard from './InboxCard'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 
 const Inbox = (props) => {
     const { requests, contracts, currentUser, inbox } = props
-    
+
     let contractIds = Object.keys(requests)
     let createdRequests = [], firstReviewRequests = [], secondReviewRequests = [], pendingRequests = [], completedRequests = [], canceledRequests = [];
-    
+
     contractIds.forEach(contractId => {
         let currentContract = contracts.find(contract => +contract.id === +contractId)
         switch (currentContract.status) {
@@ -61,8 +61,8 @@ const Inbox = (props) => {
                 <div>
                     <h5>Your request is being reviewed!</h5>
                     <ul className="ticket-list">
-                        {secondReviewRequests && 
-                            secondReviewRequests.map(request => {
+                        {firstReviewRequests.length &&
+                            firstReviewRequests.map(request => {
                                 return (
                                     <li key={request.id} className="request-ticket-card">
                                         <Link to={`/${request.id}`}>
@@ -72,8 +72,8 @@ const Inbox = (props) => {
                                 )
                             })
                         }
-                        {firstReviewRequests.length &&
-                            firstReviewRequests.map(request => {
+                        {secondReviewRequests &&
+                            secondReviewRequests.map(request => {
                                 return (
                                     <li key={request.id} className="request-ticket-card">
                                         <Link to={`/${request.id}`}>
@@ -134,4 +134,4 @@ const mapState = (state) => {
     }
 }
 
-export default connect(mapState)(Inbox)
+export default withRouter(connect(mapState)(Inbox))
