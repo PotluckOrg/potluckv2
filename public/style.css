@@ -2,6 +2,10 @@ body {
     font-family: sans-serif;
   }
 
+  #app {
+    height: 100vh;
+  }
+
   a {
     text-decoration: none;
   }
@@ -14,9 +18,17 @@ body {
     display: block;
   }
 
+  nav#main {
+    text-align: center;
+    background: #fff;
+    border-top: #999 solid 2px;
+  }
+
   nav a {
     display: inline-block;
-    margin: 1em;
+    margin: .5em;
+    color: #000;
+    font-size: 20px
   }
 
   form div {
@@ -26,13 +38,27 @@ body {
 
   #title, h1, h2, h3, h4 {
     font-family: 'Handlee', sans-serif;
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  #title>h3{
+    margin-bottom: 0;
   }
 
   #title {
     text-align: center;
-    margin-top: 1.5rem;
+    padding: 1.5rem;
+    margin-bottom: 0;
+    background-color: #fff;
+    border-bottom: 1px solid rgba(0,0,0,.5);
+  }
+
+  .title-hr {
+    margin-top: 0!important;
+    height: 13vh;
   }
 
   .item-card, .request-ticket-card {
@@ -69,10 +95,11 @@ body {
 
   ul {
     padding-left: 0;
+  
   }
 
   .menu-icon {
-    width: 2rem;
+    width: 3rem;
   }
 
   #addItem {
@@ -84,18 +111,19 @@ body {
     display: inline-block;
   }
 
+  .ledger-list {
+    height: 110vh;
+  }
+
   /**
   * LOGIN STYLE
   **/
-
-  .login {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -150px 0 0 -150px;
-    width:300px;
-    height:300px;
+  .login form {
+    height: 84vh;
+    padding: 2rem;
+    background-color: #bced91
   }
+
   .login h1 { color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
 
   .login input {

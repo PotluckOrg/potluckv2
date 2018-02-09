@@ -27,36 +27,41 @@ const Pantry = (props) => {
     return (
         <div>
             <div>
-                <h3 className="pantry-title">{title}</h3>
-                {inPantry &&
-
-                    <button
-                        id="addItem"
-                        type="button"
-                        className="btn btn-primary"
-                        data-toggle="modal"
-                        data-target="#addItemModal"
-                        data-whatever="addItem"
-                    >
-                        <i className="fa fa-plus" aria-hidden="true" />
-                    </button>
-
+                {!inPantry &&
+                    <h3 className="pantry-title">{title}</h3>
                 }
             </div>
-            {inPantry && pantryItems &&
-                pantryItems.map(item => {
-                    return <ItemCard key={item.id} item={item} path={path} />
-                })
-            }
-            {!inPantry && pantryItems &&
-                pantryItems.map(item => {
-                    return <ItemCard key={item.id} item={item} path={'/pantry'} />
-                })
-            }
-
+            <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li className="nav-item">
+              <a className="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">All Items</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">
+                <i className="fa fa-plus" aria-hidden="true" />
+                </a>
+            </li>
+          </ul>
+          <div className="tab-content" id="pills-tabContent">
+            <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                {inPantry && pantryItems &&
+                    pantryItems.map(item => {
+                        return <ItemCard key={item.id} item={item} path={path} />
+                    })
+                }
+                {!inPantry && pantryItems &&
+                    pantryItems.map(item => {
+                        return <ItemCard key={item.id} item={item} path={'/pantry'} />
+                    })
+                }
+            </div>
+            <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
             {inPantry &&
                 <AddPantryItem />
             }
+            </div>
+          </div>
+            
+            
 
 
         </div>

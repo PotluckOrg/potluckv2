@@ -37,8 +37,8 @@ export const auth = (email, password, method) =>
       .then(res => {
         dispatch(getUser(res.data))
         dispatch(fetchInbox())
-        dispatch(startGethInst(res.data))
-        history.push('/market')
+        //dispatch(startGethInst(res.data))
+        history.push('/community')
 
       }, authError => { // rare example: a good use case for parallel (non-catch) error handler
         dispatch(getUser({error: authError}))

@@ -12,6 +12,7 @@ const AddPantryItem = (props) => {
         <div>Name:
           <br />
           <input
+          className="form-control"
             label="item-name"
             type="text"
             name="name"
@@ -26,7 +27,7 @@ const AddPantryItem = (props) => {
           <textarea
             label="item-description"
             rows="5"
-            cols="52"
+            className="form-control"
             name="description"
             value={description}
             onChange={handleChange}
@@ -36,7 +37,7 @@ const AddPantryItem = (props) => {
         <br />
       <label>
           Pick an image icon:
-          <select name="iconUrl" value={iconUrl} onChange={handleChange}>
+          <select className="form-control" name="iconUrl" value={iconUrl} onChange={handleChange}>
             <option value="./icons/foodbunch2.svg">Food Bunch</option>
             <option value="./icons/apple.svg">Apple</option>
             <option value="./icons/artichoke.svg">Artichoke</option>

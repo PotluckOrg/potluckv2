@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import ItemCard from './ItemCard'
 import Pantry from './Pantry'
-import { fetchContractAssociations, updateContract, removeFromOffer, removeFromMyMarket } from '../store'
+import { fetchContractAssociations, updateContract, removeFromOffer, removeFromMyMarket, updateContractStatus } from '../store'
 
 const RequestTicket = (props) => {
     console.log('PROPS FROM request ticket', props)
@@ -17,10 +17,17 @@ const RequestTicket = (props) => {
     const request = requests[contractId]
 
     const reqAssociation = request.associations.find(assoc => assoc.userId !== currentUser.id)
-    const reqItemIds = reqAssociation.itemIds.split(", ")
-    const reqContractItems = reqItemIds.map(oneItemId => {
+
+    let reqItemIds
+    if (reqAssociation.itemIds) {
+      reqItemIds = reqAssociation.itemIds.split(", ")
+    }
+    let reqContractItems
+    if (reqItemIds) {
+      reqContractItems = reqItemIds.map(oneItemId => {
       return items.find(item => +item.id === +oneItemId)
     })
+  }
 
     const resAssociation = request.associations.find(assoc => assoc.userId === currentUser.id)
     const resItemIds = resAssociation.itemIds.split(", ")
@@ -28,10 +35,10 @@ const RequestTicket = (props) => {
       return items.find(item => +item.id === +oneItemId)
     })
 
-    const ticketBody = (contract) => {
+    let display
         switch(contract.status) {
             case 'Created':
-            (<div>
+            display = (<div>
                 <div className="requested-items">
                     <h3>Requested from you:</h3>
                     <ul className="request-ticket-card"  >
@@ -63,7 +70,7 @@ const RequestTicket = (props) => {
                 break;
 
             case 'SecondReview':
-            <div className="requested-items">
+            display = <div className="requested-items">
                 <button type="button" className="btn btn-primary" onClick={() => {}}>
                     Let's swap!
                 </button>
@@ -96,13 +103,12 @@ const RequestTicket = (props) => {
                 createdRequests.push(currentContract)
         
             }
-        }
 
     return (
         <div className="request-ticket">
             <h5>Lets make a swap!</h5>
             <p>Status: {contractInQuestion.status} </p>
-            {ticketBody(contractInQuestion)}
+            {display}
         </div>
 
 
@@ -132,6 +138,9 @@ const mapDispatch = (dispatch, ownProps) => {
             // sends update to contract via web3, and then gets all contracts
              // will request ticket automatically update?
           // need to send message to the user who initiated the contract
+        },
+         approveSwapHandler: (contract) => {
+           dispatch(updateContractStatus(contract.id, {status: 'Pending'}))
          }
 
     }

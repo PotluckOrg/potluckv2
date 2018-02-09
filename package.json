@@ -30,6 +30,7 @@
     "express": "^4.14.1",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
+    "fs": "0.0.1-security",
     "geth-private": "^2.0.0",
     "handlebars-helpers": "^0.10.0",
     "history": "^4.6.3",
@@ -50,6 +51,7 @@
     "redux-thunk": "^2.2.0",
     "scrypt": "^6.0.3",
     "sequelize": "^4.3.1",
+    "toastr": "^2.1.4",
     "web3": "^1.0.0-beta.29"
   },
   "devDependencies": {
