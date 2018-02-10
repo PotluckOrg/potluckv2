@@ -85,16 +85,17 @@ router.put('/complete/:contractId', (req, res, next) => {
   }})
   .then(contractAssoc => {
     console.log('ASSOCHERE', contractAssoc)
-    return contractAssoc.update({itemReceived: true})
+    contractAssoc.update({itemReceived: true})
   })
   .then(() => {
-    ContractAssociations.findOne({where: {
+    return ContractAssociations.findOne({where: {
       userId: {
         $ne: req.body.userId
       },
       contractId: req.params.contractId
     }})
     .then(otherUserCA => {
+      console.log('OTHERUSERCA', otherUserCA)
       if (otherUserCA.itemReceived === true) {
         res.json('Completed')
       } else {

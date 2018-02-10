@@ -83,7 +83,8 @@ export const completeContractStatus = (contract, currentUser) => dispatch => {
   // update the user's contractAssociation for this contract to itemReceived: true
 axios.put(`/api/contractassociations/complete/${contractId}`, {userId})
   .then(res => {
-    if (res === 'Completed') {
+    console.log('WHATISTHERES', res)
+    if (res.data === 'Completed') {
       dispatch(updateContractStatus(contractId, {status: 'Completed'}))
     }
   })
