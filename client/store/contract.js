@@ -77,13 +77,21 @@ export const updateContractStatus = (contractId, status) => dispatch => {
 export const completeContractStatus = (contract, currentUser) => dispatch => {
   const contractAddress = contract.address
   const contractId = contract.id
+  const userId = currentUser.id
 
-  // update the contract status in solidity via web3 to completed
-  axios.post('/web3/complete', {contractAddress, currentUser})
+
+  // update the user's contractAssociation for this contract to itemReceived: true
+axios.put(`/api/contractassociations/complete/${contractId}`, {userId})
   .then(res => {
-    console.log('THIS IS THE RESULT FROM WEB3 AFTER COMPLETE', res.data)
-    dispatch(updateContractStatus(contractId, {status: 'Completed'}))
+    if (res === 'Completed') {
+      dispatch(updateContractStatus(contractId, {status: 'Completed'}))
+    }
   })
+
+  // if both the associations are itemReceived: true, then updateContractStatus to completed
+
+  // dispatch(updateContractStatus(contractId, {status: 'Completed'}))
+
   .catch(err => console.log(err))
 }
 
