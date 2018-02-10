@@ -33,7 +33,14 @@ export const fetchContracts = () => dispatch => {
       // dispatch(returnToMyMarket(data))
 }
 
-export const createContractApi = (contractAddress, currentUserId, soliciteeId, itemIds) => dispatch => {
+export const createContractApi = (items, currentUser, soliciteeId) => dispatch => {
+  let currentUserId = currentUser.id
+  let allItems = items.map(item => item.name).join(', ');
+  let itemIds = []
+  items.forEach(itemObj => {
+    itemIds.push(itemObj.id)
+  })
+  itemIds = itemIds.join(', ')
     axios
       .post('/api/contracts', {contractAddress, currentUserId, soliciteeId, itemIds})
       .then(res => dispatch(getContracts(res.data)))
