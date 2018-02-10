@@ -18,23 +18,25 @@ router.get('/ledger/:contractId', (req, res, next) => {
         contractId: req.params.contractId
             },
       attributes: ['userId', 'itemIds', 'comment' ]
-  })
-    .then( assocs => {
+    })
+    .then( assocs => Promise.all(assocs))
+    .then( rAssocs => {
+      console.log('RASSOCS', rAssocs[0].userId)
       newTrade.user1 = {
-        id: assocs[0].userId,
+        id: rAssocs[0].userId,
         name: 'name',
-        itemIds: assocs[0].itemIds.split(", "),
+        itemIds: rAssocs[0].itemIds.split(", "),
         itemImg: '',
-        comments: assocs[0].comment
+        comments: rAssocs[0].comment
       }
       newTrade.user2 = {
-        id: assocs[1].userId,
+        id: rAssocs[1].userId,
         name: 'name',
-        itemIds: assocs[1].itemIds.split(", "),
+        itemIds: rAssocs[1].itemIds.split(", "),
         itemImg: '',
-        comments: assocs[1].comment
+        comments: rAssocs[1].comment
       }
-      return Promise.all([User.findById(assocs[0].userId), User.findById(assocs[1].userId)])
+      return Promise.all([User.findById(rAssocs[0].userId), User.findById(rAssocs[1].userId)])
     })
     .then( foundUsers =>
      {

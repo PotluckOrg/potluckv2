@@ -30,7 +30,7 @@ class Ledger extends Component {
       }
       return (
         <div>
-          <h3>Community Board</h3>
+      {/*<h3>Community Board</h3>*/}
           <ul className="ledger-list">
             { allTrades.length > 0 ?
               allTrades.map((trade, index) => {

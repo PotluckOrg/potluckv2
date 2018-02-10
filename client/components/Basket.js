@@ -5,7 +5,7 @@ import ItemCard from './ItemCard'
 import Modal from './Modal'
 import toast from 'toastr'
 
-import { createContractWeb3, removeFromBasket, removeFromMyMarket } from '../store'
+import { createContractWeb3, createContractApi, removeFromBasket, removeFromMyMarket } from '../store'
 
 
 
@@ -81,7 +81,8 @@ const mapDispatch = (dispatch, ownProps) => {
                 const soliciteeId = itemOwner
                 console.log("mapDispatch UserIpcAddr: ", currentUser)
                 console.log('ITEMS', items)
-                dispatch(createContractWeb3(items, currentUser, soliciteeId))
+                // dispatch(createContractWeb3(items, currentUser, soliciteeId))
+                dispatch(createContractApi(items, currentUser, soliciteeId))
                 items.forEach(item => {
                     dispatch(removeFromBasket(item.id))
                     dispatch(removeFromMyMarket(item.id))

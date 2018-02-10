@@ -143,8 +143,6 @@ const RequestTicket = (props) => {
 
     }
 
-
-
     return (
         <div className="request-ticket">
             <h5>Lets make a swap!</h5>

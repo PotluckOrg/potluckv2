@@ -9,7 +9,7 @@ const Market = (props) => {
 
     return (
         <div>
-            <h3>Market</h3>
+            {/*<h3>Market</h3>*/}
             <ul className="market-list">
                 {items &&
                     items.filter(item => {
