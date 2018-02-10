@@ -37,6 +37,7 @@ export const createContractApi = (items, currentUser, soliciteeId) => dispatch =
   let currentUserId = currentUser.id
   let allItems = items.map(item => item.name).join(', ');
   let itemIds = []
+  let contractAddress = 12345
   items.forEach(itemObj => {
     itemIds.push(itemObj.id)
   })
