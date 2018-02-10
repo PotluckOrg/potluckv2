@@ -53,6 +53,7 @@ const Main = (props) => {
               <Link to="/basket" className="nav-item"><i className="fas fa-shopping-basket" />({basket.length})</Link>
               <Link to="/inbox" className="nav-item"><i className="fas fa-envelope" />({Object.keys(inbox).length})</Link>
               <Link to="/account" className="nav-item"><i className="fas fa-cog" /></Link>
+              <a href="/" onClick={(event) => handleClick(event, user, stopGeth)}>Logout</a>
             </nav>
         }
       <hr className="title-hr"/>

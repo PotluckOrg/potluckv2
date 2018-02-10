@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
+import {logout, stopGethInst} from '../store'
 
 
 const Account = (props) => {
@@ -27,10 +28,16 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch, ownProps) => {
     return {
-
+        handleClick (evt, user, stopGeth) {
+            dispatch(logout())
+            stopGeth(user)
+          },
+          stopGeth (user) {
+            dispatch(stopGethInst(user))
+          }
     }
 }
 
 // delete me later
 
-export default connect(mapState, mapDispatch)(Account)
+export default withRouter(connect(mapState, mapDispatch)(Account))
