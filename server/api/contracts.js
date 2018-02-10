@@ -20,8 +20,7 @@ router.get('/completed', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-contractAddress++
-  console.log('REQ.BODY', req.body)
+  contractAddress++
 
     Contract.create({contractAddress})
     .then(newContract => {

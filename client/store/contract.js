@@ -34,8 +34,6 @@ export const fetchContracts = () => dispatch => {
 }
 
 export const createContractApi = (items, currentUser, soliciteeId) => dispatch => {
-  // items, currentUser, soliciteeId
-  let contractAddress = 1234
   let currentUserId = currentUser.id
   let allItems = items.map(item => item.name).join(', ');
   let itemIds = []
