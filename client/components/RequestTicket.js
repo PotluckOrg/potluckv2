@@ -181,7 +181,7 @@ const mapDispatch = (dispatch, ownProps) => {
             dispatch(updateContractStatus(+contract.id, { status: 'Pending' }))
         },
         completeSwapHandler: (contract, currentUser) => {
-            console.log('CONTRACT!!!!', contract)
+            console.log('CONTRACTANDCURRENTUSER', contract, currentUser)
             dispatch(completeContractStatus(contract, currentUser))
         }
 
