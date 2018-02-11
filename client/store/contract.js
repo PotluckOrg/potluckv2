@@ -44,7 +44,8 @@ export const createContractApi = (items, currentUser, soliciteeId) => dispatch =
   itemIds = itemIds.join(', ')
     axios
       .post('/api/contracts', {contractAddress, currentUserId, soliciteeId, itemIds})
-      .then(res => dispatch(getContracts(res.data)))
+      .then(res => dispatch(addContract(res.data)))
+      // .then(res => dispatch(getContracts(res.data)))
       .then(res => dispatch(fetchInbox()))
       .catch(err => console.log(err))
 }
@@ -65,7 +66,10 @@ export const updateContractStatus = (contractId, status) => dispatch => {
   axios
     .put(`/api/contracts/${contractId}`, status)
     .then(res => dispatch(getContracts(res.data)))
-    .then(res => dispatch(fetchInbox()))
+    .then(res => {
+      dispatch(fetchInbox())
+      history.push('/inbox')
+    })
     .catch(err => console.log(err))
 }
 

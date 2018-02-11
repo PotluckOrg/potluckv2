@@ -2,6 +2,7 @@ import React from 'react'
 import InboxCard from './InboxCard'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
+import { fetchContracts } from '../store/index';
 
 const Inbox = (props) => {
     const { requests, contracts, currentUser, inbox } = props
@@ -9,31 +10,44 @@ const Inbox = (props) => {
     let contractIds = Object.keys(requests)
     let createdRequests = [], firstReviewRequests = [], secondReviewRequests = [], pendingRequests = [], completedRequests = [], canceledRequests = [];
 
-    contractIds.forEach(contractId => {
-        let currentContract = contracts.find(contract => +contract.id === +contractId)
-        switch (currentContract.status) {
-            case 'Created':
-                createdRequests.push(currentContract)
-                break;
-            case 'FirstReview':
-                firstReviewRequests.push(currentContract)
-                break;
-            case 'SecondReview':
-                secondReviewRequests.push(currentContract)
-                break;
-            case 'Pending':
-                pendingRequests.push(currentContract)
-                break;
-            case 'Completed':
-                completedRequests.push(currentContract)
-                break;
-            case 'Canceled':
-                canceledRequests.push(currentContract)
-                break;
-            default:
-                createdRequests.push(currentContract)
-        }
-    })
+
+
+        contractIds.forEach(contractId => {
+            console.log('I AM CONTRACTIDS', contractIds)
+            let currentContract = contracts.find(contract => +contract.id === +contractId)
+            console.log('I AM CURRENTCONTRACT', currentContract)
+
+            if (!!currentContract.status) {
+
+                switch (currentContract.status) {
+                    case 'Created':
+                        createdRequests.push(currentContract)
+                        break;
+                    case 'FirstReview':
+                        firstReviewRequests.push(currentContract)
+                        break;
+                    case 'SecondReview':
+                        secondReviewRequests.push(currentContract)
+                        break;
+                    case 'Pending':
+                        pendingRequests.push(currentContract)
+                        break;
+                    case 'Completed':
+                        completedRequests.push(currentContract)
+                        break;
+                    case 'Canceled':
+                        canceledRequests.push(currentContract)
+                        break;
+                    default:
+                        createdRequests.push(currentContract)
+                }
+
+            }
+
+
+        })
+
+
 
     let inboxBody
     if (!Object.keys(requests).length) inboxBody = <h5>No current requests.</h5>
@@ -134,8 +148,9 @@ const mapState = (state) => {
     }
 }
 
-// const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch) => {
+    dispatch(fetchContracts())
+    return {}
+}
 
-// }
-
-export default withRouter(connect(mapState)(Inbox))
+export default withRouter(connect(mapState, mapDispatch)(Inbox))

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ItemCard from './ItemCard'
 import Pantry from './Pantry'
-import { fetchContractAssociations, updateContract, removeFromOffer, removeFromMyMarket, updateContractStatus, completeContractStatus, fetchInbox } from '../store'
+import { fetchContractAssociations, updateContract, removeFromOffer, removeFromMyMarket, updateContractStatus, completeContractStatus, fetchInbox, fetchContracts } from '../store'
 
 const RequestTicket = (props) => {
     console.log('PROPS FROM request ticket', props)
@@ -173,7 +173,8 @@ const mapDispatch = (dispatch, ownProps) => {
                 // dispatch(removeFromOffer(item.id))
                 dispatch(removeFromMyMarket(item.id))
             })
-            dispatch(fetchInbox())
+            dispatch(fetchContracts())
+            // dispatch(fetchInbox())
             // sends update to contract via web3, and then gets all contracts
             // will request ticket automatically update?
             // need to send message to the user who initiated the contract

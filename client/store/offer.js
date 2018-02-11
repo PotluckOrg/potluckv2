@@ -1,6 +1,7 @@
 import axios from 'axios'
 import history from '../history'
 import {updateContractAssoc, updateContractStatus} from './contract'
+import { addContract, fetchInbox } from './index';
 
 /**
  * ACTION TYPES
@@ -30,15 +31,12 @@ export const updateContract = (items, contract, solicitor, solicitorId, currentU
     let itemIds = []
     items.forEach(itemObj => {itemIds.push(itemObj.id)})
     itemIds = itemIds.join(', ')
-<<<<<<< HEAD
       dispatch(updateContractAssoc(contract.id, currentUser.id, itemIds))
       dispatch(updateContractStatus(contract.id, {status: 'SecondReview'}))
+      dispatch(fetchInbox())
+      // dispatch(addContract(contract))
       history.push('/inbox')
     .catch(err => console.log(err))
-=======
-    dispatch(updateContractAssoc(contract.id, currentUser.id, itemIds))
-    dispatch(updateContractStatus(contract.id, {status: 'SecondReview'}))
->>>>>>> c585a0979cfb49dcd25af0dab1c76e8268bca878
   }
 
 
