@@ -69,6 +69,24 @@ export const updateContractStatus = (contractId, status) => dispatch => {
     .catch(err => console.log(err))
 }
 
+export const updateTradesCompleted = (user) => dispatch => {
+  axios
+    .get(`api/users/complete-trade/${user.id}`)
+    .then(res => {
+      console.log("UPDATE TRADES COMPLETED res.data: ", res.data)
+    })
+    .catch(err => console.log(err))
+}
+
+export const findTradingUsers = (contractId) => dispatch => {
+  axios
+    .get(`/api/users/trades/${contractId}`)
+    .then(res => {
+      res.data.forEach(user => dispatch(updateTradesCompleted(user)))
+    })
+    .catch(err => console.log(err))
+}
+
 // when each user confirms that items have been traded
 // activates completeSwap() function in contract (internal counter increments once for each user inside contract, and after 2 changes the state to 'Completed')
 
@@ -79,13 +97,14 @@ export const completeContractStatus = (contract, currentUser) => dispatch => {
   const contractId = contract.id
   const userId = currentUser.id
 
-
   // update the user's contractAssociation for this contract to itemReceived: true
-axios.put(`/api/contractassociations/complete/${contractId}`, {userId})
+  axios.put(`/api/contractassociations/complete/${contractId}`, {userId})
   .then(res => {
     console.log('WHATISTHERES', res)
     if (res.data === 'Completed') {
       dispatch(updateContractStatus(contractId, {status: 'Completed'}))
+      console.log("Contract: ", contract)
+      dispatch(findTradingUsers(contractId))
     }
   })
 

@@ -9,6 +9,7 @@ import { addToBasket, removeFromBasket, returnToMyMarketThunk, removeFromMyMarke
 const ItemCard = (props) => {
     const { currentUser, items, item, modalBody, modalIcon, inRequest, ownProps } = props
     console.log('ITEMCARD ownPROPS', ownProps)
+    console.log('ITEMCARD PROPS', props)
     let modalButton, buttonText, clickHandler
 
     let inRequestTicket = ownProps.match.path === '/:id'
@@ -54,7 +55,7 @@ const ItemCard = (props) => {
                     {!inRequest &&
                         <div>
                             <p className="card-text">{singleItem.description}</p>
-                            <h6>On offer by {singleItem.user.username}</h6>
+                            {(props.match.path !== '/pantry') && <h6>On offer by {singleItem.user.username}</h6>}
                         </div>
                     }
                 </div>

@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { User } = require('../db/models')
+const { User, ContractAssociations } = require('../db/models')
 
 module.exports = router
 
@@ -18,6 +18,16 @@ router.get('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   User.findById(req.params.id)
     .then(user => res.json(user))
+    .catch(next)
+})
+
+router.get('/complete-trade/:id', (req, res, next) => {
+  User.findById(req.params.id)
+    .then(user => {
+      return user.increment('tradesCompleted', {by: 1})
+    }).then(user => {
+      res.json(user)
+    })
     .catch(next)
 })
 
@@ -41,6 +51,18 @@ router.put('/remove-admin/:id', (req, res, next) => {
   .catch(next)
 })
 
+router.get('/trades/:contractId', (req, res, next) => {
+  ContractAssociations.findAll({ where: {contractId: req.params.contractId}, attributes: ['userId'] })
+  .then(cAssocRes => {
+    return Promise.all([
+      User.findById(+cAssocRes[0].userId),
+      User.findById(+cAssocRes[1].userId)
+    ])
+  })
+  .then(users => res.json(users))
+  .catch(next)
+})
+
 router.put('/:id', (req, res, next) => {
   User.findById(req.params.id)
     .then(user => user.update(req.body))
@@ -55,4 +77,3 @@ router.delete('/:id', (req, res, next) => {
     .then(() => res.sendStatus(204))
     .catch(next)
 })
-
