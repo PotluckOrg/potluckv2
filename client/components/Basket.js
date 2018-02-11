@@ -30,7 +30,7 @@ const Basket = (props) => {
             <div key={ itemOwner }>
                 <ItemCard itemOwnerId={itemOwner} items={ownersItems} path={props.match.path} />
                 <button type="button" className="btn btn-primary" onClick={event => props.sendRequestHandler(event, ownersItems, itemOwner, currentUser)}>
-                    {modalIcon}
+                    Send Request {modalIcon}
                 </button>
             </div>)
         cardDisplay.push(cardBody)

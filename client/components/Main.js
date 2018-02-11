@@ -34,6 +34,8 @@ const Main = (props) => {
     break;
     case '/login': title = 'POTLUCK' 
     break;
+    default: title = "Let's make a swap!"
+
   }
 
 

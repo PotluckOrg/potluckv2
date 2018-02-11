@@ -118,6 +118,12 @@ body {
   option {
     font-size: .75rem;
   }
+  .requested-items {
+    text-align: center;
+  }
+  .requested-items>button{
+    margin-bottom: 1rem
+  }
 
   /**
   * LOGIN STYLE

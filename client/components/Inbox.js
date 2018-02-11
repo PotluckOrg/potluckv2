@@ -38,9 +38,9 @@ const Inbox = (props) => {
     let inboxBody
     if (!Object.keys(requests).length) inboxBody = <h5>No current requests.</h5>
     else inboxBody = (
-        <div>
+        <div className="container">
             <h3>New Requests</h3>
-            {createdRequests.length &&
+            {createdRequests &&
                 <div>
                     <h5>A user is interested in making a trade!</h5>
                     <ul className="ticket-list">
@@ -57,11 +57,11 @@ const Inbox = (props) => {
                 </div>
             }
             <h3>In Review</h3>
-            { (secondReviewRequests.length || firstReviewRequests.length) &&
+            { (secondReviewRequests || firstReviewRequests) &&
                 <div>
                     <h5>Your request is being reviewed!</h5>
                     <ul className="ticket-list">
-                        {firstReviewRequests.length &&
+                        {firstReviewRequests &&
                             firstReviewRequests.map(request => {
                                 return (
                                     <li key={request.id} className="request-ticket-card">
@@ -87,7 +87,7 @@ const Inbox = (props) => {
                 </div>
                 }
             <h3>Pending</h3>
-            {pendingRequests.length &&
+            {pendingRequests &&
                 <div>
                     <h5>Congrats! Both users have confirmed the trade. Meet up in person to exchange your foods and receive 10 Potluck Points!</h5>
                     <ul className="ticket-list">
@@ -104,7 +104,7 @@ const Inbox = (props) => {
                 </div>
             }
             <h3>Completed</h3>
-            {completedRequests.length &&
+            {completedRequests &&
                 <div>
                 <h5>Way to go! Here's a list of your successful trades:</h5>
                 <ul className="ticket-list">

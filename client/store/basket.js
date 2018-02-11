@@ -34,7 +34,8 @@ export const createContractWeb3 = (items, currentUser, soliciteeId) => dispatch 
     axios.post('/web3', {allItems, currentUser})
       .then(result => {
         // console.log("BASKET.JS RESULTDATA: ", result.data)
-        const contractAddress = result.data
+        // const contractAddress = result.data
+        const contractAddress = '0xac4f4D4Ef8TESTdd5cEEFAc9TEST14e3ETESTa33'
         dispatch(createContractApi(contractAddress, currentUser.id, soliciteeId, itemIds))
         console.log("END OF CREATE CONTRACT")
       })

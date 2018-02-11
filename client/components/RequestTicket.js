@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import {withRouter, Link} from 'react-router-dom'
 import ItemCard from './ItemCard'
 import Pantry from './Pantry'
 import { fetchContractAssociations, updateContract, removeFromOffer, removeFromMyMarket, updateContractStatus, completeContractStatus } from '../store'
@@ -59,7 +60,7 @@ const RequestTicket = (props) => {
                             <div>
                                 <ItemCard itemOwnerId={senderId} items={offer} path={props.match.path} inRequest="true" />
                                 <button type="button" className="btn btn-primary" onClick={() => updateContractHandler(offer, contractInQuestion, sender, senderId, currentUser)}>
-                                    <i className="fas fa-arrow-circle-right" />
+                                    Send Request <i className="fas fa-arrow-circle-right" />
                                 </button>
                             </div>
                         }
@@ -144,8 +145,8 @@ const RequestTicket = (props) => {
     }
 
     return (
-        <div className="request-ticket">
-            <h5>Lets make a swap!</h5>
+        <div className="request-ticket container">
+            {/*<h5>Lets make a swap!</h5>*/}
             <p>Status: {contractInQuestion.status} </p>
             {display}
         </div>
@@ -188,4 +189,4 @@ const mapDispatch = (dispatch, ownProps) => {
     }
 }
 
-export default connect(mapState, mapDispatch)(RequestTicket)
+export default withRouter(connect(mapState, mapDispatch)(RequestTicket))
