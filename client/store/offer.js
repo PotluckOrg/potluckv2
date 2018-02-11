@@ -30,9 +30,8 @@ export const updateContract = (items, contract, solicitor, solicitorId, currentU
     let itemIds = []
     items.forEach(itemObj => {itemIds.push(itemObj.id)})
     itemIds = itemIds.join(', ')
-      dispatch(updateContractAssoc(contract.id, currentUser.id, itemIds))
-      dispatch(updateContractStatus(contract.id, {status: 'SecondReview'}))
-    .catch(err => console.log(err))
+    dispatch(updateContractAssoc(contract.id, currentUser.id, itemIds))
+    dispatch(updateContractStatus(contract.id, {status: 'SecondReview'}))
   }
 
 
