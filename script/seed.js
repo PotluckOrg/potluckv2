@@ -54,7 +54,7 @@ const users = [
     ipcAddr: "../../nodeDir/jamie42",
     port: 4005,
     rpcport: 40051,
-    email: "smurf@smurf.com",
+    email: "jaime42@net.com",
     tradesCompleted: 3
   },
   {
@@ -63,7 +63,7 @@ const users = [
     ipcAddr: "../../nodeDir/marc_w",
     port: 4006,
     rpcport: 40061,
-    email: "guest@guest.com",
+    email: "marc_w@net.com",
     tradesCompleted: 0
   }
 ]
@@ -316,7 +316,7 @@ const contracts = [
 
 // comment is about the user - written by the other person involved in the contract
 const contractAssociations = [
-  {userId: 1, contractId: 1, itemIds: '5', comment: 'I can always find a use for garlic!'},
+  {userId: 1, contractId: 1, itemIds: '5', comment: 'I love artichokes!'},
   {userId: 2, contractId: 1, itemIds: '8', comment: 'These were very nice'},
   {userId: 4, contractId: 2, itemIds: '21', comment: 'Yum!'},
   {userId: 2, contractId: 2, itemIds: '6, 30', comment: 'Onions are magic'},
