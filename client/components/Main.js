@@ -13,7 +13,7 @@ import {logout, stopGethInst} from '../store'
 const Main = (props) => {
 
   console.log('i am props', props)
-  const {children, handleClick, isLoggedIn, user, inbox, basket, stopGeth, match} = props
+  const {children, isLoggedIn, user, inbox, basket, match} = props
   console.log('LOCATION PATH', location.pathname)
 
   let title
@@ -32,13 +32,15 @@ const Main = (props) => {
     break;
     case '/pantry': title = 'My Pantry' 
     break;
+    case '/login': title = 'POTLUCK' 
+    break;
   }
 
 
 
   return (
     <div>
-      { location.pathname === '/' &&
+      { location.pathname === ('/' || '/login') &&
         <div id="title" className="main navbar fixed-top"><h1>{title}</h1></div>
       }{ location.pathname !== '/' &&
         <div id="title" className="navbar fixed-top"><h3>{title}</h3></div>
@@ -75,13 +77,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick (evt, user, stopGeth) {
-      dispatch(logout())
-      stopGeth(user)
-    },
-    stopGeth (user) {
-      dispatch(stopGethInst(user))
-    }
+    
   }
 }
 
@@ -94,6 +90,5 @@ export default withRouter(connect(mapState, mapDispatch)(Main))
  */
 Main.propTypes = {
   children: PropTypes.object,
-  handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }

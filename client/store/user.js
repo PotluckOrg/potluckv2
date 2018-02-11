@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import {fetchInbox} from './inbox'
+import {fetchInbox, clearInbox} from './inbox'
 import {startGethInst} from './geth'
 
 
@@ -46,13 +46,17 @@ export const auth = (email, password, method) =>
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 
 export const logout = () =>
-  dispatch =>
+  dispatch => {
+    console.log('I AM HERE!')
     axios.post('/auth/logout')
-      .then(_ => {
-        dispatch(removeUser())
-        history.push('/community')
-      })
-      .catch(err => console.log(err))
+    .then(_ => {
+      dispatch(removeUser())
+      dispatch(clearInbox())
+      history.push('/login')
+    })
+    .catch(err => console.log(err))
+  }
+    
 
 /**
  * REDUCER

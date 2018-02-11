@@ -65,6 +65,24 @@ const users = [
     rpcport: 40061,
     email: "guest@guest.com",
     tradesCompleted: 0
+  },
+  {
+    username: "jamie123",
+    password: "password",
+    ipcAddr: "../../nodeDir/jamie123",
+    port: 4007,
+    rpcport: 40071,
+    email: "jamie123@email.com",
+    tradesCompleted: 6
+  },
+  {
+    username: "mark20",
+    password: "password",
+    ipcAddr: "../../nodeDir/mark20",
+    port: 4008,
+    rpcport: 40081,
+    email: "mark@email.com",
+    tradesCompleted: 4
   }
 ]
 

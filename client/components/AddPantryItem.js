@@ -35,9 +35,9 @@ const AddPantryItem = (props) => {
           />
         </div>
         <br />
-      <label>
-          Pick an image icon:
-          <select className="form-control" name="iconUrl" value={iconUrl} onChange={handleChange}>
+        <div className="form-group">
+          <label>Pick an image icon:</label>
+          <select className="form-control" data-size="5" name="iconUrl" value={iconUrl} onChange={handleChange}>
             <option value="./icons/foodbunch2.svg">Food Bunch</option>
             <option value="./icons/apple.svg">Apple</option>
             <option value="./icons/artichoke.svg">Artichoke</option>
@@ -62,7 +62,7 @@ const AddPantryItem = (props) => {
             <option value="./icons/pumpkin.svg">Pumpkin</option>
             <option value="./icons/strawberry.svg">Strawberry</option>
           </select>
-        </label>
+        </div>
         <button type="Submit" >Add item</button>
         </form>
     </div>

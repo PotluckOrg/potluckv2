@@ -115,6 +115,10 @@ body {
     height: 110vh;
   }
 
+  option {
+    font-size: .75rem;
+  }
+
   /**
   * LOGIN STYLE
   **/
@@ -158,3 +162,4 @@ body {
     width: 8%;
     height: auto;
   }
+
