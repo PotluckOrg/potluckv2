@@ -32,6 +32,7 @@ export const updateContract = (items, contract, solicitor, solicitorId, currentU
     itemIds = itemIds.join(', ')
       dispatch(updateContractAssoc(contract.id, currentUser.id, itemIds))
       dispatch(updateContractStatus(contract.id, {status: 'SecondReview'}))
+      history.push('/inbox')
     .catch(err => console.log(err))
   }
 

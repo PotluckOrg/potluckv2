@@ -134,4 +134,8 @@ const mapState = (state) => {
     }
 }
 
+// const mapDispatch = (dispatch) => {
+
+// }
+
 export default withRouter(connect(mapState)(Inbox))
