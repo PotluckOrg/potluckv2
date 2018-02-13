@@ -30,13 +30,13 @@ class Routes extends Component {
               isLoggedIn &&
               <Switch>
               {/* Routes placed here are available to logged in users */}
-              <Route path="/market" component={Market} />
-              <Route path="/community" component={Ledger} />
-              <Route path="/basket" component={Basket} />
-              <Route path="/inbox" component={Inbox} />
-              <Route path="/account" component={Account} />
-              <Route path="/messageinbox" component={MessageInbox} />
-              <Route path="/pantry" component={Pantry} />
+              <Route exact path="/market" component={Market} />
+              <Route exact path="/community" component={Ledger} />
+              <Route exact path="/basket" component={Basket} />
+              <Route exact path="/inbox" component={Inbox} />
+              <Route exact path="/account" component={Account} />
+              <Route exact path="/messageinbox" component={MessageInbox} />
+              <Route exact path="/pantry" component={Pantry} />
               <Route path="/:id" component={RequestTicket} />
               </Switch>
             }

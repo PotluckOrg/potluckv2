@@ -59,6 +59,9 @@ body {
   .title-hr {
     margin-top: 0!important;
     height: 13vh;
+    background-color: #bced91;
+    padding-bottom: 1rem;
+    margin-bottom: 0;
   }
 
   .item-card, .request-ticket-card {

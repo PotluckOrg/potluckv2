@@ -96,4 +96,4 @@ const mapDispatch = (dispatch, ownProps) => {
     }
 }
 
-export default connect(mapState, mapDispatch)(Basket)
+export default withRouter(connect(mapState, mapDispatch)(Basket))
