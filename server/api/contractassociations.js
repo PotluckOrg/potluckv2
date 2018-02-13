@@ -59,6 +59,7 @@ router.get('/ledger/:contractId', (req, res, next) => {
     .catch(next)
 })
 
+
 router.put('/:contractId', (req, res, next) => {
   console.log('REQ>BODYSOLICITEEID', req.body.soliciteeId)
   return ContractAssociations.findOne({where: {
@@ -74,6 +75,37 @@ router.put('/:contractId', (req, res, next) => {
   })
   .catch(next)
 })
+
+router.put('/complete/:contractId', (req, res, next) => {
+  console.log('REQ.BODY COMPLETE CONTRACTASSOCATIONS: ', req.body)
+  console.log('REQ.PARAMS COMPLETE CONTRACTASSOCATIONS: ', req.params)
+  return ContractAssociations.findOne({where: {
+    userId: req.body.userId,
+    contractId: req.params.contractId
+  }})
+  .then(contractAssoc => {
+    console.log('ASSOCHERE', contractAssoc)
+    contractAssoc.update({itemReceived: true})
+  })
+  .then(() => {
+    return ContractAssociations.findOne({where: {
+      userId: {
+        $ne: req.body.userId
+      },
+      contractId: req.params.contractId
+    }})
+    .then(otherUserCA => {
+      console.log('OTHERUSERCA', otherUserCA)
+      if (otherUserCA.itemReceived === true) {
+        res.json('Completed')
+      } else {
+        res.json('Pending')
+      }
+    })
+  })
+})
+
+
 
 
 module.exports = router;

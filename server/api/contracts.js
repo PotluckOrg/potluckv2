@@ -3,6 +3,8 @@
 const router = require("express").Router();
 const { Item, Contract, ContractAssociations } = require("../db/models");
 
+let contractAddress = 10000000
+
 router.get('/', (req, res, next) => {
     Contract.findAll()
     .then(contracts => {res.json(contracts)})
@@ -18,23 +20,27 @@ router.get('/completed', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-  const contractAddress = req.body.contractAddress
+  // contractAddress++
+
     Contract.create({contractAddress})
     .then(newContract => {
+      return newContract.update({contractAddress: newContract.id})
+    })
+    .then(contract => {
         ContractAssociations.bulkCreate([{
-            contractId: newContract.id,
+            contractId: contract.id,
             userId: req.body.currentUserId,
             itemIds: req.body.itemIds
         },
         {
-            contractId: newContract.id,
+            contractId: contract.id,
             userId: req.body.soliciteeId
         }])
-        return newContract
+        return contract
     })
-    .then(newContract => {
-        console.log("New Contract: ", newContract)
-        res.json(newContract)
+    .then(contract => {
+        console.log("New Contract: ", contract)
+        res.json(contract)
     })
     .catch(err => console.log(err))
 })
@@ -52,4 +58,3 @@ router.put('/:contractId', (req, res, next) => {
 })
 
 module.exports = router;
-

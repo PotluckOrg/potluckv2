@@ -28,13 +28,13 @@ const mapDispatch = (dispatch, ownProps) => {
         handleClick (evt, user, stopGeth) {
             dispatch(logout())
             stopGeth(user)
-          },
+        },
         stopGeth (user) {
-        dispatch(stopGethInst(user))
+            dispatch(stopGethInst(user))
         }
     }
 }
 
 // delete me later
 
-export default connect(mapState, mapDispatch)(Account)
+export default withRouter(connect(mapState, mapDispatch)(Account))

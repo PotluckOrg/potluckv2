@@ -33,7 +33,15 @@ export const fetchContracts = () => dispatch => {
       // dispatch(returnToMyMarket(data))
 }
 
-export const createContractApi = (contractAddress, currentUserId, soliciteeId, itemIds) => dispatch => {
+export const createContractApi = (items, currentUser, soliciteeId) => dispatch => {
+  let currentUserId = currentUser.id
+  let allItems = items.map(item => item.name).join(', ');
+  let itemIds = []
+  let contractAddress = 12345
+  items.forEach(itemObj => {
+    itemIds.push(itemObj.id)
+  })
+  itemIds = itemIds.join(', ')
     axios
       .post('/api/contracts', {contractAddress, currentUserId, soliciteeId, itemIds})
       .then(res => dispatch(getContracts(res.data)))
@@ -61,6 +69,24 @@ export const updateContractStatus = (contractId, status) => dispatch => {
     .catch(err => console.log(err))
 }
 
+export const updateTradesCompleted = (user) => dispatch => {
+  axios
+    .get(`api/users/complete-trade/${user.id}`)
+    .then(res => {
+      console.log("UPDATE TRADES COMPLETED res.data: ", res.data)
+    })
+    .catch(err => console.log(err))
+}
+
+export const findTradingUsers = (contractId) => dispatch => {
+  axios
+    .get(`/api/users/trades/${contractId}`)
+    .then(res => {
+      res.data.forEach(user => dispatch(updateTradesCompleted(user)))
+    })
+    .catch(err => console.log(err))
+}
+
 // when each user confirms that items have been traded
 // activates completeSwap() function in contract (internal counter increments once for each user inside contract, and after 2 changes the state to 'Completed')
 
@@ -69,13 +95,23 @@ export const updateContractStatus = (contractId, status) => dispatch => {
 export const completeContractStatus = (contract, currentUser) => dispatch => {
   const contractAddress = contract.address
   const contractId = contract.id
+  const userId = currentUser.id
 
-  // update the contract status in solidity via web3 to completed
-  axios.post('/web3/complete', {contractAddress, currentUser})
+  // update the user's contractAssociation for this contract to itemReceived: true
+  axios.put(`/api/contractassociations/complete/${contractId}`, {userId})
   .then(res => {
-    console.log('THIS IS THE RESULT FROM WEB3 AFTER COMPLETE', res.data)
-    dispatch(updateContractStatus(contractId, {status: 'Completed'}))
+    console.log('WHATISTHERES', res)
+    if (res.data === 'Completed') {
+      dispatch(updateContractStatus(contractId, {status: 'Completed'}))
+      console.log("Contract: ", contract)
+      dispatch(findTradingUsers(contractId))
+    }
   })
+
+  // if both the associations are itemReceived: true, then updateContractStatus to completed
+
+  // dispatch(updateContractStatus(contractId, {status: 'Completed'}))
+
   .catch(err => console.log(err))
 }
 

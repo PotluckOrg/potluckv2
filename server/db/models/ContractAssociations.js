@@ -7,6 +7,10 @@ const ContractAssociations = db.define('contractAssociation', {
   },
   comment: {
     type: Sequelize.STRING
+  },
+  itemReceived: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 })
 

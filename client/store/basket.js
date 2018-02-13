@@ -22,25 +22,25 @@ export const removeFromBasket = itemId => ({ type: REMOVE_BASKET_ITEM, itemId })
 /**
  * THUNK CREATORS
  */
-export const createContractWeb3 = (items, currentUser, soliciteeId) => dispatch => {
-    console.log("ITEMS inside Web3 createContract", items);
-    let allItems = items.map(item => item.name).join(', ');
-    let itemIds = []
-    items.forEach(itemObj => {
-      itemIds.push(itemObj.id)
-    })
-    itemIds = itemIds.join(', ')
-    console.log('allItems: ', allItems)
-    axios.post('/web3', {allItems, currentUser})
-      .then(result => {
-        // console.log("BASKET.JS RESULTDATA: ", result.data)
-        // const contractAddress = result.data
-        const contractAddress = '0xac4f4D4Ef8TESTdd5cEEFAc9TEST14e3ETESTa33'
-        dispatch(createContractApi(contractAddress, currentUser.id, soliciteeId, itemIds))
-        console.log("END OF CREATE CONTRACT")
-      })
-      .catch(err => console.log(err))
-    }
+// export const createContractWeb3 = (items, currentUser, soliciteeId) => dispatch => {
+//     console.log("ITEMS inside Web3 createContract", items);
+//     let allItems = items.map(item => item.name).join(', ');
+//     let itemIds = []
+//     items.forEach(itemObj => {
+//       itemIds.push(itemObj.id)
+//     })
+//     itemIds = itemIds.join(', ')
+//     console.log('allItems: ', allItems)
+//     axios.post('/web3', {allItems, currentUser})
+//       .then(result => {
+//         // console.log("BASKET.JS RESULTDATA: ", result.data)
+//         // const contractAddress = result.data
+//         const contractAddress = '0xac4f4D4Ef8TESTdd5cEEFAc9TEST14e3ETESTa33'
+//         dispatch(createContractApi(contractAddress, currentUser.id, soliciteeId, itemIds))
+//         console.log("END OF CREATE CONTRACT")
+//       })
+//       .catch(err => console.log(err))
+//     }
 
 /**
  * REDUCER
