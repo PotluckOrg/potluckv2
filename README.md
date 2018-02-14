@@ -9,8 +9,6 @@ An app for reducing food waste on a local scale through bartering via Solidity s
 
 Did you buy more eggs than you can use? Have a bumper crop of zucchini? Going out of town soon and won't finish all of your bananas before you leave? Potluck provides an easy way to redirect food that might otherwise go to waste.
 
-![alt text](./public/readme/communityboard.png "Potluck community ledger displaying trades that have recently taken place, including usernames, the foods that were exchanged, and user comments")
-
 Users join personal networks derived from existing physical communities such as a workplace, apartment building, community center or university, and can see items that other users in that network are offering. Users can list unwanted food items that still have remaining life for trade in their "pantry," and see what others have listed in the 'market' view. When a user (source) requests an item or items from another user's (target) pantry, a Solidity smart contract instance is created. The target user can update that contract by requesting items from the source's pantry in return, decline their request, or simply give their items away.
 
 Once both parties agree to a trade, they exchange items and then confirm in the app that the trade took place. At this point the contract is completed and both users now receive Potluck Points, which over time accumulate and attest to their reliability.
