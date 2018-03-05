@@ -1,6 +1,6 @@
 # Potluck
 
-[Potluck alpha online](http://potluck-market.com/)
+[Potluck alpha online](http://potluck.market)
 
 An app for reducing food waste on a local scale through bartering via Solidity smart contracts and blockchain technology.
 
